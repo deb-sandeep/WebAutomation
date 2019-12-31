@@ -2,18 +2,29 @@ package com.sandy.automation.browser;
 
 import java.io.File ;
 import java.util.HashMap ;
+import java.util.List ;
 import java.util.Map ;
 
 import org.apache.commons.configuration2.CombinedConfiguration ;
 import org.apache.commons.configuration2.Configuration ;
 import org.apache.commons.configuration2.builder.fluent.Configurations ;
 import org.apache.commons.io.FileUtils ;
+import org.apache.log4j.Logger ;
+import org.openqa.selenium.By ;
 import org.openqa.selenium.WebDriver ;
+import org.openqa.selenium.WebElement ;
 import org.openqa.selenium.chrome.ChromeDriver ;
 import org.openqa.selenium.chrome.ChromeOptions ;
 
-public abstract class AutomationBase {
+import com.sandy.automation.browser.icicidirect.Cred ;
 
+public abstract class AutomationBase {
+    
+    private static final Logger log = Logger.getLogger( AutomationBase.class ) ;
+
+    private static final String SITE_LOGIN_URL = 
+            "https://secure.icicidirect.com/IDirectTrading/Customer/login.aspx" ;
+    
     private File workspaceDir = null ;
     private File downloadsDir = null ;
     
@@ -89,5 +100,34 @@ public abstract class AutomationBase {
 
     protected void cleanDownloadsFolder() throws Exception {
         FileUtils.cleanDirectory( getDownloadsDir() ) ;
+    }
+
+    protected void loginUser( Cred cred ) {
+        log.debug( "Logging in user - " + cred.getUserName() ) ;
+        webDriver.get( SITE_LOGIN_URL ) ;
+        
+        WebElement userIdTF = webDriver.findElement( By.id( "txtUserId" ) ) ;
+        WebElement passwordTF = webDriver.findElement( By.id( "txtPass" ) ) ;
+        WebElement dobTF = webDriver.findElement( By.id( "txtDOB" ) ) ;
+        WebElement submitBtn = webDriver.findElement( By.id( "lbtLogin" ) ) ;
+        
+        userIdTF.sendKeys( cred.getUserName() ) ;
+        passwordTF.sendKeys( cred.getPassword() ) ;
+        dobTF.sendKeys( cred.getDob() ) ;
+        
+        submitBtn.click() ;
+    }
+    
+    protected void logoutUser() {
+        
+        log.debug( "Logging out current user" ) ;
+        List<WebElement> logoutLinks = webDriver.findElements( By.linkText( "Logout" ) ) ;
+        if( !logoutLinks.isEmpty() ) {
+            WebElement logoutLink = logoutLinks.get( 0 ) ;
+            logoutLink.click() ;
+        }
+        else {
+            log.error( "No logout link found. Can't logout" ) ;
+        }
     }
 }

@@ -2,6 +2,8 @@ package com.sandy.automation.browser.icicidirect;
 
 import java.io.File ;
 import java.net.URL ;
+import java.util.ArrayList ;
+import java.util.List ;
 
 import org.apache.commons.configuration2.Configuration ;
 import org.apache.commons.configuration2.XMLConfiguration ;
@@ -17,20 +19,68 @@ public class ICICIDirectAutomation extends AutomationBase {
     
     private static final Logger log = Logger.getLogger( ICICIDirectAutomation.class ) ;
     
-    private static final String SITE_URL = "https://secure.icicidirect.com/IDirectTrading/Customer/login.aspx" ;
-    private static final String DTD_ENTITY_ID = "-//Sandy Web Automation.//DTD ICICIDirect Creds 1.0//EN" ;
-    private static final String DTD_LOCAL_RESOURCE_PATH = "/dtd/icici-creds.dtd" ;
-    private static final String LOCAL_CFG = "icicidirect-creds.xml" ;
+    private static final String DTD_ENTITY_ID = 
+            "-//Sandy Web Automation.//DTD ICICIDirect Creds 1.0//EN" ;
     
-    private XMLConfiguration credsConfig = null ;
+    private static final String DTD_LOCAL_RESOURCE_PATH = 
+            "/dtd/icici-creds.dtd" ;
+    
+    private static final String LOCAL_CFG = 
+            "icicidirect-creds.xml" ;
+    
+    private List<Cred> credentials = new ArrayList<>() ;
 
     public ICICIDirectAutomation() throws Exception {}
     
     @Override
     public Configuration loadAppConfig() throws Exception {
-        
-        this.credsConfig = getXMLConfiguration() ;
         return ConfigUtils.loadPropertiesConfig( "icici-direct" ) ;
+    }
+    
+    public void execute() {
+        try {
+            loadCredentials() ;
+            for( Cred cred : credentials ) {
+                runScrapeAutomationFor( cred ) ;
+            }
+        }
+        catch( Exception e ) {
+            log.error( "Error in automation.", e ) ;
+        }
+        finally {
+            if( webDriver != null ) {
+                webDriver.quit() ;
+            }
+        }
+    }
+    
+    private void runScrapeAutomationFor( Cred cred ) 
+        throws Exception {
+        
+        log.debug( "Running scrape for " + cred.getUserName() ) ;
+        super.loginUser( cred ) ;
+        Thread.sleep( 5000 ) ; 
+        super.logoutUser() ;
+    }
+    
+    private void loadCredentials() throws Exception {
+        
+        XMLConfiguration credsConfig = getXMLConfiguration() ;
+        List<String> userIds = credsConfig.getList( String.class, 
+                                                    "creds.cred.user-id" ) ;
+        for( int i=0; i<userIds.size(); i++ ) {
+            String subConfigPath = "creds.cred(" + i + ")" ;
+            Configuration config = credsConfig.configurationAt( subConfigPath ) ;
+            credentials.add(  new Cred(
+                ( String )config.getProperty( "user-id" ),
+                ( String )config.getProperty( "password" ),
+                ( String )config.getProperty( "dob" )
+            ) ) ;
+        }
+        
+        if( credentials.isEmpty() ) {
+            throw new Exception( "No credentials found." ) ;
+        }
     }
     
     private XMLConfiguration getXMLConfiguration() throws Exception {
@@ -54,18 +104,6 @@ public class ICICIDirectAutomation extends AutomationBase {
                                   .setValidating( true ) ) ;
 
         return builder.getConfiguration() ;
-    }
-    
-    public void execute() {
-        try {
-            //webDriver.get( SITE_URL ) ;
-        }
-        catch( Exception e ) {
-            log.error( "Error in automation.", e ) ;
-        }
-        finally {
-            webDriver.close() ;
-        }
     }
     
     public static void main( String[] args ) throws Exception {
