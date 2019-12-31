@@ -1,0 +1,332 @@
+{
+  "id": "55d931cc-6108-479a-92ce-3a615843cca5",
+  "version": "2.0",
+  "name": "ICICI Direct",
+  "url": "https://secure.icicidirect.com/IDirectTrading/Customer/login.aspx",
+  "tests": [{
+    "id": "42f99c67-6f22-40f3-bb9b-16b1a9780d85",
+    "name": "Browse MF Portfolio",
+    "commands": [{
+      "id": "8d258559-ceee-4dd8-89ec-9022ebadbda9",
+      "comment": "",
+      "command": "open",
+      "target": "https://secure.icicidirect.com/IDirectTrading/Customer/login.aspx",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bf47551b-644d-4b87-8a4d-5ec572c03b5d",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1680x1027",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "89e9443c-a913-4680-b08f-8c2e1ebaa676",
+      "comment": "",
+      "command": "click",
+      "target": "css=#logField tr:nth-child(2)",
+      "targets": [
+        ["css=#logField tr:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='logField']/table/tbody/tr[2]", "xpath:idRelative"],
+        ["xpath=//tr[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ce2695dc-5fe2-4c08-ad2d-5e008fd71318",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:nth-child(4) > td:nth-child(4)",
+      "targets": [
+        ["css=tr:nth-child(4) > td:nth-child(4)", "css:finder"],
+        ["xpath=//div[@id='logField']/table/tbody/tr[4]/td[4]", "xpath:idRelative"],
+        ["xpath=//tr[4]/td[4]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1ab8421f-62c9-469e-bc57-88f09390e6c7",
+      "comment": "",
+      "command": "click",
+      "target": "id=txtPass",
+      "targets": [
+        ["id=txtPass", "id"],
+        ["name=ctl00$ContentPlaceHolder1$txtPass", "name"],
+        ["css=#txtPass", "css:finder"],
+        ["xpath=//input[@id='txtPass']", "xpath:attributes"],
+        ["xpath=//div[@id='logField']/table/tbody/tr[3]/td[3]/input", "xpath:idRelative"],
+        ["xpath=//tr[3]/td[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a04cc95a-ae6a-406f-bb0b-3d6ecdf80260",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtDOB",
+      "targets": [
+        ["id=txtDOB", "id"],
+        ["name=ctl00$ContentPlaceHolder1$txtDOB", "name"],
+        ["css=#txtDOB", "css:finder"],
+        ["xpath=//input[@id='txtDOB']", "xpath:attributes"],
+        ["xpath=//div[@id='logField']/table/tbody/tr[4]/td[3]/input", "xpath:idRelative"],
+        ["xpath=//tr[4]/td[3]/input", "xpath:position"]
+      ],
+      "value": "14071977"
+    }, {
+      "id": "3bfeefba-056c-4944-932a-85db1e40f2f0",
+      "comment": "",
+      "command": "click",
+      "target": "id=lbtLogin",
+      "targets": [
+        ["id=lbtLogin", "id"],
+        ["name=ctl00$ContentPlaceHolder1$lbtLogin", "name"],
+        ["css=#lbtLogin", "css:finder"],
+        ["xpath=//input[@id='lbtLogin']", "xpath:attributes"],
+        ["xpath=//div[@id='logField']/table/tbody/tr[7]/td/input", "xpath:idRelative"],
+        ["xpath=//tr[7]/td/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b8f8c6fa-75f6-4129-9c5d-64dd1d3271e8",
+      "comment": "",
+      "command": "click",
+      "target": "id=hypEQmain",
+      "targets": [
+        ["id=hypEQmain", "id"],
+        ["linkText=Equity", "linkText"],
+        ["css=#hypEQmain", "css:finder"],
+        ["xpath=//a[contains(text(),'Equity')]", "xpath:link"],
+        ["xpath=//a[@id='hypEQmain']", "xpath:attributes"],
+        ["xpath=//div[@id='divMenu']/div/ul/li[2]/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://secure.icicidirect.com/IDirectTrading/Trading/Tradingpage.aspx?equity-eqhome')]", "xpath:href"],
+        ["xpath=//div/div/ul/li[2]/div/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "eb7cffcf-43e2-41d3-a423-c7739a53224d",
+      "comment": "",
+      "command": "click",
+      "target": "id=hypPF",
+      "targets": [
+        ["id=hypPF", "id"],
+        ["linkText=Portfolio & Statements", "linkText"],
+        ["css=#hypPF", "css:finder"],
+        ["xpath=//a[contains(text(),'Portfolio & Statements')]", "xpath:link"],
+        ["xpath=//a[@id='hypPF']", "xpath:attributes"],
+        ["xpath=//div[@id='dvMenu']/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'https://secure.icicidirect.com/IDirectTrading/Trading/Tradingpage.aspx?portfolio-pfhome')]", "xpath:href"],
+        ["xpath=//li/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Portfolio & Statements')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c50249af-921d-4934-9806-a44d69cd28b3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.active .level2:nth-child(2) label:nth-child(1)",
+      "targets": [
+        ["css=.active .level2:nth-child(2) label:nth-child(1)", "css:finder"],
+        ["xpath=//label[@onclick=\"AjaxPageLoad(mutualfund,'MFPortfolio');\"]", "xpath:attributes"],
+        ["xpath=//div[@id='dvMenu']/ul/li/div/ul/li[2]/a/label", "xpath:idRelative"],
+        ["xpath=//li[2]/a/label", "xpath:position"],
+        ["xpath=//label[contains(.,'Mutual Funds')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "58411981-78fc-44e7-93a7-cec85cc0ae42",
+      "comment": "",
+      "command": "click",
+      "target": "css=td > img:nth-child(2)",
+      "targets": [
+        ["css=td > img:nth-child(2)", "css:finder"],
+        ["xpath=//img[@title='Summary:Export To CSV']", "xpath:img"],
+        ["xpath=//img[@onclick=\"AjaxCallExport(mutualfund,'MFPortfolio',$('#dvProducts'),'ExportData','csv',$('#dvError'),'8502957476_PortFolioMF'); return false;\"]", "xpath:attributes"],
+        ["xpath=//form[@id='frm']/div[2]/div[3]/div[2]/div/table/tbody/tr/td[8]/img[2]", "xpath:idRelative"],
+        ["xpath=//img[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "69f347cd-dd21-44ff-b079-a3563f856b36",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=IDFC Dynamic Bond Fund-Regular Plan-Growth",
+      "targets": [
+        ["linkText=IDFC Dynamic Bond Fund-Regular Plan-Growth", "linkText"],
+        ["css=tr:nth-child(1) a:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'IDFC Dynamic Bond Fund-Regular Plan-Growth')]", "xpath:link"],
+        ["xpath=//a[@onclick=\"gotoportview('MFPortfolioView','11','82');\"]", "xpath:attributes"],
+        ["xpath=//div[@id='divPortfolioData']/table/tbody/tr/td/a[2]", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, 'javascript://')])[33]", "xpath:href"],
+        ["xpath=//td/a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'IDFC Dynamic Bond Fund-Regular Plan-Growth')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d585b72d-f183-4e29-860e-fbfb96a83ad0",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Back",
+      "targets": [
+        ["linkText=Back", "linkText"],
+        ["css=.last > #hypMF", "css:finder"],
+        ["xpath=//a[contains(text(),'Back')]", "xpath:link"],
+        ["xpath=(//a[@id='hypMF'])[2]", "xpath:attributes"],
+        ["xpath=//form[@id='frm']/div[2]/div[2]/div/div/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#')]", "xpath:href"],
+        ["xpath=//div[2]/div[2]/div/div/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Back')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "670f8fa7-9852-4bd2-ae4f-314f2b267533",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=SBI DYNAMIC BOND FUND - REGULAR PLAN - GROWTH",
+      "targets": [
+        ["linkText=SBI DYNAMIC BOND FUND - REGULAR PLAN - GROWTH", "linkText"],
+        ["css=tr:nth-child(2) a:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'SBI DYNAMIC BOND FUND - REGULAR PLAN - GROWTH')]", "xpath:link"],
+        ["xpath=//a[@onclick=\"gotoportview('MFPortfolioView','21','074G');\"]", "xpath:attributes"],
+        ["xpath=//div[@id='divPortfolioData']/table/tbody/tr[2]/td/a[2]", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, 'javascript://')])[35]", "xpath:href"],
+        ["xpath=//tr[2]/td/a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'SBI DYNAMIC BOND FUND - REGULAR PLAN - GROWTH')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9056b1ce-29ba-4cde-8943-bd23374ddac5",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Back",
+      "targets": [
+        ["linkText=Back", "linkText"],
+        ["css=.last > #hypMF", "css:finder"],
+        ["xpath=//a[contains(text(),'Back')]", "xpath:link"],
+        ["xpath=(//a[@id='hypMF'])[2]", "xpath:attributes"],
+        ["xpath=//form[@id='frm']/div[2]/div[2]/div/div/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#')]", "xpath:href"],
+        ["xpath=//div[2]/div[2]/div/div/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Back')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4c51868a-30f3-4df0-9e4e-5756033ae0c3",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "linkText=Back",
+      "targets": [
+        ["linkText=Back", "linkText"],
+        ["css=.last > #hypMF", "css:finder"],
+        ["xpath=//a[contains(text(),'Back')]", "xpath:link"],
+        ["xpath=(//a[@id='hypMF'])[2]", "xpath:attributes"],
+        ["xpath=//form[@id='frm']/div[2]/div[2]/div/div/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#')]", "xpath:href"],
+        ["xpath=//div[2]/div[2]/div/div/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Back')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b2a332b7-91fc-41ee-856e-650cfa0d2b51",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.last > #hypMF",
+      "targets": [
+        ["css=.last > #hypMF", "css:finder"],
+        ["xpath=//a[contains(text(),'Back')]", "xpath:link"],
+        ["xpath=(//a[@id='hypMF'])[2]", "xpath:attributes"],
+        ["xpath=//form[@id='frm']/div[2]/div[2]/div/div/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#')]", "xpath:href"],
+        ["xpath=//div[2]/div[2]/div/div/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Back')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "67063ddc-75f5-4464-be6a-1319de272529",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=ADITYA BIRLA SUN LIFE GOVERNMENT SECURITIES FUND - GROWTH",
+      "targets": [
+        ["linkText=ADITYA BIRLA SUN LIFE GOVERNMENT SECURITIES FUND - GROWTH", "linkText"],
+        ["css=tr:nth-child(3) a:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'ADITYA BIRLA SUN LIFE GOVERNMENT SECURITIES FUND - GROWTH')]", "xpath:link"],
+        ["xpath=//a[@onclick=\"gotoportview('MFPortfolioView','6','402AG');\"]", "xpath:attributes"],
+        ["xpath=//div[@id='divPortfolioData']/table/tbody/tr[3]/td/a[2]", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, 'javascript://')])[37]", "xpath:href"],
+        ["xpath=//tr[3]/td/a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'ADITYA BIRLA SUN LIFE GOVERNMENT SECURITIES FUND - GROWTH')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e8a867fe-0409-49b8-a7dc-c74c22a03b97",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Back",
+      "targets": [
+        ["linkText=Back", "linkText"],
+        ["css=.last > #hypMF", "css:finder"],
+        ["xpath=//a[contains(text(),'Back')]", "xpath:link"],
+        ["xpath=(//a[@id='hypMF'])[2]", "xpath:attributes"],
+        ["xpath=//form[@id='frm']/div[2]/div[2]/div/div/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#')]", "xpath:href"],
+        ["xpath=//div[2]/div[2]/div/div/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Back')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "76f52da3-a4d1-4951-a964-eff97c02d1cd",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "linkText=Back",
+      "targets": [
+        ["linkText=Back", "linkText"],
+        ["css=.last > #hypMF", "css:finder"],
+        ["xpath=//a[contains(text(),'Back')]", "xpath:link"],
+        ["xpath=(//a[@id='hypMF'])[2]", "xpath:attributes"],
+        ["xpath=//form[@id='frm']/div[2]/div[2]/div/div/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#')]", "xpath:href"],
+        ["xpath=//div[2]/div[2]/div/div/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Back')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "77bea058-80ea-4505-8a1d-3e747e7303cd",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.last > #hypMF",
+      "targets": [
+        ["css=.last > #hypMF", "css:finder"],
+        ["xpath=//a[contains(text(),'Back')]", "xpath:link"],
+        ["xpath=(//a[@id='hypMF'])[2]", "xpath:attributes"],
+        ["xpath=//form[@id='frm']/div[2]/div[2]/div/div/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#')]", "xpath:href"],
+        ["xpath=//div[2]/div[2]/div/div/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Back')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2845d583-fcd4-455b-bc8b-bac28b517109",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Logout",
+      "targets": [
+        ["linkText=Logout", "linkText"],
+        ["css=.active:nth-child(8) > .active", "css:finder"],
+        ["xpath=//a[contains(text(),'Logout')]", "xpath:link"],
+        ["xpath=//a[@onclick=\"$('.gcb-toolbar-icon-exit').click();window.location.href='https://secure.icicidirect.com/IDirectTrading/customer/logout.aspx'\"]", "xpath:attributes"],
+        ["xpath=//form[@id='form1']/div[2]/div[2]/div/ul/li[8]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'javascript://')]", "xpath:href"],
+        ["xpath=//li[8]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Logout')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "6f8a4732-0236-450d-bb5c-627593e081c4",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["42f99c67-6f22-40f3-bb9b-16b1a9780d85"]
+  }],
+  "urls": [],
+  "plugins": []
+}

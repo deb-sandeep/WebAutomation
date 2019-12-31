@@ -1,0 +1,11 @@
+<!DOCTYPE icicidirect-creds [
+
+<!ELEMENT icicidirect-creds (cred+)>
+
+<!ELEMENT cred (user-id, password, dob)>
+
+<!ELEMENT user-id (#PCDATA)>
+<!ELEMENT password (#PCDATA)>
+<!ELEMENT dob (#PCDATA)>
+
+]>
