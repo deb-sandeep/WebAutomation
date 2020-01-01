@@ -1,18 +1,27 @@
 package com.sandy.automation.util;
 
-import org.apache.commons.configuration2.Configuration ;
-import org.apache.commons.configuration2.builder.fluent.Configurations ;
+import java.io.InputStream ;
+import java.io.InputStreamReader ;
+import java.io.Reader ;
+
+import org.apache.commons.configuration2.PropertiesConfiguration ;
+import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler ;
 
 public class ConfigUtils {
 
-    public static Configuration loadPropertiesConfig( String basePropName ) 
+    public static PropertiesConfiguration loadPropertiesConfig( String basePropName ) 
             throws Exception {
         
-        Configurations configs = new Configurations() ;
-        return configs.properties( 
-                ConfigUtils.class
-                           .getResource( "/" + basePropName + ".properties" )
-                           .toURI()
-                           .toURL() ) ;
+        String resourcePath = "/" + basePropName + ".properties" ;
+        
+        InputStream is = ConfigUtils.class.getResourceAsStream( resourcePath ) ;
+        Reader reader = new InputStreamReader( is ) ;
+        
+        PropertiesConfiguration config = new PropertiesConfiguration() ;
+        config.setListDelimiterHandler( new DefaultListDelimiterHandler( ':' ) ) ;
+        config.read( reader ) ;
+        
+        reader.close() ;
+        return config ;
     }
 }

@@ -5,7 +5,7 @@ import java.util.LinkedHashMap ;
 import java.util.List ;
 import java.util.Map ;
 
-import org.apache.commons.configuration2.Configuration ;
+import org.apache.commons.configuration2.PropertiesConfiguration ;
 import org.apache.log4j.Logger ;
 import org.openqa.selenium.By ;
 import org.openqa.selenium.TimeoutException ;
@@ -37,7 +37,7 @@ public class AutoEnrichMFMeta extends AutomationBase {
     }
     
     @Override
-    public Configuration loadAppConfig() throws Exception {
+    public PropertiesConfiguration loadAppConfig() throws Exception {
         return ConfigUtils.loadPropertiesConfig( "mf-enrich" ) ;
     }
     
@@ -46,6 +46,7 @@ public class AutoEnrichMFMeta extends AutomationBase {
         List<WebElement> elements = null ;
         
         try {
+            super.initializeWebDriver() ;
             webDriver.get( SITE_URL ) ;
             elements = webDriver.findElements( By.cssSelector( MF_PAGE_LINKS_PATH  ) ) ;
 
