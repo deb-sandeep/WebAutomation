@@ -30,10 +30,12 @@ public abstract class AutomationBase {
     private static final Logger log = Logger.getLogger( AutomationBase.class ) ;
     
     public static final MediaType JSON = MediaType.parse( "application/json; charset=utf-8" ) ; 
-    public static final String CAPITALYST_SERVER_CFG_KEY = "capitalystServer.address" ;
+    public static final String CK_CAPITALYST_SERVER = "capitalystServer.address" ;
+    public static final String CK_SERVER_COMM_ENABLE = "enableServerCommunication" ;
 
     private File workspaceDir = null ;
     private File downloadsDir = null ;
+    private boolean serverCommEnabled = false ;
     
     protected CombinedConfiguration config = null ;
     protected WebDriver webDriver = null ;
@@ -54,6 +56,8 @@ public abstract class AutomationBase {
             config.addConfiguration( appConfig ) ;
         }
         config.addConfiguration( baseConfig ) ;
+        
+        serverCommEnabled = config.getBoolean( CK_SERVER_COMM_ENABLE, false ) ;
     }
     
     protected PropertiesConfiguration loadAppConfig() throws Exception {
@@ -109,6 +113,11 @@ public abstract class AutomationBase {
                                   String endpointPath, 
                                   Object postData )
             throws Exception {
+        
+        if( !serverCommEnabled ) {
+            log.info( "Server communication is disabled." ) ;
+            return "Server communication is disabled by configuration" ;
+        }
             
         log.debug( "Posting data to server." ) ;
         

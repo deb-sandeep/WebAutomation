@@ -24,6 +24,9 @@ public class MFPortfolioParser extends Module {
     private static final By CSV_DN_SELECTOR = By.cssSelector(  "img[title='Summary:Export To CSV']" ) ;
     private static final By HOLDING_TYPE_SELECT = By.id( "DDL_Status" ) ;
     private static final By VIEW_BTN = By.id( "Viewbut" ) ;
+    private static final By MF_TXN_BACK_BTN = By.linkText( "Back" ) ;
+    
+    private static final String XPATH_TXN_DETAIL_TBODY = "//*[@id=\"divPortfolioDetailsData\"]/table/tbody" ;
     
     private CsvParser csvParser = null ;
     
@@ -36,8 +39,6 @@ public class MFPortfolioParser extends Module {
             browser.loginUser( cred ) ;
             processPortfolioFor( cred ) ;
             browser.logoutUser() ;
-            log.debug( "Temp : Breaking after one user. Remove this later." ) ;
-            break ;
         }
     }
     
@@ -55,10 +56,19 @@ public class MFPortfolioParser extends Module {
         csvFile = browser.downloadFile( CSV_DN_SELECTOR ) ;
         mfAssets = parseMFAssets( cred.getIndividualName(), csvFile ) ;
         
-        browser.postDataToServer( AutomationBase.CAPITALYST_SERVER_CFG_KEY, 
+        browser.postDataToServer( AutomationBase.CK_CAPITALYST_SERVER, 
                                   "/MutualFund/Portfolio", 
                                   mfAssets ) ;
         
+        List<MFTxn> txnList = new ArrayList<>() ;
+        for( MutualFundAsset mfAsset : mfAssets ) {
+            processMFTransactionHistory( mfAsset, txnList ) ;
+            showAllHoldings() ;
+        }
+
+        browser.postDataToServer( AutomationBase.CK_CAPITALYST_SERVER, 
+                                  "/MutualFund/TxnList", 
+                                  txnList ) ;
     }
     
     private List<MutualFundAsset> parseMFAssets( String ownerName, File csvFile ) {
@@ -69,11 +79,58 @@ public class MFPortfolioParser extends Module {
         for( int i=1; i<csvFileContents.size(); i++ ) {
             String[] tupule = csvFileContents.get( i ) ;
             MutualFundAsset mfAsset = buildMFAsset( ownerName, tupule ) ;
-            log.debug( mfAsset ) ;
+            log.debug( mfAsset.getScheme() ) ;
             assets.add( mfAsset ) ;
         }
         
         return assets ;
+    }
+    
+    private void processMFTransactionHistory( MutualFundAsset mf,
+                                              List<MFTxn> txnList ) 
+        throws Exception {
+        
+        WebDriver driver = browser.getWebDriver() ;
+        log.debug( "Processing transaction history for MF asset - " + mf.getScheme() ) ;
+        
+        // Go to the MF detail page and wait till the page loads
+        driver.findElement( By.linkText( mf.getScheme() ) ).click() ;
+        browser.waitForElement( MF_TXN_BACK_BTN ) ;
+        
+        processMFTxnHistoryTable( driver, mf.getOwnerName(), txnList ) ;
+        
+        // Go back to the MF summary page and wait till the page loads
+        driver.findElement( MF_TXN_BACK_BTN ).click() ;
+        browser.waitForElement( VIEW_BTN ) ;
+    }
+    
+    private void processMFTxnHistoryTable( WebDriver driver, 
+                                           String ownerName,
+                                           List<MFTxn> txnList ) 
+        throws Exception {
+        
+        List<WebElement> rows = driver.findElements( By.xpath( XPATH_TXN_DETAIL_TBODY + "/tr" ) ) ;
+        for( int rowNum=1; rowNum<=rows.size(); rowNum++ ) {
+            String rowXPath = XPATH_TXN_DETAIL_TBODY + "/tr[" + rowNum + "]" ;
+            MFTxn txn = new MFTxn() ;
+            txn.setOwnerName( ownerName ) ;
+            txn.setScheme( getTxnAttr( rowXPath, 2 ) );
+            txn.setTxnDate( MFTxn.SDF.parse( getTxnAttr( rowXPath, 5 ) ) ) ;
+            txn.setTxnType( getTxnAttr( rowXPath, 6 ) ) ;
+            txn.setNavPerUnit( Float.parseFloat( getTxnAttr( rowXPath, 8 ) ) ) ;
+            txn.setNumUnits( Float.parseFloat( getTxnAttr( rowXPath, 9 ) ) ) ;
+            txn.setAmount( Float.parseFloat( getTxnAttr( rowXPath, 10 ) ) ) ;
+            txn.setTxnChannel( getTxnAttr(  rowXPath, 11 ) ) ;
+            
+            txnList.add( txn ) ;
+        }
+    }
+    
+    private String getTxnAttr( String rowXPath, int colNum ) {
+        String cellXPath = rowXPath + "/td[" + colNum + "]" ;
+        WebDriver driver = browser.getWebDriver() ;
+        WebElement element = driver.findElement( By.xpath( cellXPath ) ) ;
+        return element.getText() ;
     }
     
     private CsvParser getCsvParser() {
@@ -116,8 +173,6 @@ public class MFPortfolioParser extends Module {
     
     
     private void showAllHoldings() throws Exception {
-        
-        log.debug( "Showing all mutual fund holdings" ) ;
         
         WebElement element = null ;
         WebDriver webDriver = browser.getWebDriver() ;

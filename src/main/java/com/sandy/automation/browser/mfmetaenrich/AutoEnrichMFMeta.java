@@ -93,7 +93,7 @@ public class AutoEnrichMFMeta extends AutomationBase {
 
         List<String[]> records = fileProcessor.execute() ;
         if( records != null && !records.isEmpty() ) {
-            super.postDataToServer( CAPITALYST_SERVER_CFG_KEY, 
+            super.postDataToServer( CK_CAPITALYST_SERVER, 
                                     "/MutualFund/EnrichMFMeta", 
                                     records ) ; 
         }
