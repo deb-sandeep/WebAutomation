@@ -4,41 +4,29 @@ import java.io.File ;
 import java.util.ArrayList ;
 import java.util.Iterator ;
 import java.util.List ;
-import java.util.concurrent.TimeUnit ;
 
 import org.apache.log4j.Logger ;
 
-import com.fasterxml.jackson.databind.ObjectMapper ;
 import com.sandy.common.util.StringUtil ;
 import com.univocity.parsers.csv.CsvParser ;
 import com.univocity.parsers.csv.CsvParserSettings ;
 
-import okhttp3.MediaType ;
-import okhttp3.OkHttpClient ;
-import okhttp3.Request ;
-import okhttp3.RequestBody ;
-import okhttp3.Response ;
-
 public class DownloadedFileProcessor {
     
     private static final Logger log = Logger.getLogger( DownloadedFileProcessor.class ) ;
-    public static final MediaType JSON = MediaType.parse( "application/json; charset=utf-8" ) ; 
     
     private String groupId = null ;
     private String companyName = null ;
     private File file = null ;
-    private String serverName = null ;
     
-    DownloadedFileProcessor( String groupId, String coName, 
-                             File file, String serverName ) {
+    DownloadedFileProcessor( String groupId, String coName, File file ) {
         
         this.groupId = groupId ;
         this.companyName = coName ;
         this.file = file ;
-        this.serverName = serverName ;
     }
     
-    void execute() throws Exception {
+    List<String[]> execute() throws Exception {
         
         log.debug( "\t\tParsing downloaded file.." ) ;
         CsvParser parser = getCsvParser() ;
@@ -64,8 +52,9 @@ public class DownloadedFileProcessor {
         if( !records.isEmpty() ) {
             log.debug( "\t\t" + records.size() + " records found." ) ;
             List<String[]> postBody = preparePostData( records ) ;
-            enrichMetaOnServer( postBody ) ;
+            return postBody ;
         }
+        return null ;
     }
     
     private CsvParser getCsvParser() {
@@ -101,51 +90,5 @@ public class DownloadedFileProcessor {
             postBody.add( postRecord ) ;
         }
         return postBody ;
-    }
-    
-    private void enrichMetaOnServer( List<String[]> records )
-        throws Exception {
-        
-        log.debug( "\t\tEnriching data on server." ) ;
-        log.debug( "\t\tNumber of records = " + records.size() ) ;
-        ObjectMapper objMapper = new ObjectMapper() ;
-        String json = objMapper.writeValueAsString( records ) ;
-        
-        String url = "http://" + this.serverName + "/MutualFund/EnrichMFMeta" ;
-        
-        OkHttpClient client = new OkHttpClient.Builder()
-                                .connectTimeout( 60, TimeUnit.SECONDS )
-                                .readTimeout( 60, TimeUnit.SECONDS )
-                                .build() ;
-        RequestBody body = RequestBody.create( JSON, json ) ;
-        Request request = new Request.Builder()
-                                     .url( url )
-                                     .post( body )
-                                     .build() ;
-        Response response = null ;
-        
-        try {
-            response = client.newCall( request ).execute() ;
-            log.debug( "\t\tResponse from server - " + response.code() ) ;
-            log.debug( "\t\t\t" + response.body().string() ) ;
-        }
-        finally {
-            if( response != null ) {
-                response.body().close() ;
-            }
-        }
-    }
-
-    public static void main( String[] args ) 
-        throws Exception {
-        
-        String downloadDir = "/home/sandeep/projects/workspace/web_automation/downloads/" ;
-        File csvFile = new File( downloadDir + "fundlist_adityabirla.csv" ) ;
-        DownloadedFileProcessor processor = new DownloadedFileProcessor( 
-                            "ADITYABIRLA", 
-                            "Aditya Birla Sun Life AMC Ltd", 
-                            csvFile, 
-                            "localhost:8080" ) ;
-        processor.execute() ;
     }
 }

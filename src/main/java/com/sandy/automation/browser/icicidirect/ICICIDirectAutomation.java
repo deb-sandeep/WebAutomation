@@ -222,6 +222,7 @@ public class ICICIDirectAutomation extends AutomationBase {
             Module module = loadModule( moduleCfg ) ;
             module.setParent( this ) ;
             module.setCredentials( credentials ) ;
+            module.setConfiguration( super.config ) ;
             
             module.execute() ;
         }

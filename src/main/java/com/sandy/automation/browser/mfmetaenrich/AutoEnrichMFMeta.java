@@ -27,12 +27,7 @@ public class AutoEnrichMFMeta extends AutomationBase {
     private static final String MF_FUND_NAME_ID = "ctl00_ContentPlaceHolder1_lblHeader" ;
     private static final String MF_PAGE_LINKS_PATH = ".mfshortnames_links_wrapper a[href^='/funds']" ;
 
-    private String capitalystServerAddress = null ;
-    
     public AutoEnrichMFMeta() throws Exception {
-        capitalystServerAddress = config.getString( "capitalystServer.address", 
-                                                    "localhost:8080" ) ;
-        log.debug( "Using capitalyst server @ " + capitalystServerAddress ) ;
     }
     
     @Override
@@ -62,6 +57,7 @@ public class AutoEnrichMFMeta extends AutomationBase {
                 log.debug( "Processing " + fundGroupId ) ;
                 log.debug( "\t@ " + url ) ;
                 processMFPageURL( fundGroupId, url ) ;
+                break ;
             }
         }
         catch( Exception e ) {
@@ -93,10 +89,14 @@ public class AutoEnrichMFMeta extends AutomationBase {
                                         File csvFile ) throws Exception {
         
         DownloadedFileProcessor fileProcessor = null ;
-        fileProcessor = new DownloadedFileProcessor( groupId, coName, 
-                                                     csvFile, 
-                                                     capitalystServerAddress ) ;
-        fileProcessor.execute() ;
+        fileProcessor = new DownloadedFileProcessor( groupId, coName, csvFile ) ; 
+
+        List<String[]> records = fileProcessor.execute() ;
+        if( records != null && !records.isEmpty() ) {
+            super.postDataToServer( CAPITALYST_SERVER_CFG_KEY, 
+                                    "/MutualFund/EnrichMFMeta", 
+                                    records ) ; 
+        }
     }
     
     public static void main( String[] args ) throws Exception {

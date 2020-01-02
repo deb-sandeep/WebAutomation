@@ -18,7 +18,7 @@ public class ConfigUtils {
         Reader reader = new InputStreamReader( is ) ;
         
         PropertiesConfiguration config = new PropertiesConfiguration() ;
-        config.setListDelimiterHandler( new DefaultListDelimiterHandler( ':' ) ) ;
+        config.setListDelimiterHandler( new DefaultListDelimiterHandler( ';' ) ) ;
         config.read( reader ) ;
         
         reader.close() ;

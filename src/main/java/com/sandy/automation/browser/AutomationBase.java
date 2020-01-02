@@ -3,6 +3,7 @@ package com.sandy.automation.browser;
 import java.io.File ;
 import java.util.HashMap ;
 import java.util.Map ;
+import java.util.concurrent.TimeUnit ;
 
 import org.apache.commons.configuration2.CombinedConfiguration ;
 import org.apache.commons.configuration2.PropertiesConfiguration ;
@@ -15,11 +16,21 @@ import org.openqa.selenium.WebElement ;
 import org.openqa.selenium.chrome.ChromeDriver ;
 import org.openqa.selenium.chrome.ChromeOptions ;
 
+import com.fasterxml.jackson.databind.ObjectMapper ;
 import com.sandy.automation.util.ConfigUtils ;
+
+import okhttp3.MediaType ;
+import okhttp3.OkHttpClient ;
+import okhttp3.Request ;
+import okhttp3.RequestBody ;
+import okhttp3.Response ;
 
 public abstract class AutomationBase {
     
     private static final Logger log = Logger.getLogger( AutomationBase.class ) ;
+    
+    public static final MediaType JSON = MediaType.parse( "application/json; charset=utf-8" ) ; 
+    public static final String CAPITALYST_SERVER_CFG_KEY = "capitalystServer.address" ;
 
     private File workspaceDir = null ;
     private File downloadsDir = null ;
@@ -94,6 +105,46 @@ public abstract class AutomationBase {
         return downloadedFile ;
     }
     
+    public String postDataToServer( String serverAddressCfgKey,
+                                  String endpointPath, 
+                                  Object postData )
+            throws Exception {
+            
+        log.debug( "Posting data to server." ) ;
+        
+        ObjectMapper objMapper = new ObjectMapper() ;
+        String json = objMapper.writeValueAsString( postData ) ;
+        String serverAddress = config.getString( serverAddressCfgKey ) ;
+        
+        String url = "http://" + serverAddress + endpointPath ;
+        log.debug( "\tURL = " + url ) ;
+        
+        OkHttpClient client = new OkHttpClient.Builder()
+                                .connectTimeout( 60, TimeUnit.SECONDS )
+                                .readTimeout( 60, TimeUnit.SECONDS )
+                                .build() ;
+        
+        RequestBody body = RequestBody.create( JSON, json ) ;
+        Request request = new Request.Builder()
+                                     .url( url )
+                                     .post( body )
+                                     .build() ;
+        Response response = null ;
+        String responseBody = null ;
+        try {
+            response = client.newCall( request ).execute() ;
+            responseBody = response.body().string() ;
+            log.debug( "\t\tResponse from server - " + response.code() ) ;
+            log.debug( "\t\t\t" + responseBody ) ;
+        }
+        finally {
+            if( response != null ) {
+                response.body().close() ;
+            }
+        }
+        return responseBody ;
+    }
+
     // ----------------- PROTECTED SECTION -----------------------------------
     
     protected void addAppSpecificChromeOptions( ChromeOptions options ) {}
