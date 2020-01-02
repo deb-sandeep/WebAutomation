@@ -4,7 +4,6 @@ import java.io.File ;
 import java.net.URL ;
 import java.util.ArrayList ;
 import java.util.List ;
-import java.util.concurrent.TimeUnit ;
 
 import org.apache.commons.configuration2.Configuration ;
 import org.apache.commons.configuration2.PropertiesConfiguration ;
@@ -14,7 +13,10 @@ import org.apache.commons.configuration2.builder.fluent.Parameters ;
 import org.apache.commons.configuration2.resolver.DefaultEntityResolver ;
 import org.apache.log4j.Logger ;
 import org.openqa.selenium.By ;
+import org.openqa.selenium.WebDriver ;
 import org.openqa.selenium.WebElement ;
+import org.openqa.selenium.support.ui.ExpectedConditions ;
+import org.openqa.selenium.support.ui.WebDriverWait ;
 
 import com.sandy.automation.browser.AutomationBase ;
 import com.sandy.automation.util.ConfigUtils ;
@@ -77,12 +79,11 @@ public class ICICIDirectAutomation extends AutomationBase {
         }
         finally {
             super.quitWebDriver() ;
-            try {
-                TimeUnit.SECONDS.sleep( 2 ) ;
-            }
-            catch( InterruptedException e ) {
-            }
         }
+    }
+    
+    public WebDriver getWebDriver() {
+        return super.webDriver ;
     }
     
     public void loginUser( Cred cred ) {
@@ -106,28 +107,30 @@ public class ICICIDirectAutomation extends AutomationBase {
         
         log.debug( "Logging out current user" ) ;
         // Bubble the exception if Logout link is not found. 
-        clickLink( "Logout" ) ;
+        clickLink( By.linkText( "Logout" ) ) ;
     }
     
     public void gotoSection( SiteSection section ) {
-        log.debug( "Going to section - " + section.getLinkText() ) ;
-        clickLink( section.getLinkText() ) ;
+        log.debug( "Going to section - " + section.getSelector() ) ;
+        clickLink( section.getSelector() ) ;
     }
     
     // ------------------ PRIVATE SECTION -----------------------------------
     
-    private void clickLink( String linkText ) 
+    private void clickLink( By selector ) 
             throws IllegalStateException {
         
-        List<WebElement> links = null ;
+        WebDriverWait wait = new WebDriverWait( webDriver, 5 ) ;
+        wait.until( ExpectedConditions.elementToBeClickable( selector ) ) ;
         
-        links = webDriver.findElements( By.linkText( linkText ) ) ;
+        List<WebElement> links = null ;
+        links = webDriver.findElements( selector ) ;
         if( !links.isEmpty() ) {
             WebElement link = links.get( 0 ) ;
             link.click() ;
         }
         else {
-            String msg = "Link '" + linkText + "' not found on page." ;
+            String msg = "Link '" + selector + "' not found on page." ;
             throw new IllegalStateException( msg ) ;
         }
     }

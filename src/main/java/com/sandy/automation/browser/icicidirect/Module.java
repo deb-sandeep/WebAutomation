@@ -4,13 +4,13 @@ import java.util.List ;
 
 public abstract class Module {
     
-    protected ICICIDirectAutomation parent = null ;
+    protected ICICIDirectAutomation browser = null ;
     protected List<Cred> credentials = null ;
 
     public Module() {}
     
     public void setParent( ICICIDirectAutomation parent ) {
-        this.parent = parent ;
+        this.browser = parent ;
     }
     
     public void setCredentials( List<Cred> credentials ) {
