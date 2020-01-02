@@ -1,35 +1,21 @@
 package com.sandy.automation.browser.icicidirect;
 
-public class Module {
+import java.util.List ;
 
-    private String cls = null ;
-    private boolean enabled = true ;
-    private String description = null ;
+public abstract class Module {
     
-    public Module( String cls, boolean enabled, String description ) {
-        this.cls = cls ;
-        this.enabled = enabled ;
-        this.description = description ;
+    protected ICICIDirectAutomation parent = null ;
+    protected List<Cred> credentials = null ;
+
+    public Module() {}
+    
+    public void setParent( ICICIDirectAutomation parent ) {
+        this.parent = parent ;
     }
     
-    public String getCls() {
-        return cls ;
+    public void setCredentials( List<Cred> credentials ) {
+        this.credentials = credentials ;
     }
     
-    public boolean isEnabled() {
-        return enabled ;
-    }
-    
-    public String getDescription() {
-        return description ;
-    }
-    
-    @Override
-    public String toString() {
-        return "Module [" + 
-            "\ncls=" + cls + 
-            "\nenabled=" + enabled + 
-            "\ndescription=" + description + 
-            "\n]" ;
-    }
+    public abstract void execute() throws Exception ;
 }

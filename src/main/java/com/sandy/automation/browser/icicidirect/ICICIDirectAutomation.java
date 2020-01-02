@@ -4,6 +4,7 @@ import java.io.File ;
 import java.net.URL ;
 import java.util.ArrayList ;
 import java.util.List ;
+import java.util.concurrent.TimeUnit ;
 
 import org.apache.commons.configuration2.Configuration ;
 import org.apache.commons.configuration2.PropertiesConfiguration ;
@@ -35,9 +36,15 @@ public class ICICIDirectAutomation extends AutomationBase {
             "icicidirect.xml" ;
     
     private List<Cred> credentials = new ArrayList<>() ;
-    private List<Module> modules = new ArrayList<>() ;
+    private List<ModuleConfig> moduleConfigs = new ArrayList<>() ;
 
     public ICICIDirectAutomation() throws Exception {}
+    
+    public static void main( String[] args ) throws Exception {
+        log.debug( "Starting ICICIDirect web automation..." ) ;
+        ICICIDirectAutomation driver = new ICICIDirectAutomation() ;
+        driver.execute() ;
+    }
     
     @Override
     public PropertiesConfiguration loadAppConfig() throws Exception {
@@ -46,41 +53,108 @@ public class ICICIDirectAutomation extends AutomationBase {
     
     public void execute() {
         try {
+            log.debug( "Loading credentials." ) ;
             loadCredentials() ;
+            
+            log.debug( "Loading modules." ) ;
             loadModules() ;
+            
+            if( getActiveModuleCount() > 0 ) {
+                super.initializeWebDriver() ;
+                for( ModuleConfig moduleCfg : moduleConfigs ) {
+                    if( moduleCfg.isEnabled() ) {
+                        log.debug( "Executing module - " + moduleCfg.getId() ) ;
+                        loadAndExecuteModule( moduleCfg ) ;
+                    }
+                }
+            }
+            else {
+                log.debug( "There are no active modules." ) ;
+            }
         }
         catch( Exception e ) {
             log.error( "Error in automation.", e ) ;
         }
         finally {
-            if( webDriver != null ) {
-                webDriver.close() ;
-                webDriver.quit() ;
+            super.quitWebDriver() ;
+            try {
+                TimeUnit.SECONDS.sleep( 2 ) ;
+            }
+            catch( InterruptedException e ) {
             }
         }
     }
     
-    private XMLConfiguration getXMLConfiguration() throws Exception {
+    public void loginUser( Cred cred ) {
         
-        Parameters params = new Parameters() ;
-        DefaultEntityResolver resolver = new DefaultEntityResolver() ;
-        URL dtdURL = getClass().getResource( DTD_LOCAL_RESOURCE_PATH ) ;
+        log.debug( "Logging in user - " + cred.getUserName() ) ;
+        webDriver.get( SITE_LOGIN_URL ) ;
         
-        resolver.registerEntityId( DTD_ENTITY_ID, dtdURL ) ;
-
-        File credsCfg = new File( System.getProperty( "user.home" ), LOCAL_CFG ) ;
-        if( !credsCfg.exists() ) {
-            throw new Exception( "ICICIDirect user credentials not found." ) ;
+        WebElement userIdTF = webDriver.findElement( By.id( "txtUserId" ) ) ;
+        WebElement passwordTF = webDriver.findElement( By.id( "txtPass" ) ) ;
+        WebElement dobTF = webDriver.findElement( By.id( "txtDOB" ) ) ;
+        WebElement submitBtn = webDriver.findElement( By.id( "lbtLogin" ) ) ;
+        
+        userIdTF.sendKeys( cred.getUserName() ) ;
+        passwordTF.sendKeys( cred.getPassword() ) ;
+        dobTF.sendKeys( cred.getDob() ) ;
+        
+        submitBtn.click() ;
+    }
+    
+    public void logoutUser() {
+        
+        log.debug( "Logging out current user" ) ;
+        // Bubble the exception if Logout link is not found. 
+        clickLink( "Logout" ) ;
+    }
+    
+    public void gotoSection( SiteSection section ) {
+        log.debug( "Going to section - " + section.getLinkText() ) ;
+        clickLink( section.getLinkText() ) ;
+    }
+    
+    // ------------------ PRIVATE SECTION -----------------------------------
+    
+    private void clickLink( String linkText ) 
+            throws IllegalStateException {
+        
+        List<WebElement> links = null ;
+        
+        links = webDriver.findElements( By.linkText( linkText ) ) ;
+        if( !links.isEmpty() ) {
+            WebElement link = links.get( 0 ) ;
+            link.click() ;
         }
+        else {
+            String msg = "Link '" + linkText + "' not found on page." ;
+            throw new IllegalStateException( msg ) ;
+        }
+    }
+    
+    private int getActiveModuleCount() {
+        int activeCount = 0 ;
+        for( ModuleConfig cfg : moduleConfigs ) {
+            if( cfg.isEnabled() ) {
+                activeCount++ ;
+            }
+        }
+        return activeCount ;
+    }
+    
+    private void loadModules() {
         
-        FileBasedConfigurationBuilder<XMLConfiguration> builder =
-            new FileBasedConfigurationBuilder<>( XMLConfiguration.class )
-                .configure( params.xml()
-                                  .setFile( credsCfg )
-                                  .setEntityResolver( resolver )
-                                  .setValidating( true ) ) ;
-
-        return builder.getConfiguration() ;
+        String[] moduleNames = config.getStringArray( "modules" ) ;
+        for( String moduleName : moduleNames ) {
+            Configuration cfg = config.subset( "modules." + moduleName ) ;
+            ModuleConfig module = new ModuleConfig(
+                moduleName,
+                cfg.getString( "class" ),
+                cfg.getBoolean( "enabled" ),
+                cfg.getString( "description" )
+            ) ;
+            moduleConfigs.add( module ) ;
+        }
     }
     
     private void loadCredentials() throws Exception {
@@ -104,57 +178,48 @@ public class ICICIDirectAutomation extends AutomationBase {
         }
     }
     
-    private void loadModules() {
+    @SuppressWarnings( "unchecked" )
+    private Module loadModule( ModuleConfig moduleCfg ) 
+        throws Exception {
         
-        String[] moduleNames = config.getStringArray( "modules" ) ;
-        for( String moduleName : moduleNames ) {
-            Configuration cfg = config.subset( "modules." + moduleName ) ;
-            Module module = new Module(
-                cfg.getString( "class" ),
-                cfg.getBoolean( "enabled" ),
-                cfg.getString( "description" )
-            ) ;
-            modules.add( module ) ;
+        Class<? extends Module> moduleCls = null ;
+        moduleCls = (Class<? extends Module>) Class.forName( moduleCfg.getClassName() ) ;
+        return moduleCls.getDeclaredConstructor().newInstance() ;
+    }
+
+    private XMLConfiguration getXMLConfiguration() throws Exception {
+        
+        Parameters params = new Parameters() ;
+        DefaultEntityResolver resolver = new DefaultEntityResolver() ;
+        URL dtdURL = getClass().getResource( DTD_LOCAL_RESOURCE_PATH ) ;
+        
+        resolver.registerEntityId( DTD_ENTITY_ID, dtdURL ) ;
+
+        File credsCfg = new File( System.getProperty( "user.home" ), LOCAL_CFG ) ;
+        if( !credsCfg.exists() ) {
+            throw new Exception( "ICICIDirect user credentials not found." ) ;
         }
         
-        for( Module m : modules ) {
-            log.debug( m ) ;
-        }
+        FileBasedConfigurationBuilder<XMLConfiguration> builder =
+            new FileBasedConfigurationBuilder<>( XMLConfiguration.class )
+                .configure( params.xml()
+                                  .setFile( credsCfg )
+                                  .setEntityResolver( resolver )
+                                  .setValidating( true ) ) ;
+
+        return builder.getConfiguration() ;
     }
     
-    protected void loginUser( Cred cred ) {
-        
-        log.debug( "Logging in user - " + cred.getUserName() ) ;
-        webDriver.get( SITE_LOGIN_URL ) ;
-        
-        WebElement userIdTF = webDriver.findElement( By.id( "txtUserId" ) ) ;
-        WebElement passwordTF = webDriver.findElement( By.id( "txtPass" ) ) ;
-        WebElement dobTF = webDriver.findElement( By.id( "txtDOB" ) ) ;
-        WebElement submitBtn = webDriver.findElement( By.id( "lbtLogin" ) ) ;
-        
-        userIdTF.sendKeys( cred.getUserName() ) ;
-        passwordTF.sendKeys( cred.getPassword() ) ;
-        dobTF.sendKeys( cred.getDob() ) ;
-        
-        submitBtn.click() ;
-    }
-    
-    protected void logoutUser() {
-        
-        log.debug( "Logging out current user" ) ;
-        List<WebElement> logoutLinks = webDriver.findElements( By.linkText( "Logout" ) ) ;
-        if( !logoutLinks.isEmpty() ) {
-            WebElement logoutLink = logoutLinks.get( 0 ) ;
-            logoutLink.click() ;
+    private void loadAndExecuteModule( ModuleConfig moduleCfg ) {
+        try {
+            Module module = loadModule( moduleCfg ) ;
+            module.setParent( this ) ;
+            module.setCredentials( credentials ) ;
+            
+            module.execute() ;
         }
-        else {
-            log.error( "No logout link found. Can't logout" ) ;
+        catch( Exception e ) {
+            log.debug( "Exception executing module.", e ) ;
         }
-    }
-    
-    public static void main( String[] args ) throws Exception {
-        log.debug( "Starting ICICIDirect web automation..." ) ;
-        ICICIDirectAutomation driver = new ICICIDirectAutomation() ;
-        driver.execute() ;
     }
 }

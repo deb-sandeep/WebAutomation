@@ -47,9 +47,16 @@ public abstract class AutomationBase {
         return null ;
     }
     
-    protected void initializeWebDriver() {
+    public void initializeWebDriver() {
         ChromeOptions options = prepareChromeOptions() ;
         webDriver = new ChromeDriver( options ) ;
+    }
+    
+    public void quitWebDriver() {
+        if( webDriver != null ) {
+            webDriver.close() ;
+            webDriver.quit() ;
+        }
     }
     
     private ChromeOptions prepareChromeOptions() {
