@@ -115,13 +115,17 @@ public class ICICIDirectAutomation extends AutomationBase {
         clickLink( section.getSelector() ) ;
     }
     
+    public void waitForElement( By selector ) {
+        WebDriverWait wait = new WebDriverWait( webDriver, 5 ) ;
+        wait.until( ExpectedConditions.elementToBeClickable( selector ) ) ;
+    }
+    
     // ------------------ PRIVATE SECTION -----------------------------------
     
     private void clickLink( By selector ) 
             throws IllegalStateException {
         
-        WebDriverWait wait = new WebDriverWait( webDriver, 5 ) ;
-        wait.until( ExpectedConditions.elementToBeClickable( selector ) ) ;
+        waitForElement( selector ) ;
         
         List<WebElement> links = null ;
         links = webDriver.findElements( selector ) ;

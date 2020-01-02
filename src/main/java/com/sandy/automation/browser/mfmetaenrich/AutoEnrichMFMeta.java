@@ -8,7 +8,6 @@ import java.util.Map ;
 import org.apache.commons.configuration2.PropertiesConfiguration ;
 import org.apache.log4j.Logger ;
 import org.openqa.selenium.By ;
-import org.openqa.selenium.TimeoutException ;
 import org.openqa.selenium.WebElement ;
 
 import com.sandy.automation.browser.AutomationBase ;
@@ -85,12 +84,7 @@ public class AutoEnrichMFMeta extends AutomationBase {
         String fundMgmtCompanyName = fundNameHeader.getText() ;
         log.debug( "\t\tFund name = " + fundMgmtCompanyName ) ;
         
-        WebElement exportBtn = webDriver.findElement( By.id( EXPORT_BTN_ID  ) ) ;
-        log.debug( "\t\tDownloading xls..." ) ;
-        
-        exportBtn.click() ;
-        File csvFile = waitTillFileDownloadCompleted() ;
-        
+        File csvFile = super.downloadFile( By.id( EXPORT_BTN_ID  ) ) ;
         processDownloadedFile( fundGroupId, fundMgmtCompanyName, csvFile ) ;
     }
     
@@ -103,30 +97,6 @@ public class AutoEnrichMFMeta extends AutomationBase {
                                                      csvFile, 
                                                      capitalystServerAddress ) ;
         fileProcessor.execute() ;
-    }
-    
-    private File waitTillFileDownloadCompleted() throws Exception {
-        
-        File downloadDir = getDownloadsDir() ;
-        Thread.sleep( 2000 ) ;
-        
-        File[] csvFiles = downloadDir.listFiles() ;
-        if( csvFiles.length == 0 ) {
-            throw new TimeoutException( "File download timedout.." ) ;
-        }
-        
-        File csvFile = csvFiles[0] ;
-        long startLen = csvFile.length() ;
-        long endLen = startLen ;
-        log.debug( "\t\tDownloading file " + csvFile.getName() ) ;
-        do {
-            Thread.sleep( 500 ) ;
-            endLen = csvFile.length() ;
-        }
-        while( startLen != endLen ) ;
-        log.debug( "\t\tDownload completed." ) ;
-        
-        return csvFile ;
     }
     
     public static void main( String[] args ) throws Exception {

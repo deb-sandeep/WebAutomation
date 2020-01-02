@@ -8,7 +8,10 @@ import org.apache.commons.configuration2.CombinedConfiguration ;
 import org.apache.commons.configuration2.PropertiesConfiguration ;
 import org.apache.commons.io.FileUtils ;
 import org.apache.log4j.Logger ;
+import org.openqa.selenium.By ;
+import org.openqa.selenium.TimeoutException ;
 import org.openqa.selenium.WebDriver ;
+import org.openqa.selenium.WebElement ;
 import org.openqa.selenium.chrome.ChromeDriver ;
 import org.openqa.selenium.chrome.ChromeOptions ;
 
@@ -59,19 +62,39 @@ public abstract class AutomationBase {
         }
     }
     
-    private ChromeOptions prepareChromeOptions() {
+    public File downloadFile( By selector ) throws Exception {
         
-        Map<String, Object> prefs = new HashMap<String, Object>() ;
-        prefs.put( "profile.default_content_settings.popups", 0 ) ;
-        prefs.put( "download.default_directory", getDownloadsDir().getAbsolutePath() ) ;
+        log.debug( "Downloading file." ) ;
+        WebElement downloadElement = null ;
+        File downloadDir = getDownloadsDir() ;
         
-        ChromeOptions options = new ChromeOptions() ;
-        options.setExperimentalOption( "prefs", prefs ) ;
-        if( config.getBoolean( "chrome.enableHeadless" ) ) {
-            options.addArguments( "--headless" ) ;
+        cleanDownloadsFolder() ;
+        
+        downloadElement = webDriver.findElement( selector ) ;
+        downloadElement.click() ;
+        
+        Thread.sleep( 2000 ) ;
+        
+        File[] downloadedFiles = downloadDir.listFiles() ;
+        if( downloadedFiles.length == 0 ) {
+            throw new TimeoutException( "File download timedout.." ) ;
         }
-        return options ;
+        
+        File downloadedFile = downloadedFiles[0] ;
+        long startLen = downloadedFile.length() ;
+        long endLen = startLen ;
+        log.debug( "\t\tDownloading file " + downloadedFile.getName() ) ;
+        do {
+            Thread.sleep( 500 ) ;
+            endLen = downloadedFile.length() ;
+        }
+        while( startLen != endLen ) ;
+        log.debug( "\t\tDownload completed." ) ;
+        
+        return downloadedFile ;
     }
+    
+    // ----------------- PROTECTED SECTION -----------------------------------
     
     protected void addAppSpecificChromeOptions( ChromeOptions options ) {}
     
@@ -103,5 +126,21 @@ public abstract class AutomationBase {
     protected void cleanDownloadsFolder() throws Exception {
         log.debug( "Cleaning workspace directory." ) ;
         FileUtils.cleanDirectory( getDownloadsDir() ) ;
+    }
+    
+    // ----------------- PRIVATE SECTION ------------------------------------
+    
+    private ChromeOptions prepareChromeOptions() {
+        
+        Map<String, Object> prefs = new HashMap<String, Object>() ;
+        prefs.put( "profile.default_content_settings.popups", 0 ) ;
+        prefs.put( "download.default_directory", getDownloadsDir().getAbsolutePath() ) ;
+        
+        ChromeOptions options = new ChromeOptions() ;
+        options.setExperimentalOption( "prefs", prefs ) ;
+        if( config.getBoolean( "chrome.enableHeadless" ) ) {
+            options.addArguments( "--headless" ) ;
+        }
+        return options ;
     }
 }
