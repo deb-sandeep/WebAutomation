@@ -1,11 +1,15 @@
 package com.sandy.automation.browser.icicidirect.mfportfolio ;
 
+import java.text.DecimalFormat ;
 import java.text.SimpleDateFormat ;
 import java.util.Date ;
+
+import org.apache.commons.lang.StringUtils ;
 
 public class MFTxn {
     
     public static SimpleDateFormat SDF = new SimpleDateFormat( "dd-MM-yyyy" ) ;
+    public static DecimalFormat DF = new DecimalFormat( "#.00" ) ;
 
     private String ownerName = null ;
     private String scheme = null ;
@@ -94,6 +98,17 @@ public class MFTxn {
         builder.append( "   numUnits = " + this.numUnits + "\n" ) ;
         builder.append( "   amount = " + this.amount + "\n" ) ;
         builder.append( "]" ) ;
+        
+        return builder.toString() ;
+    }
+
+    public String getShortString() {
+        StringBuilder builder = new StringBuilder() ;
+        
+        builder.append( StringUtils.rightPad( ownerName, 10 ) ) ;
+        builder.append( StringUtils.rightPad( SDF.format( txnDate ), 12 ) ) ;
+        builder.append( StringUtils.rightPad( txnType, 20 ) ) ;
+        builder.append( StringUtils.leftPad( DF.format( amount ), 10 ) ) ;
         
         return builder.toString() ;
     }

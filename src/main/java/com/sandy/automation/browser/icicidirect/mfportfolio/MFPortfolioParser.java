@@ -39,6 +39,7 @@ public class MFPortfolioParser extends Module {
             browser.loginUser( cred ) ;
             processPortfolioFor( cred ) ;
             browser.logoutUser() ;
+            break ;
         }
     }
     
@@ -62,13 +63,14 @@ public class MFPortfolioParser extends Module {
         
         List<MFTxn> txnList = new ArrayList<>() ;
         for( MutualFundAsset mfAsset : mfAssets ) {
+            txnList.clear() ;
             processMFTransactionHistory( mfAsset, txnList ) ;
             showAllHoldings() ;
+            browser.postDataToServer( AutomationBase.CK_CAPITALYST_SERVER, 
+                    "/MutualFund/TxnList", 
+                    txnList ) ;
         }
 
-        browser.postDataToServer( AutomationBase.CK_CAPITALYST_SERVER, 
-                                  "/MutualFund/TxnList", 
-                                  txnList ) ;
     }
     
     private List<MutualFundAsset> parseMFAssets( String ownerName, File csvFile ) {
@@ -110,6 +112,7 @@ public class MFPortfolioParser extends Module {
         throws Exception {
         
         List<WebElement> rows = driver.findElements( By.xpath( XPATH_TXN_DETAIL_TBODY + "/tr" ) ) ;
+        log.debug( rows.size() + " transactions found." ) ;
         for( int rowNum=1; rowNum<=rows.size(); rowNum++ ) {
             String rowXPath = XPATH_TXN_DETAIL_TBODY + "/tr[" + rowNum + "]" ;
             MFTxn txn = new MFTxn() ;
@@ -123,6 +126,7 @@ public class MFPortfolioParser extends Module {
             txn.setTxnChannel( getTxnAttr(  rowXPath, 11 ) ) ;
             
             txnList.add( txn ) ;
+            log.debug( "\t" + txn.getShortString() ) ;
         }
     }
     
