@@ -39,7 +39,6 @@ public class MFPortfolioParser extends Module {
             browser.loginUser( cred ) ;
             processPortfolioFor( cred ) ;
             browser.logoutUser() ;
-            break ;
         }
     }
     
