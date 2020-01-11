@@ -92,10 +92,12 @@ public class MFPortfolioParser extends Module {
         throws Exception {
         
         WebDriver driver = browser.getWebDriver() ;
-        log.debug( "Processing transaction history for MF asset - " + mf.getScheme() ) ;
         
         // Go to the MF detail page and wait till the page loads
-        driver.findElement( By.linkText( mf.getScheme() ) ).click() ;
+        String linkText = mf.getScheme().replace( "  ", " " ) ;
+        log.debug( "Processing transaction history for MF asset - " + linkText ) ;
+        
+        driver.findElement( By.linkText( linkText ) ).click() ;
         browser.waitForElement( MF_TXN_BACK_BTN ) ;
         
         processMFTxnHistoryTable( driver, mf.getOwnerName(), txnList ) ;
@@ -160,7 +162,7 @@ public class MFPortfolioParser extends Module {
         MutualFundAsset asset = new MutualFundAsset() ;
         
         asset.setOwnerName( ownerName ) ;
-        asset.setScheme( tupule[0] ) ;
+        asset.setScheme( tupule[0].replace( "  ", " " ) ) ;
         asset.setCategory( tupule[1] ) ;
         asset.setSubCategory( tupule[2] ) ;
         asset.setUnitsHeld( Float.parseFloat( tupule[3] ) ) ;
