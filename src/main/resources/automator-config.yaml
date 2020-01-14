@@ -1,0 +1,18 @@
+workspacePath : /home/sandeep/projects/workspace/web_automation
+enableHeadless : true
+enableServerCommunication : true
+configProperties :
+   propKeyA : propValueGlobal
+
+siteAutomatorConfigs :
+   - siteId : ICICIDirect
+     configProperties :
+        propKeyA : propValueSiteConfig
+     useCaseAutomatorConfigs :
+        - className : com.sandy.zing.Bat
+          configProperties :
+             propKeyA : propValueUCConfig
+             intProp : 23
+             stringProp : Hello
+             booleanProp : false
+             
