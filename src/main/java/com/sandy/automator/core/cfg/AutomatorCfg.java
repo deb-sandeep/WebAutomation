@@ -1,16 +1,13 @@
 package com.sandy.automator.core.cfg;
 
 import java.util.ArrayList ;
-import java.util.HashMap ;
 import java.util.List ;
-import java.util.Map ;
 
-public class AutomatorCfg {
+public class AutomatorCfg extends BaseCfg {
 
     private String workspacePath = null ;
     private boolean enableHeadless = false ;
     private boolean enableServerCommunication = true ;
-    private Map<String, String> configProperties = new HashMap<>() ;
     
     private List<SiteAutomatorCfg> siteAutomatorConfigs = new ArrayList<>() ;
     
@@ -46,23 +43,17 @@ public class AutomatorCfg {
         this.siteAutomatorConfigs = cfgs ;
     }
     
-    public Map<String, String> getConfigProperties() {
-        return configProperties ;
-    }
-
-    public void setConfigProperties( Map<String, String> props ) {
-        this.configProperties = props ;
-    }
-
     public String toString() {
         StringBuilder builder = new StringBuilder( "Automator Config :\n" ) ;
         builder.append( "\tworkspacePath = " + workspacePath + "\n" )
                .append( "\tenableHeadless = " + enableHeadless + "\n" )
-               .append( "\tenableServerCommunication = " + enableServerCommunication + "\n" )
-               .append( "\tconfigProperties : \n" ) ;
+               .append( "\tenableServerCommunication = " + enableServerCommunication + "\n" ) ;
         
-        for( String key : configProperties.keySet() ) {
-            builder.append( "\t\t" + key + " = " + configProperties.get( key ) + "\n" ) ;
+        if( configProperties != null ) {
+            builder.append( "\tconfigProperties : \n" ) ;
+            for( String key : configProperties.keySet() ) {
+                builder.append( "\t\t" + key + " = " + configProperties.get( key ) + "\n" ) ;
+            }
         }
 
         for( SiteAutomatorCfg saCfg : siteAutomatorConfigs ) {

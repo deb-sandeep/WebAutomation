@@ -1,26 +1,14 @@
 package com.sandy.automator.core.cfg;
 
-import java.util.HashMap ;
-import java.util.Map ;
-
-public class UseCaseAutomatorCfg {
+public class UseCaseAutomatorCfg extends BaseCfg {
 
     private String className = null ;
-    private Map<String, String> configProperties = new HashMap<>() ;
     
     public String getClassName() {
         return className ;
     }
     public void setClassName( String className ) {
         this.className = className ;
-    }
-    
-    public Map<String, String> getConfigProperties() {
-        return configProperties ;
-    }
-
-    public void setConfigProperties( Map<String, String> props ) {
-        this.configProperties = props ;
     }
     
     public Object stringify( String indent ) {
