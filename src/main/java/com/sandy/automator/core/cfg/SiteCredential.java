@@ -38,6 +38,10 @@ public class SiteCredential {
         this.extraAttributes = extraAttributes ;
     }
     
+    public String getAttribute( String attributeName ) {
+        return extraAttributes.get( attributeName ) ;
+    }
+    
     public Object stringify( String indent ) {
         StringBuilder builder = new StringBuilder( indent + "Credential :\n" ) ;
         builder.append( indent + "\tindividualName = " + individualName + "\n" ) ;

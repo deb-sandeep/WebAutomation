@@ -35,10 +35,16 @@ public class AutomatorBuilder {
         configureAutomator( automatorCfg, automator ) ;
         
         for( SiteAutomatorCfg saCfg : automatorCfg.getSiteAutomatorConfigs() ) {
-            siteAutomator = buildSiteAutomator( saCfg, 
-                                                automatorCfg.getConfigProperties(),
-                                                automator ) ;
-            automator.addSiteAutomator( siteAutomator ) ;
+            if( saCfg.isEnabled() ) {
+                siteAutomator = buildSiteAutomator( 
+                                        saCfg, 
+                                        automatorCfg.getConfigProperties(),
+                                        automator ) ;
+                automator.addSiteAutomator( siteAutomator ) ;
+            }
+            else {
+                log.info( "Site automator " + saCfg.getSiteId() + " is not enabled." );
+            }
         }
     }
     
@@ -81,8 +87,10 @@ public class AutomatorBuilder {
             Class<? extends SiteAutomator> clazz = null ;
             clazz = ( Class<? extends SiteAutomator> ) Class.forName( className ) ;
             siteAutomator = clazz.getDeclaredConstructor().newInstance() ;
-            siteAutomator.setParentAutomator( automator ) ;
         }
+        
+        siteAutomator.setParentAutomator( automator ) ;
+        siteAutomator.setSiteId( saCfg.getSiteId() ) ;
         
         Map<String, String> scProps = new HashMap<>() ;
         if( automatorCfgProps != null ) {
@@ -95,8 +103,13 @@ public class AutomatorBuilder {
         injectProperties( siteAutomator, scProps ) ;
         
         for( UseCaseAutomatorCfg ucCfg : saCfg.getUseCaseAutomatorConfigs() ) {
-            ucAutomator = buildUseCaseAutomator( ucCfg, scProps, siteAutomator ) ;
-            siteAutomator.addUseCaseAutomator( ucAutomator ) ;
+            if( ucCfg.isEnabled() ) {
+                ucAutomator = buildUseCaseAutomator( ucCfg, scProps, siteAutomator ) ;
+                siteAutomator.addUseCaseAutomator( ucAutomator ) ;
+            }
+            else {
+                log.info( "Usecase automator " + ucCfg.getClassName() + " is not enabled." ) ;
+            }
         }
         return siteAutomator ;
     }
@@ -114,12 +127,16 @@ public class AutomatorBuilder {
             String msg = "Invalid use case automator config. className doesn't exist." ;
             throw new IllegalArgumentException( msg ) ;
         }
-        else {
-            Class<? extends UseCaseAutomator> clazz = null ;
-            clazz = ( Class<? extends UseCaseAutomator> )Class.forName( className ) ;
-            ucAutomator = clazz.getDeclaredConstructor().newInstance() ;
-            ucAutomator.setParentAutomator( siteAutomator ) ;
+        
+        if( StringUtil.isEmptyOrNull( ucCfg.getUcId() ) ) {
+            throw new IllegalArgumentException( "Use case id not specified." ) ;
         }
+        
+        Class<? extends UseCaseAutomator> clazz = null ;
+        clazz = ( Class<? extends UseCaseAutomator> )Class.forName( className ) ;
+        ucAutomator = clazz.getDeclaredConstructor().newInstance() ;
+        ucAutomator.setSiteAutomator( siteAutomator ) ;
+        ucAutomator.setUcId( ucCfg.getUcId() ) ;
         
         Map<String, String> ucProps = new HashMap<>() ;
         ucProps.putAll( saProps ) ;

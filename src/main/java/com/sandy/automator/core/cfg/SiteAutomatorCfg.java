@@ -9,6 +9,7 @@ public class SiteAutomatorCfg {
 
     private String siteId = null ;
     private String className = null ;
+    private boolean enabled = true ;
     private List<UseCaseAutomatorCfg> useCaseAutomatorConfigs = new ArrayList<>() ;
     private List<SiteCredential> credentials = new ArrayList<>() ;
     private Map<String, String> configProperties = new HashMap<>() ;
@@ -48,14 +49,24 @@ public class SiteAutomatorCfg {
     public String getClassName() {
         return className ;
     }
+    
     public void setClassName( String className ) {
         this.className = className ;
     }
     
+    public boolean isEnabled() {
+        return enabled ;
+    }
+
+    public void setEnabled( boolean enabled ) {
+        this.enabled = enabled ;
+    }
+
     public Object strinfigy( String indent ) {
         StringBuilder builder = new StringBuilder( indent + "Site Automator Config :\n" ) ;
         
         builder.append( indent + "\tsiteId = " + siteId + "\n" ) ;
+        builder.append( indent + "\tenabled = " + enabled + "\n" ) ;
         if( className != null ) {
             builder.append( indent + "\tclassName = " + className + "\n" ) ;
         }
