@@ -34,7 +34,6 @@ public class ICICIDirectSiteAutomator extends SiteAutomator {
                 }
             }
             logoutUser( cred ) ;
-            break ;
         }
     }
 

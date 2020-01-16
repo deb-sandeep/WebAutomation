@@ -190,6 +190,6 @@ public class MFPortfolioUseCaseAutomator extends UseCaseAutomator {
         
         element = browser.findElement( VIEW_BTN ) ;
         element.click() ;
-        Thread.sleep( 1000 ) ;
+        Thread.sleep( 3000 ) ;
     }
 }
