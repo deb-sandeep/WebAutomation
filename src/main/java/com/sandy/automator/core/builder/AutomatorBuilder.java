@@ -91,6 +91,7 @@ public class AutomatorBuilder {
         
         siteAutomator.setParentAutomator( automator ) ;
         siteAutomator.setSiteId( saCfg.getSiteId() ) ;
+        siteAutomator.setCredentials( saCfg.getCredentials() ) ;
         
         Map<String, String> scProps = new HashMap<>() ;
         if( automatorCfgProps != null ) {

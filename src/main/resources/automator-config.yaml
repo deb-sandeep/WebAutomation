@@ -1,20 +1,13 @@
 workspacePath : /home/sandeep/projects/workspace/web_automation
-enableHeadless : true
-enableServerCommunication : true
+enableHeadless : false
+enableServerCommunication : false
 configProperties :
    capitalystServer : localhost:8080
 
 siteAutomatorConfigs :
    - siteId : ICICIDirect
      className : com.sandy.automator.icicidirect.ICICIDirectSiteAutomator
-     configProperties :
-        propKeyA : propValueSiteConfig
      useCaseAutomatorConfigs :
         - ucId : MFPortfolioAutomator
           className : com.sandy.automator.icicidirect.mf.MFPortfolioUseCaseAutomator
-          configProperties :
-             propKeyA : propValueUCConfig
-             property : ${propKeyA}
-             stringProp : Hello
-             booleanProp : false
              
