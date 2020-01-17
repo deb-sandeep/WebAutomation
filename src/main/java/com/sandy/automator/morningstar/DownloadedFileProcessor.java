@@ -1,4 +1,4 @@
-package com.sandy.automation.browser.mfmetaenrich;
+package com.sandy.automator.morningstar;
 
 import java.io.File ;
 import java.util.ArrayList ;

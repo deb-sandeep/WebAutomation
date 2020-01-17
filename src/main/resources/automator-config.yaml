@@ -10,4 +10,9 @@ siteAutomatorConfigs :
      useCaseAutomatorConfigs :
         - ucId : MFPortfolioAutomator
           className : com.sandy.automator.icicidirect.mf.MFPortfolioUseCaseAutomator
+   - siteId : MorningStar
+     enabled : false
+     useCaseAutomatorConfigs :
+        - ucId : MFEnrich
+          className : com.sandy.automator.morningstar.MFMasterDataImportUCAutomator
              

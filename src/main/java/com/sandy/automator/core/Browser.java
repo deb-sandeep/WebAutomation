@@ -69,12 +69,16 @@ public class Browser {
         delegate.findElement( elementRef ).click() ;
     }
     
+    public void cleanDownloadsFolder() throws Exception {
+        FileUtils.cleanDirectory( downloadsDir ) ;
+    }
+    
     public File downloadFile( By selector ) throws Exception {
         
         log.debug( "Downloading file." ) ;
         WebElement downloadElement = null ;
         
-        FileUtils.cleanDirectory( downloadsDir ) ;
+        cleanDownloadsFolder() ;
         
         downloadElement = findElement( selector ) ;
         downloadElement.click() ;
