@@ -25,6 +25,7 @@ public class SiteAutomator implements Configurable {
     protected String siteId = null ;
     protected PropertiesConfiguration config = null ;
     protected List<SiteCredential> credentials = new ArrayList<>() ;
+    protected Browser browser = null ;
     
     public void setParentAutomator( Automator automator ) {
         this.parentAutomator = automator ;
@@ -79,6 +80,7 @@ public class SiteAutomator implements Configurable {
      *      Do nothing
      */
     public void execute( Browser browser ) throws Exception {
+        this.browser = browser ;
         if( credentials.isEmpty() ) {
             for( UseCaseAutomator ucAutomator : useCaseAutomators ) {
                 try {
@@ -92,8 +94,28 @@ public class SiteAutomator implements Configurable {
             }
         }
         else {
-            log.info( "Credentials present for site " + siteId + 
-                      ". Can't execute default behavior." ) ;
+            for( SiteCredential cred : credentials ) {
+                loginUser( cred ) ;
+                for( UseCaseAutomator ucAutomator : useCaseAutomators ) {
+                    try {
+                        log.debug( "Executing use case automator " + ucAutomator.getUcId() );
+                        ucAutomator.execute( cred, browser ) ;
+                    }
+                    catch( Exception e ) {
+                        log.error( "Exception in usecase automator " + 
+                                   ucAutomator.getUcId(), e ) ;
+                    }
+                }
+                logoutUser( cred ) ;
+            }
         }
     }
+    
+    protected void loginUser( SiteCredential cred ) 
+        throws Exception {
+    } ;
+    
+    protected void logoutUser( SiteCredential cred ) 
+        throws Exception {
+    } ;
 }

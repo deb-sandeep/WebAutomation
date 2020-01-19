@@ -6,10 +6,18 @@ configProperties :
 
 siteAutomatorConfigs :
    - siteId : ICICIDirect
+     enabled : false
      className : com.sandy.automator.icicidirect.ICICIDirectSiteAutomator
      useCaseAutomatorConfigs :
         - ucId : MFPortfolioAutomator
           className : com.sandy.automator.icicidirect.mf.MFPortfolioUseCaseAutomator
+          
+   - siteId : ICICIBank
+     className : com.sandy.automator.icicibank.ICICIBankSiteAutomator
+     useCaseAutomatorConfigs :
+        - ucId : CCEntryParser
+          className : com.sandy.automator.icicibank.cc.CCEntryParseUCAutomator
+          
    - siteId : MorningStar
      enabled : false
      useCaseAutomatorConfigs :
