@@ -147,6 +147,10 @@ public class Browser {
         }
         return responseBody ;
     }
+    
+    public WebElement findById( String id ) {
+        return findElement( By.id( id ) ) ;
+    }
 
     // --------------- Private utility methods -------------------------------
     private File getDownloadsDir( Automator automator ) {
@@ -172,7 +176,7 @@ public class Browser {
         }
         return options ;
     }
-
+    
     // -----------------------------------------------------------------------
     // Delegation methods. These should not be changed unless decoration 
     // is required

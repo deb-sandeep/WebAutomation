@@ -20,6 +20,11 @@ public class CCEntryParseUCAutomator extends UseCaseAutomator {
     private String serverAddress = null ;
     
     @Override
+    public boolean canExecuteForCredential( SiteCredential cred ) {
+        return true ; // cred.getBooleanAttribute( "hasCC" ) ;
+    }
+    
+    @Override
     public void execute( SiteCredential cred, Browser browser )
             throws Exception {
         
@@ -28,5 +33,7 @@ public class CCEntryParseUCAutomator extends UseCaseAutomator {
         this.siteAutomator = ( ICICIBankSiteAutomator )getSiteAutomator() ;
         this.serverAddress = config.getString( CAPITALYST_SERVER_ADDRESS_KEY, 
                                                DEFAULT_SERVER_ADDRESS ) ;
+        
+        Thread.sleep( 5000 ) ;
     }
 }

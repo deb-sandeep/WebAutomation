@@ -82,31 +82,49 @@ public class SiteAutomator implements Configurable {
     public void execute( Browser browser ) throws Exception {
         this.browser = browser ;
         if( credentials.isEmpty() ) {
+            doUserAgnosticExecution() ;
+        }
+        else {
+            doUserSpecificExecution() ;
+        }
+    }
+    
+    private void doUserAgnosticExecution() throws Exception {
+        
+        for( UseCaseAutomator ucAutomator : useCaseAutomators ) {
+            try {
+                log.debug( "Executing use case automator " + ucAutomator.getUcId() );
+                ucAutomator.execute( null, browser ) ;
+            }
+            catch( Exception e ) {
+                log.error( "Exception in usecase automator " + 
+                           ucAutomator.getUcId(), e ) ;
+            }
+        }
+    }
+    
+    private void doUserSpecificExecution() throws Exception {
+        
+        for( SiteCredential cred : credentials ) {
             for( UseCaseAutomator ucAutomator : useCaseAutomators ) {
                 try {
-                    log.debug( "Executing use case automator " + ucAutomator.getUcId() );
-                    ucAutomator.execute( null, browser ) ;
+                    if( ucAutomator.canExecuteForCredential( cred ) ) {
+                        loginUser( cred ) ;
+                        log.debug( "Executing use case automator " + ucAutomator.getUcId() );
+                        ucAutomator.execute( cred, browser ) ;
+                        logoutUser( cred ) ;
+                    }
+                    else {
+                        log.debug( "Use case automator - " + 
+                                   ucAutomator.getUcId() + 
+                                   " can't execute for user " + 
+                                   cred.getIndividualName() ) ;
+                    }
                 }
                 catch( Exception e ) {
                     log.error( "Exception in usecase automator " + 
                                ucAutomator.getUcId(), e ) ;
                 }
-            }
-        }
-        else {
-            for( SiteCredential cred : credentials ) {
-                loginUser( cred ) ;
-                for( UseCaseAutomator ucAutomator : useCaseAutomators ) {
-                    try {
-                        log.debug( "Executing use case automator " + ucAutomator.getUcId() );
-                        ucAutomator.execute( cred, browser ) ;
-                    }
-                    catch( Exception e ) {
-                        log.error( "Exception in usecase automator " + 
-                                   ucAutomator.getUcId(), e ) ;
-                    }
-                }
-                logoutUser( cred ) ;
             }
         }
     }

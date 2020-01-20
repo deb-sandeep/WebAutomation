@@ -42,6 +42,11 @@ public class SiteCredential {
         return extraAttributes.get( attributeName ) ;
     }
     
+    public boolean getBooleanAttribute( String attributeName ) {
+        String attrVal = getAttribute( attributeName ) ;
+        return Boolean.parseBoolean( attrVal ) ;
+    }
+    
     public Object stringify( String indent ) {
         StringBuilder builder = new StringBuilder( indent + "Credential :\n" ) ;
         builder.append( indent + "\tindividualName = " + individualName + "\n" ) ;
