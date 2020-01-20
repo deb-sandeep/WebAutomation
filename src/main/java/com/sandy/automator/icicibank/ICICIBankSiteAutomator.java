@@ -35,7 +35,7 @@ public class ICICIBankSiteAutomator extends SiteAutomator {
     public void logoutUser( SiteCredential cred ) throws Exception {
         
         log.debug( "Logging out current user" ) ;
-        WebElement logOutBtn = browser.findElement( By.linkText( "Log Out" ) ) ;
+        WebElement logOutBtn = browser.findById( "HREF_Logout" ) ;
         logOutBtn.click() ;
     }
 }

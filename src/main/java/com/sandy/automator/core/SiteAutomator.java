@@ -19,12 +19,13 @@ public class SiteAutomator implements Configurable {
     public static final String DEFAULT_SERVER_ADDRESS = "localhost:8080" ;
 
     private Map<String, UseCaseAutomator> ucAutomatorMap = new HashMap<>() ;
+    private Map<String, SiteCredential> individualCredMap = new HashMap<>() ;
     
+    protected List<SiteCredential> credentials = new ArrayList<>() ;
     protected List<UseCaseAutomator> useCaseAutomators = new ArrayList<>() ;
     protected Automator parentAutomator = null ;
     protected String siteId = null ;
     protected PropertiesConfiguration config = null ;
-    protected List<SiteCredential> credentials = new ArrayList<>() ;
     protected Browser browser = null ;
     
     public void setParentAutomator( Automator automator ) {
@@ -52,19 +53,16 @@ public class SiteAutomator implements Configurable {
     
     public void setCredentials( List<SiteCredential> creds ) {
         if( creds != null && !creds.isEmpty() ) {
+            credentials.clear() ;
             credentials.addAll( creds ) ;
+            for( SiteCredential cred : creds ) {
+                individualCredMap.put( cred.getIndividualName(), cred ) ;
+            }
         }
     }
     
     public SiteCredential getCredential( String individualName ) {
-        SiteCredential retVal = null ;
-        for( SiteCredential cred : credentials ) {
-            if( cred.getIndividualName().equals( individualName ) ) {
-                retVal = cred ;
-                break ;
-            }
-        }
-        return retVal ;
+        return individualCredMap.get( individualName ) ;
     }
 
     @Override
@@ -105,26 +103,43 @@ public class SiteAutomator implements Configurable {
     
     private void doUserSpecificExecution() throws Exception {
         
+        Map<String, List<UseCaseAutomator>> userUCAutomatorMap = new HashMap<>() ;
+        
         for( SiteCredential cred : credentials ) {
             for( UseCaseAutomator ucAutomator : useCaseAutomators ) {
-                try {
-                    if( ucAutomator.canExecuteForCredential( cred ) ) {
-                        loginUser( cred ) ;
-                        log.debug( "Executing use case automator " + ucAutomator.getUcId() );
-                        ucAutomator.execute( cred, browser ) ;
-                        logoutUser( cred ) ;
+                if( ucAutomator.canExecuteForCredential( cred ) ) {
+                    List<UseCaseAutomator> automators = null ;
+                    automators = userUCAutomatorMap.get( cred.getIndividualName() ) ;
+                    if( automators == null ) {
+                        automators = new ArrayList<>() ;
+                        userUCAutomatorMap.put( cred.getIndividualName(), automators ) ;
                     }
-                    else {
-                        log.debug( "Use case automator - " + 
-                                   ucAutomator.getUcId() + 
-                                   " can't execute for user " + 
-                                   cred.getIndividualName() ) ;
-                    }
+                    automators.add( ucAutomator ) ;
                 }
-                catch( Exception e ) {
-                    log.error( "Exception in usecase automator " + 
-                               ucAutomator.getUcId(), e ) ;
+                else {
+                    log.debug( "Use case automator - " + ucAutomator.getUcId() + 
+                               " can't execute for " + cred.getIndividualName() ) ;
                 }
+            }
+        }
+        
+        List<UseCaseAutomator> automators = null ;
+        SiteCredential cred = null ;
+        
+        for( String individualName : userUCAutomatorMap.keySet() ) {
+            
+            cred = getCredential( individualName ) ;
+            automators = userUCAutomatorMap.get( individualName ) ;
+            
+            try {
+                loginUser( cred ) ;
+                for( UseCaseAutomator ucAutomator : automators ) {
+                    ucAutomator.execute( cred, browser ) ;
+                }
+                logoutUser( cred ) ;
+            }
+            catch( Exception e ) {
+                log.error( "Exception in usecase automator.", e ) ;
             }
         }
     }

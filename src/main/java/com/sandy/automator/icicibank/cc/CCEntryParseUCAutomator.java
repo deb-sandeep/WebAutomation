@@ -4,6 +4,8 @@ import static com.sandy.automator.core.SiteAutomator.CAPITALYST_SERVER_ADDRESS_K
 import static com.sandy.automator.core.SiteAutomator.DEFAULT_SERVER_ADDRESS ;
 
 import org.apache.log4j.Logger ;
+import org.openqa.selenium.By ;
+import org.openqa.selenium.WebElement ;
 
 import com.sandy.automator.core.Browser ;
 import com.sandy.automator.core.UseCaseAutomator ;
@@ -21,7 +23,7 @@ public class CCEntryParseUCAutomator extends UseCaseAutomator {
     
     @Override
     public boolean canExecuteForCredential( SiteCredential cred ) {
-        return true ; // cred.getBooleanAttribute( "hasCC" ) ;
+        return cred.getBooleanAttribute( "hasCC" ) ;
     }
     
     @Override
@@ -34,6 +36,20 @@ public class CCEntryParseUCAutomator extends UseCaseAutomator {
         this.serverAddress = config.getString( CAPITALYST_SERVER_ADDRESS_KEY, 
                                                DEFAULT_SERVER_ADDRESS ) ;
         
+        gotoLast30DaysCCTxnListPage() ;
         Thread.sleep( 5000 ) ;
+    }
+    
+    private void gotoLast30DaysCCTxnListPage() {
+        
+        WebElement myAccountsNavLink = browser.findByLinkText( "MY ACCOUNTS" ) ;
+        myAccountsNavLink.click() ;
+        
+        WebElement ccPageLink = browser.findById( "Credit-Cards" ) ;
+        ccPageLink.click() ;
+        
+        browser.waitForElement( By.linkText( "Last 30 Days Transactions" ) ) ;
+        WebElement last30dayTxnsLink = browser.findByLinkText( "Last 30 Days Transactions" ) ;
+        last30dayTxnsLink.click() ;
     }
 }

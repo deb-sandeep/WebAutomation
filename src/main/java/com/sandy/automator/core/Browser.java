@@ -151,6 +151,10 @@ public class Browser {
     public WebElement findById( String id ) {
         return findElement( By.id( id ) ) ;
     }
+    
+    public WebElement findByLinkText( String linkText ) {
+        return findElement( By.linkText( linkText ) ) ;
+    }
 
     // --------------- Private utility methods -------------------------------
     private File getDownloadsDir( Automator automator ) {
