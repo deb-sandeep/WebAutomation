@@ -96,7 +96,7 @@ public class CCEntryParseUCAutomator extends UseCaseAutomator {
             entry.setCreditCardNumber( creditCardNumber ) ;
             entry.setBalance( outstandingDues ) ;
             entry.setValueDate( CCTxnEntry.SDF.parse( getTxnAttr( rowXPath, 1 ) ) );
-            entry.setRemarks( getTxnAttr( rowXPath, 3 ) ) ;
+            entry.setRemarks( enrichRemark( getTxnAttr( rowXPath, 3 ) ) ) ;
             
             String amtStr = getTxnAttr( rowXPath, 4 ) ;
             boolean isDebit = amtStr.endsWith( "Dr." ) ;
@@ -115,10 +115,19 @@ public class CCEntryParseUCAutomator extends UseCaseAutomator {
         }
         return ccTxns ;
     }
+    
+    private String enrichRemark( String rawRemark ) {
+        if( rawRemark.endsWith( ", IN" ) ) {
+            int lastIndex = rawRemark.lastIndexOf( ',' ) ;
+            lastIndex = rawRemark.lastIndexOf( ',', lastIndex-1 ) ;
+            rawRemark = rawRemark.substring( 0, lastIndex ) ;
+        }
+        return rawRemark ;
+    }
 
     private String getTxnAttr( String rowXPath, int colNum ) {
         String cellXPath = rowXPath + "/td[" + colNum + "]" ;
         WebElement element = browser.findElement( By.xpath( cellXPath ) ) ;
-        return element.getText() ;
+        return element.getText().trim() ;
     }
 }
