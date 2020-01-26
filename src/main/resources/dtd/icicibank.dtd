@@ -1,9 +1,0 @@
-<!ELEMENT icicibank (creds)>
-
-<!ELEMENT creds (cred+)>
-<!ELEMENT cred (user-id, individual-name, password)>
-<!ATTLIST cred hasCreditCard (true|false) "false">
-
-<!ELEMENT user-id (#PCDATA)>
-<!ELEMENT individual-name (#PCDATA)>
-<!ELEMENT password (#PCDATA)>

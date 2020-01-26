@@ -15,7 +15,10 @@ public enum SiteSection {
         "Portfolio & Statements sub section of Trade & Invest section"),
     
     TI_PS_MF ( SelectorType.CSS, "label[title='Mutual Funds']",
-        "Mutual Funds portfolio & statements") ;
+        "Mutual Funds portfolio & statements"),
+    
+    TI_PS_EQ ( SelectorType.CSS, "label[title='Equity']",
+            "Equity portfolio & statements") ;
 
     enum SelectorType {
         CSS, ID, LINK_TEXT

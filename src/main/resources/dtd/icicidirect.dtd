@@ -1,9 +1,0 @@
-<!ELEMENT icicidirect (creds)>
-
-<!ELEMENT creds (cred+)>
-<!ELEMENT cred (user-id, individual-name, password, dob)>
-
-<!ELEMENT user-id (#PCDATA)>
-<!ELEMENT individual-name (#PCDATA)>
-<!ELEMENT password (#PCDATA)>
-<!ELEMENT dob (#PCDATA)>

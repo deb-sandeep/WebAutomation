@@ -19,6 +19,8 @@ public class ICICIBankSiteAutomator extends SiteAutomator {
         log.debug( "Logging in user - " + cred.getUserName() ) ;
         browser.get( SITE_LOGIN_URL ) ;
         
+        Thread.sleep( 4000 ) ;
+        
         WebElement loginByIDPwdBtn = browser.findElement( By.id( "user-id-goahead" ) ) ;
         loginByIDPwdBtn.click() ;
         

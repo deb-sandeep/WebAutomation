@@ -31,7 +31,7 @@ public class UseCaseAutomatorCfg extends BaseCfg {
         StringBuilder builder = new StringBuilder( indent + "Use Case Automator Config :\n" ) ;
         builder.append( indent + "\tucId = " + ucId + "\n" ) ; 
         builder.append( indent + "\tclassName = " + className + "\n" ) ; 
-        builder.append( indent + "\tcenabled = " + enabled + "\n" ) ; 
+        builder.append( indent + "\tenabled = " + enabled + "\n" ) ; 
         builder.append( indent + "\tconfigProperties : \n" ) ;
         for( String key : configProperties.keySet() ) {
             builder.append( indent + "\t\t" + key + " = " + configProperties.get( key ) + "\n" ) ;
