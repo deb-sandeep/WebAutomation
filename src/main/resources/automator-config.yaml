@@ -2,11 +2,11 @@ workspacePath : /home/sandeep/projects/workspace/web_automation
 enableHeadless : false
 enableServerCommunication : true
 configProperties :
-   capitalystServer : localhost:8080
+   capitalystServer : 192.168.0.116:8080
 
 siteAutomatorConfigs :
    - siteId : ICICIBank
-     enabled : false
+     enabled : true
      className : com.sandy.automator.icicibank.ICICIBankSiteAutomator
      useCaseAutomatorConfigs :
         - ucId : CCEntryParser
@@ -17,9 +17,10 @@ siteAutomatorConfigs :
      className : com.sandy.automator.icicidirect.ICICIDirectSiteAutomator
      useCaseAutomatorConfigs :
         - ucId : MFPortfolioAutomator
-          enabled : false
+          enabled : true
           className : com.sandy.automator.icicidirect.mf.MFPortfolioUseCaseAutomator
         - ucId : EquityPortfolioAutomator
+          enabled : true
           className : com.sandy.automator.icicidirect.equity.EquityPortfolioUseCaseAutomator
           
    - siteId : MorningStar
