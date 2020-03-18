@@ -6,6 +6,7 @@ import static com.sandy.automator.core.SiteAutomator.DEFAULT_SERVER_ADDRESS ;
 import java.io.File ;
 import java.text.SimpleDateFormat ;
 import java.util.ArrayList ;
+import java.util.Date ;
 import java.util.List ;
 
 import org.apache.log4j.Logger ;
@@ -156,6 +157,7 @@ public class EquityPortfolioUseCaseAutomator extends UseCaseAutomator {
         holding.setAvgCostPrice( parseFloatAmt( tupule[4].trim() ) ) ;
         holding.setCurrentMktPrice( parseFloatAmt( tupule[5].trim() ) ) ;
         holding.setRealizedProfitLoss( parseFloatAmt( tupule[6].trim() ) ) ;
+        holding.setLastUpdate( new Date() ) ;
 
         return holding ;
     }

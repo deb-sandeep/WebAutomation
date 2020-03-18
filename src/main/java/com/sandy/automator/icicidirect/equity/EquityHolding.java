@@ -1,5 +1,7 @@
 package com.sandy.automator.icicidirect.equity;
 
+import java.util.Date ;
+
 public class EquityHolding {
 
     private String ownerName = null ;
@@ -11,6 +13,7 @@ public class EquityHolding {
     private float currentMktPrice = 0.0f ;
     private float valueAtCost = 0.0f ;
     private float realizedProfitLoss = 0.0f ;
+    private Date lastUpdate = null ;
     
     public EquityHolding() {}
     
@@ -86,6 +89,14 @@ public class EquityHolding {
         return this.realizedProfitLoss ;
     }
 
+    public Date getLastUpdate() {
+        return lastUpdate ;
+    }
+
+    public void setLastUpdate( Date lastUpdate ) {
+        this.lastUpdate = lastUpdate ;
+    }
+
     public String toString() {
         StringBuilder builder = new StringBuilder( "EquityHolding [\n" ) ; 
         
@@ -98,6 +109,7 @@ public class EquityHolding {
         builder.append( "   currentMktPrice = " + this.currentMktPrice + "\n" ) ;
         builder.append( "   valueAtCost = " + this.valueAtCost + "\n" ) ;
         builder.append( "   realizedProfitLoss = " + this.realizedProfitLoss + "\n" ) ;
+        builder.append( "   lastUpdate = " + this.lastUpdate + "\n" ) ;
         builder.append( "]" ) ;
         
         return builder.toString() ;
