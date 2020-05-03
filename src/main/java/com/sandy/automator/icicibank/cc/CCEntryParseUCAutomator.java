@@ -57,7 +57,7 @@ public class CCEntryParseUCAutomator extends UseCaseAutomator {
     
     private void gotoCreditCardsLandingPage() {
         
-        WebElement myAccountsNavLink = browser.findByLinkText( "MY ACCOUNTS" ) ;
+        WebElement myAccountsNavLink = browser.findByLinkText( "CARDS & LOANS" ) ;
         myAccountsNavLink.click() ;
         
         WebElement ccPageLink = browser.findById( "Credit-Cards" ) ;
@@ -69,6 +69,7 @@ public class CCEntryParseUCAutomator extends UseCaseAutomator {
         String amtSpanXPath = "//*[@id=\"credit-1\"]/div[1]/div[3]/div[2]/p/span" ;
         WebElement amtSpan = browser.findElement( By.xpath( amtSpanXPath ) ) ;
         String amtStr = amtSpan.getText().substring( 2 ) ;
+        amtStr = amtStr.substring( 0, amtStr.length()-3 ).trim() ;
         return -1*Float.parseFloat( amtStr ) ;
     }
     
