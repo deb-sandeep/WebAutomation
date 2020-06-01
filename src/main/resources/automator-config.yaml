@@ -10,7 +10,7 @@ siteAutomatorConfigs :
      className : com.sandy.automator.icicibank.ICICIBankSiteAutomator
      useCaseAutomatorConfigs :
         - ucId : CCEntryParser
-          className : com.sandy.automator.icicibank.cc.CCEntryParseUCAutomator
+          className : com.sandy.automator.icicibank.cc.CCTxnScrapeAutomator
           
    - siteId : ICICIDirect
      enabled : false
