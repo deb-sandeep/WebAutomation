@@ -28,4 +28,6 @@ siteAutomatorConfigs :
      useCaseAutomatorConfigs :
         - ucId : MFEnrich
           className : com.sandy.automator.morningstar.MFMasterDataImportUCAutomator
+
+   
              
