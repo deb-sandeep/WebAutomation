@@ -21,23 +21,37 @@ public class ETradeSiteAutomator extends SiteAutomator {
         
         Thread.sleep( 4000 ) ;
         
-        WebElement loginByIDPwdBtn = browser.findElement( By.id( "user-id-goahead" ) ) ;
-        loginByIDPwdBtn.click() ;
+        WebElement userNameTF = browser.findElement( By.name( "USER" ) ) ;
+        WebElement passwordTF = browser.findElement( By.name( "PASSWORD" ) ) ;
         
-        browser.waitForElement( By.id( "AuthenticationFG.USER_PRINCIPAL" ) ) ;
-        WebElement uidTF = browser.findById( "AuthenticationFG.USER_PRINCIPAL" ) ;
-        WebElement pwdTF = browser.findById( "AuthenticationFG.ACCESS_CODE" ) ;
-        WebElement goBtn = browser.findById( "VALIDATE_CREDENTIALS1" ) ;
-        
-        uidTF.sendKeys( cred.getUserName() ) ;
-        pwdTF.sendKeys( cred.getPassword() ) ;
-        goBtn.click() ;
+        log.debug( "Sending user name = " + cred.getUserName() ) ;
+        typeKeys( userNameTF, cred.getUserName() ) ; 
+        Thread.sleep( 4000 ) ;
+
+        log.debug( "Sending password = " + cred.getPassword() ) ;
+        typeKeys( passwordTF, cred.getPassword() ) ;
+        Thread.sleep( 4000 ) ;
+
+        WebElement logonBtn = browser.findById( "logon_button" ) ;
+        logonBtn.click() ;
+
+        Thread.sleep( 40000 ) ;
+    }
+    
+    private void typeKeys( WebElement webElement, String text ) 
+    	throws Exception {
+    	
+    	for( int i=0; i<text.length(); i++ ) {
+    		char c = text.charAt( i ) ;
+    		webElement.sendKeys( "" + c ) ;
+    		Thread.sleep( 200 ) ;
+    	}
     }
     
     public void logoutUser( SiteCredential cred ) throws Exception {
         
         log.debug( "Logging out current user" ) ;
-        WebElement logOutBtn = browser.findById( "HREF_Logout" ) ;
+        WebElement logOutBtn = browser.findByLinkText( "Log Off" ) ;
         logOutBtn.click() ;
     }
 }
