@@ -2,7 +2,7 @@ workspacePath : /home/sandeep/projects/workspace/web_automation
 enableHeadless : false
 enableServerCommunication : true
 configProperties :
-   capitalystServer : 127.0.0.1:8080
+   capitalystServer : 192.168.0.116:8080
 
 siteAutomatorConfigs :
    - siteId : ETrade
@@ -13,7 +13,7 @@ siteAutomatorConfigs :
           className : com.sandy.automator.etrade.holding.HoldingsParseAndUploadUCAutomator
           
    - siteId : ICICIBank
-     enabled : false
+     enabled : true
      className : com.sandy.automator.icicibank.ICICIBankSiteAutomator
      useCaseAutomatorConfigs :
         - ucId : CCEntryParser

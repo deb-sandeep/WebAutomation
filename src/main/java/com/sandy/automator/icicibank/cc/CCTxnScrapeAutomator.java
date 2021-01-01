@@ -76,9 +76,13 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
         String amtSpanXPath = "//*[@id=\"credit-1\"]/div[1]/div[2]/div[2]/p/span" ;
         WebElement amtSpan = browser.findElement( By.xpath( amtSpanXPath ) ) ;
         
+        int creditDebitMultiplier = -1 ;
         String amtStr = amtSpan.getText().substring( 2 ) ;
+        if( amtStr.contains( "Cr" ) ) {
+            creditDebitMultiplier = 1 ;
+        }
         amtStr = amtStr.substring( 0, amtStr.length()-3 ).trim() ;
-        return -1*Float.parseFloat( amtStr ) ;
+        return creditDebitMultiplier*Float.parseFloat( amtStr ) ;
     }
     
     private void  parseTransactionsFromStatement( 
