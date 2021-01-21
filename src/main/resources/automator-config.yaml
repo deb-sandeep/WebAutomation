@@ -13,21 +13,21 @@ siteAutomatorConfigs :
           className : com.sandy.automator.etrade.holding.HoldingsParseAndUploadUCAutomator
           
    - siteId : ICICIBank
-     enabled : true
+     enabled : false
      className : com.sandy.automator.icicibank.ICICIBankSiteAutomator
      useCaseAutomatorConfigs :
         - ucId : CCEntryParser
           className : com.sandy.automator.icicibank.cc.CCTxnScrapeAutomator
           
    - siteId : ICICIDirect
-     enabled : false
+     enabled : true
      className : com.sandy.automator.icicidirect.ICICIDirectSiteAutomator
      useCaseAutomatorConfigs :
         - ucId : MFPortfolioAutomator
           enabled : true
           className : com.sandy.automator.icicidirect.mf.MFPortfolioUseCaseAutomator
         - ucId : EquityPortfolioAutomator
-          enabled : true
+          enabled : false
           className : com.sandy.automator.icicidirect.equity.EquityPortfolioUseCaseAutomator
           
    - siteId : MorningStar
