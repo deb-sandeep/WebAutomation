@@ -24,6 +24,8 @@ public class ICICIDirectSiteAutomator extends SiteAutomator {
         log.debug( "Logging in user - " + cred.getUserName() ) ;
         browser.get( SITE_LOGIN_URL ) ;
         
+        Thread.sleep( 5000 ) ;
+        
         WebElement userIdTF = browser.findElement( By.id( "txtUserId" ) ) ;
         WebElement passwordTF = browser.findElement( By.id( "txtPass" ) ) ;
         WebElement dobTF = browser.findElement( By.id( "txtDOB" ) ) ;

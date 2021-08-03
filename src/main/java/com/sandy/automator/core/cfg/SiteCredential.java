@@ -8,6 +8,8 @@ public class SiteCredential {
     private String individualName = null ;
     private String userName = null ;
     private String password = null ;
+    private boolean enabled = true ;
+    
     private Map<String, String> extraAttributes = new HashMap<>() ;
     
     public String getIndividualName() {
@@ -29,6 +31,13 @@ public class SiteCredential {
     }
     public void setPassword( String password ) {
         this.password = password ;
+    }
+    
+    public boolean isEnabled() {
+        return this.enabled ;
+    }
+    public void setEnabled( boolean enabled ) {
+        this.enabled = enabled ;
     }
     
     public Map<String, String> getExtraAttributes() {

@@ -129,17 +129,23 @@ public class SiteAutomator implements Configurable {
         for( String individualName : userUCAutomatorMap.keySet() ) {
             
             cred = getCredential( individualName ) ;
-            automators = userUCAutomatorMap.get( individualName ) ;
             
-            try {
-                loginUser( cred ) ;
-                for( UseCaseAutomator ucAutomator : automators ) {
-                    ucAutomator.execute( cred, browser ) ;
+            if( cred.isEnabled() ) {
+                
+                try {
+                    automators = userUCAutomatorMap.get( individualName ) ;
+                    loginUser( cred ) ;
+                    for( UseCaseAutomator ucAutomator : automators ) {
+                        ucAutomator.execute( cred, browser ) ;
+                    }
+                    logoutUser( cred ) ;
                 }
-                logoutUser( cred ) ;
+                catch( Exception e ) {
+                    log.error( "Exception in usecase automator.", e ) ;
+                }
             }
-            catch( Exception e ) {
-                log.error( "Exception in usecase automator.", e ) ;
+            else {
+                log.info( "User " + cred.getUserName() + " is not enabled." );
             }
         }
     }
