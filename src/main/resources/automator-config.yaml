@@ -5,13 +5,6 @@ configProperties :
    capitalystServer : 192.168.0.116:8080
 
 siteAutomatorConfigs :
-   - siteId : ETrade
-     enabled : false
-     className : com.sandy.automator.etrade.ETradeSiteAutomator
-     useCaseAutomatorConfigs :
-        - ucId : HoldingsProcessor
-          className : com.sandy.automator.etrade.holding.HoldingsParseAndUploadUCAutomator
-          
    - siteId : ICICIBank
      enabled : false
      className : com.sandy.automator.icicibank.ICICIBankSiteAutomator
@@ -24,7 +17,7 @@ siteAutomatorConfigs :
      className : com.sandy.automator.icicidirect.ICICIDirectSiteAutomator
      useCaseAutomatorConfigs :
         - ucId : MFPortfolioAutomator
-          enabled : true
+          enabled : false
           className : com.sandy.automator.icicidirect.mf.MFPortfolioUseCaseAutomator
         - ucId : EquityPortfolioAutomator
           enabled : true
