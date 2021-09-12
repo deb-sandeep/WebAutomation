@@ -1,4 +1,4 @@
-package com.sandy.automator.icicidirect.newsite;
+package com.sandy.automator.icicidirect.newsite.equity;
 
 import static com.sandy.automator.core.Util.parseFloatAmt ;
 

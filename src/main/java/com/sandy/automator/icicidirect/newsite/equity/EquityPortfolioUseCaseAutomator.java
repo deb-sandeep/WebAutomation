@@ -1,4 +1,4 @@
-package com.sandy.automator.icicidirect.newsite;
+package com.sandy.automator.icicidirect.newsite.equity;
 
 import static com.sandy.automator.core.SiteAutomator.CAPITALYST_SERVER_ADDRESS_KEY ;
 import static com.sandy.automator.core.SiteAutomator.DEFAULT_SERVER_ADDRESS ;
@@ -13,6 +13,8 @@ import org.openqa.selenium.WebElement ;
 import com.sandy.automator.core.Browser ;
 import com.sandy.automator.core.UseCaseAutomator ;
 import com.sandy.automator.core.cfg.SiteCredential ;
+import com.sandy.automator.icicidirect.newsite.ICICIDirectNewSiteAutomator ;
+import com.sandy.automator.icicidirect.newsite.NewSiteSection ;
 import com.sandy.automator.icicidirect.vo.equity.EquityHolding ;
 import com.sandy.automator.icicidirect.vo.equity.EquityTxnPosting ;
 

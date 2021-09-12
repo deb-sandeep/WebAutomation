@@ -1,4 +1,4 @@
-package com.sandy.automator.icicidirect.newsite;
+package com.sandy.automator.icicidirect.newsite.equity;
 
 import java.io.File ;
 import java.util.ArrayList ;
