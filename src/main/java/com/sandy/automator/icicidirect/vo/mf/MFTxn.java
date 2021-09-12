@@ -1,4 +1,4 @@
-package com.sandy.automator.icicidirect.mf ;
+package com.sandy.automator.icicidirect.vo.mf ;
 
 import java.text.DecimalFormat ;
 import java.text.SimpleDateFormat ;

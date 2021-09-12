@@ -1,4 +1,4 @@
-package com.sandy.automator.icicidirect.equity;
+package com.sandy.automator.icicidirect.vo.equity;
 
 import java.util.Date ;
 

@@ -130,14 +130,20 @@ public class SiteAutomator implements Configurable {
             
             cred = getCredential( individualName ) ;
             
+            log.info( "Executing for user " + cred.getUserName() ) ;
+            log.info( "---------------------------------------" ) ;
             if( cred.isEnabled() ) {
-                
                 try {
                     automators = userUCAutomatorMap.get( individualName ) ;
+                    
+                    log.info( "\n>> Logging in user " + cred.getUserName() ) ;
                     loginUser( cred ) ;
+                    
                     for( UseCaseAutomator ucAutomator : automators ) {
                         ucAutomator.execute( cred, browser ) ;
                     }
+                    
+                    log.info( "\n>> Logging out user " + cred.getUserName() + "\n" ) ;
                     logoutUser( cred ) ;
                 }
                 catch( Exception e ) {
@@ -145,7 +151,7 @@ public class SiteAutomator implements Configurable {
                 }
             }
             else {
-                log.info( "User " + cred.getUserName() + " is not enabled." );
+                log.info( "  User " + cred.getUserName() + " is not enabled.\n" ) ;
             }
         }
     }

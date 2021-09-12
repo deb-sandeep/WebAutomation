@@ -1,4 +1,4 @@
-package com.sandy.automator.icicidirect.mf;
+package com.sandy.automator.icicidirect.oldsite;
 
 import static com.sandy.automator.core.SiteAutomator.CAPITALYST_SERVER_ADDRESS_KEY ;
 import static com.sandy.automator.core.SiteAutomator.DEFAULT_SERVER_ADDRESS ;
@@ -15,8 +15,8 @@ import org.openqa.selenium.support.ui.Select ;
 import com.sandy.automator.core.Browser ;
 import com.sandy.automator.core.UseCaseAutomator ;
 import com.sandy.automator.core.cfg.SiteCredential ;
-import com.sandy.automator.icicidirect.ICICIDirectSiteAutomator ;
-import com.sandy.automator.icicidirect.SiteSection ;
+import com.sandy.automator.icicidirect.vo.mf.MFTxn ;
+import com.sandy.automator.icicidirect.vo.mf.MutualFundAsset ;
 import com.univocity.parsers.csv.CsvParser ;
 import com.univocity.parsers.csv.CsvParserSettings ;
 
@@ -32,7 +32,7 @@ public class MFPortfolioUseCaseAutomator extends UseCaseAutomator {
     private static final String XPATH_TXN_DETAIL_TBODY = "//*[@id=\"divPortfolioDetailsData\"]/table/tbody" ;
     
     private Browser browser = null ;
-    private ICICIDirectSiteAutomator siteAutomator = null ;
+    private ICICIDirectOldSiteAutomator siteAutomator = null ;
     private SiteCredential cred = null ;
     private CsvParser csvParser = null ;
     private String serverAddress = null ;
@@ -44,7 +44,7 @@ public class MFPortfolioUseCaseAutomator extends UseCaseAutomator {
         this.browser = browser ;
         this.cred = cred ;
         this.csvParser = getCsvParser() ;
-        this.siteAutomator = ( ICICIDirectSiteAutomator )getSiteAutomator() ;
+        this.siteAutomator = ( ICICIDirectOldSiteAutomator )getSiteAutomator() ;
         this.serverAddress = config.getString( CAPITALYST_SERVER_ADDRESS_KEY, 
                                                DEFAULT_SERVER_ADDRESS ) ;
         processPortfolio() ;
@@ -55,9 +55,9 @@ public class MFPortfolioUseCaseAutomator extends UseCaseAutomator {
         List<MutualFundAsset> mfAssets = null ;
         File csvFile = null ;
         
-        siteAutomator.gotoSection( SiteSection.TI ) ;
-        siteAutomator.gotoSection( SiteSection.TI_PS ) ;
-        siteAutomator.gotoSection( SiteSection.TI_PS_MF ) ;
+        siteAutomator.gotoSection( OldSiteSection.TI ) ;
+        siteAutomator.gotoSection( OldSiteSection.TI_PS ) ;
+        siteAutomator.gotoSection( OldSiteSection.TI_PS_MF ) ;
         
         showAllHoldings() ;
         

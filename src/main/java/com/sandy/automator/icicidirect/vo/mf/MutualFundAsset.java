@@ -1,4 +1,4 @@
-package com.sandy.automator.icicidirect.mf;
+package com.sandy.automator.icicidirect.vo.mf;
 
 public class MutualFundAsset {
 

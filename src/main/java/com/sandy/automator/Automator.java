@@ -62,8 +62,9 @@ public class Automator {
             Browser browser = new Browser( this ) ;
             for( SiteAutomator siteAutomator : siteAutomators ) {
                 try {
-                    log.info( "Executing site automator - " + 
-                              siteAutomator.getSiteId() ) ;
+                    log.info( "\n=======================================" ) ;
+                    log.info( "Executing automator - " + siteAutomator.getSiteId() ) ;
+                    log.info( "========================================\n" ) ;
                     
                     siteAutomator.execute( browser ) ;
                 }

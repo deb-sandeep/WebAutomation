@@ -1,4 +1,4 @@
-package com.sandy.automator.icicidirect;
+package com.sandy.automator.icicidirect.oldsite;
 
 import org.apache.log4j.Logger ;
 import org.openqa.selenium.By ;
@@ -7,14 +7,14 @@ import org.openqa.selenium.WebElement ;
 import com.sandy.automator.core.SiteAutomator ;
 import com.sandy.automator.core.cfg.SiteCredential ;
 
-public class ICICIDirectSiteAutomator extends SiteAutomator {
+public class ICICIDirectOldSiteAutomator extends SiteAutomator {
 
-    private static final Logger log = Logger.getLogger( ICICIDirectSiteAutomator.class ) ;
+    private static final Logger log = Logger.getLogger( ICICIDirectOldSiteAutomator.class ) ;
     
     private static final String SITE_LOGIN_URL = 
             "https://secure.icicidirect.com/IDirectTrading/Customer/login.aspx" ;
     
-    public void gotoSection( SiteSection section ) {
+    public void gotoSection( OldSiteSection section ) {
         log.debug( "Going to section - " + section.getSelector() ) ;
         browser.clickLink( section.getSelector() ) ;
     }

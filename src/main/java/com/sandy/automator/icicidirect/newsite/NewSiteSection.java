@@ -1,12 +1,18 @@
-package com.sandy.automator.icicidirect;
+package com.sandy.automator.icicidirect.newsite;
 
 import org.openqa.selenium.By ;
 
-public enum SiteSection {
+public enum NewSiteSection {
     
     // TI - Trade & Invest section
     // TI_PS - Portfolio & Statements sub-section of TI section
     // TI_PS_MF - Mutual Fund portfolio & statements
+    
+    SECTION_PORTFOLIO( SelectorType.LINK_TEXT, "Portfolio",
+                       "Portfolio main section" ),
+    
+    SUBSECTION_EQUITY( SelectorType.XPATH, "//*[@id=\"pnlmnudsp\"]/div[1]/div/ul/li[1]/a",
+                       "Equity subsection within portfolio section" ),
     
     TI( SelectorType.LINK_TEXT, "Trade & Invest",
         "Trade & Invest main section" ),
@@ -21,14 +27,14 @@ public enum SiteSection {
             "Equity portfolio & statements") ;
 
     enum SelectorType {
-        CSS, ID, LINK_TEXT
+        CSS, ID, LINK_TEXT, XPATH
     } ;
     
     private SelectorType selType = null ;
     private String value = null ;
     private String description = null ;
     
-    private SiteSection( SelectorType selType, String value, String description ) {
+    private NewSiteSection( SelectorType selType, String value, String description ) {
         this.selType = selType ;
         this.value = value ;
         this.description = description ;
@@ -42,6 +48,8 @@ public enum SiteSection {
                 return By.id( value ) ;
             case CSS:
                 return By.cssSelector( value ) ;
+            case XPATH:
+                return By.xpath( value ) ;
         }
         return null ;
     }

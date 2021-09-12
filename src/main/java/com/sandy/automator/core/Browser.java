@@ -75,7 +75,6 @@ public class Browser {
     
     public File downloadFile( By selector ) throws Exception {
         
-        log.debug( "Downloading file." ) ;
         WebElement downloadElement = null ;
         
         cleanDownloadsFolder() ;
@@ -93,7 +92,7 @@ public class Browser {
         File downloadedFile = downloadedFiles[0] ;
         long startLen = downloadedFile.length() ;
         long endLen = startLen ;
-        log.debug( "\t\tDownloading file " + downloadedFile.getName() ) ;
+        log.debug( "\tDownloading file " + downloadedFile.getName() ) ;
         do {
             Thread.sleep( 500 ) ;
             endLen = downloadedFile.length() ;
@@ -113,8 +112,6 @@ public class Browser {
             log.info( "Server communication is disabled." ) ;
             return "Server communication is disabled by configuration" ;
         }
-        
-        log.debug( "Posting data to server." ) ;
         
         ObjectMapper objMapper = new ObjectMapper() ;
         String json = objMapper.writeValueAsString( postData ) ;

@@ -3,6 +3,7 @@ enableHeadless : false
 enableServerCommunication : true
 configProperties :
    capitalystServer : 192.168.0.116:8080
+   #capitalystServer : 127.0.0.1:8080
 
 siteAutomatorConfigs :
    - siteId : ICICIBank
@@ -14,14 +15,14 @@ siteAutomatorConfigs :
           
    - siteId : ICICIDirect
      enabled : true
-     className : com.sandy.automator.icicidirect.ICICIDirectSiteAutomator
+     className : com.sandy.automator.icicidirect.newsite.ICICIDirectNewSiteAutomator
      useCaseAutomatorConfigs :
-        - ucId : MFPortfolioAutomator
-          enabled : false
-          className : com.sandy.automator.icicidirect.mf.MFPortfolioUseCaseAutomator
         - ucId : EquityPortfolioAutomator
           enabled : true
-          className : com.sandy.automator.icicidirect.equity.EquityPortfolioUseCaseAutomator
+          className : com.sandy.automator.icicidirect.newsite.EquityPortfolioUseCaseAutomator
+        #- ucId : MFPortfolioAutomator
+        #  enabled : false
+        #  className : com.sandy.automator.icicidirect.mf.MFPortfolioUseCaseAutomator
           
    - siteId : MorningStar
      enabled : false

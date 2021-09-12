@@ -1,4 +1,4 @@
-package com.sandy.automator.icicidirect.equity;
+package com.sandy.automator.icicidirect.oldsite;
 
 import static com.sandy.automator.core.SiteAutomator.CAPITALYST_SERVER_ADDRESS_KEY ;
 import static com.sandy.automator.core.SiteAutomator.DEFAULT_SERVER_ADDRESS ;
@@ -17,8 +17,8 @@ import org.openqa.selenium.support.ui.Select ;
 import com.sandy.automator.core.Browser ;
 import com.sandy.automator.core.UseCaseAutomator ;
 import com.sandy.automator.core.cfg.SiteCredential ;
-import com.sandy.automator.icicidirect.ICICIDirectSiteAutomator ;
-import com.sandy.automator.icicidirect.SiteSection ;
+import com.sandy.automator.icicidirect.vo.equity.EquityHolding ;
+import com.sandy.automator.icicidirect.vo.equity.EquityTxnPosting ;
 import com.univocity.parsers.csv.CsvParser ;
 import com.univocity.parsers.csv.CsvParserSettings ;
 
@@ -37,7 +37,7 @@ public class EquityPortfolioUseCaseAutomator extends UseCaseAutomator {
     private Browser browser = null ;
     private SiteCredential cred = null ;
     private CsvParser csvParser = null ;
-    private ICICIDirectSiteAutomator siteAutomator = null ;
+    private ICICIDirectOldSiteAutomator siteAutomator = null ;
     private String serverAddress = null ;
     
     @Override
@@ -46,7 +46,7 @@ public class EquityPortfolioUseCaseAutomator extends UseCaseAutomator {
         
         this.browser = browser ;
         this.cred = cred ;
-        this.siteAutomator = ( ICICIDirectSiteAutomator )getSiteAutomator() ;
+        this.siteAutomator = ( ICICIDirectOldSiteAutomator )getSiteAutomator() ;
         this.serverAddress = config.getString( CAPITALYST_SERVER_ADDRESS_KEY, 
                                                DEFAULT_SERVER_ADDRESS ) ;
         processPortfolio() ;
@@ -56,9 +56,9 @@ public class EquityPortfolioUseCaseAutomator extends UseCaseAutomator {
         
         log.debug( "Navigating to equity portfolio & statements section" ) ;
         
-        siteAutomator.gotoSection( SiteSection.TI ) ;
-        siteAutomator.gotoSection( SiteSection.TI_PS ) ;
-        siteAutomator.gotoSection( SiteSection.TI_PS_EQ ) ;
+        siteAutomator.gotoSection( OldSiteSection.TI ) ;
+        siteAutomator.gotoSection( OldSiteSection.TI_PS ) ;
+        siteAutomator.gotoSection( OldSiteSection.TI_PS_EQ ) ;
         
         showAllHoldings() ;
         processHoldingSummary() ;
