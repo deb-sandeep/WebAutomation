@@ -41,9 +41,13 @@ public class EquityPortfolioUseCaseAutomator extends UseCaseAutomator {
     
     private void processPortfolio() throws Exception {
         
-        log.debug( "\n>> Navigating to equity portfolio section" ) ;
-        
+        log.debug( "\n>> Navigating to portfolio section" ) ;
         siteAutomator.gotoSection( NewSiteSection.SECTION_PORTFOLIO ) ;
+
+        log.debug( "  # Sleeping for 2 seconds to clear any dialogs" ) ;
+        Thread.sleep( 2000 ) ;
+        
+        log.debug( "\n>> Navigating to equity portfolio section" ) ;
         siteAutomator.gotoSection( NewSiteSection.SUBSECTION_EQUITY ) ;
         
         log.debug( "  # Sleeping for 5 seconds to clear any dialogs" ) ;

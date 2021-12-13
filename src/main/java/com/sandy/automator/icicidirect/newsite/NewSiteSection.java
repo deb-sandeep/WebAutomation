@@ -11,10 +11,12 @@ public enum NewSiteSection {
     SECTION_PORTFOLIO( SelectorType.LINK_TEXT, "Portfolio",
                        "Portfolio main section" ),
     
-    SUBSECTION_EQUITY( SelectorType.XPATH, "//*[@id=\"pnlmnudsp\"]/div[1]/div/ul/li[1]/a",
+    SUBSECTION_EQUITY( SelectorType.XPATH, 
+                       "//*[@id=\"pnlmnudsp\"]/div[1]/div/ul/li[2]/a",
                        "Equity subsection within portfolio section" ),
     
-    SUBSECTION_MF( SelectorType.XPATH, "//*[@id=\"pnlmnudsp\"]/div[1]/div/ul/li[2]/a",
+    SUBSECTION_MF( SelectorType.XPATH, 
+                   "//*[@id=\"pnlmnudsp\"]/div[1]/div/ul/li[3]/a",
                    "MF subsection within portfolio section" ),
 
     TI( SelectorType.LINK_TEXT, "Trade & Invest",

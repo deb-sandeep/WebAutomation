@@ -14,7 +14,7 @@ siteAutomatorConfigs :
           className : com.sandy.automator.icicibank.cc.CCTxnScrapeAutomator
           
    - siteId : ICICIDirect
-     enabled : false
+     enabled : true
      className : com.sandy.automator.icicidirect.newsite.ICICIDirectNewSiteAutomator
      useCaseAutomatorConfigs :
         - ucId : EquityPortfolioAutomator

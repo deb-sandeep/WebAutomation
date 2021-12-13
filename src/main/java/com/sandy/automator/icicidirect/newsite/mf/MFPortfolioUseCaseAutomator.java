@@ -25,7 +25,8 @@ public class MFPortfolioUseCaseAutomator extends UseCaseAutomator {
     private static final Logger log = Logger.getLogger( MFPortfolioUseCaseAutomator.class ) ;
     
     private static final String XPATH_TXN_DETAIL_TBODY = 
-    "//*[@id=\"pnlPfView\" and @ea_visible=\"true\"]/div/div/div[2]/div/div/table/tbody" ;
+    //"//*[@id=\"pnlPfView\" and @ea_visible=\"true\"]/div/div/div[2]/div/div/table/tbody" ;
+    "(//*/div[@id=\"pnlPfView\"])[last()]/div/div/div[2]/div/div/table/tbody" ;
     
     private Browser browser = null ;
     private ICICIDirectNewSiteAutomator siteAutomator = null ;
@@ -136,12 +137,13 @@ public class MFPortfolioUseCaseAutomator extends UseCaseAutomator {
 
             processMFTransactionHistory( mfAsset, txnList ) ;
 
-            log.debug( "  # Posting txn list to server." ) ;
             log.debug( "    Num transactions - " + txnList.size() ) ;
-            
-            browser.postDataToServer( this.serverAddress, 
-                                      "/MutualFund/TxnList", 
-                                      txnList ) ;
+            if( !txnList.isEmpty() ) {
+                log.debug( "  # Posting txn list to server." ) ;
+                browser.postDataToServer( this.serverAddress, 
+                                          "/MutualFund/TxnList", 
+                                          txnList ) ;
+            }
         }
     }
     
