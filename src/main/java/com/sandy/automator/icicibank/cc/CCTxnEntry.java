@@ -59,11 +59,9 @@ public class CCTxnEntry {
     
     public String toString() {
         StringBuilder builder = new StringBuilder() ;
-        builder.append( StringUtils.rightPad( creditCardNumber, 20 ) ) ;
         builder.append( StringUtils.rightPad( SDF.format( valueDate ), 12 ) ) ;
-        builder.append( StringUtils.rightPad( remarks, 45 ) ) ;
+        builder.append( StringUtils.rightPad( remarks, 55 ) ) ;
         builder.append( StringUtils.leftPad( DF.format( amount ), 15 ) ) ;
-        builder.append( StringUtils.leftPad( DF.format( balance ), 15 ) ) ;
         return builder.toString() ;
     }
 }

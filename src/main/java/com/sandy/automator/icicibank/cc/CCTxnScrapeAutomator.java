@@ -20,7 +20,8 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
     
     private Browser browser = null ;
     private String serverAddress = null ;
-    private float outstandingDues = 0 ;
+    
+    private float totalOutstandingDues = 0 ;
     private String creditCardNumber = null ;
     
     @Override
@@ -40,21 +41,29 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
         Thread.sleep( 5000 ) ;
         
         gotoCreditCardsLandingPage() ;
-        outstandingDues = extractCurrentDuesOnCard() ;
+        
+        // At this point, we are at the credit card landing page which has
+        // two tabs. One for the primary card which is selected by default and
+        // the other one is for the Sapphiro card. We need to extact details
+        // of both cards one after another.
         
         List<CCTxnEntry> txnEntries = new ArrayList<>() ;
         
-        parseTransactionsFromStatement( "Last Statement", txnEntries ) ;
+        log.debug( "\nProcessing Rubyx credit card\n" ) ;
+        processCreditCard( 1, txnEntries ) ;
         
-        browser.clickElement( By.name( "Action.BACK" ) ) ;
+        log.debug( "\nProcessing Sapphiro credit card\n" ) ;
+        processCreditCard( 2, txnEntries ) ;
         
-        parseTransactionsFromStatement( "Current Statement", txnEntries ) ;
-        
-        log.debug( "All CC transactions " );
+        log.debug( "\nExtraction complete" );
         for( CCTxnEntry entry : txnEntries ) {
-            log.debug( "\t" + entry ) ;
+            entry.setBalance( totalOutstandingDues ) ;
         }
         
+        log.debug( "" ) ;
+        log.debug( "Total outstanding dues  = " + totalOutstandingDues ) ;
+        log.debug( "Number of entries       = " + txnEntries.size() ) ;
+
         browser.postDataToServer( this.serverAddress, 
                                   "/Ledger/CCTxnEntries", 
                                   txnEntries ) ;
@@ -62,34 +71,100 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
         Thread.sleep( 5000 ) ;
     }
     
-    private void gotoCreditCardsLandingPage() {
+    private void gotoCreditCardsLandingPage() 
+        throws Exception{
         
-        WebElement myAccountsNavLink = browser.findByLinkText( "CARDS & LOANS" ) ;
-        myAccountsNavLink.click() ;
+        String cssSel1 = ".d-flex:nth-child(4) > .f-11" ;
+        WebElement ccDropdown = browser.findElement( By.cssSelector( cssSel1 ) ) ;
+        ccDropdown.click() ;
         
-        WebElement ccPageLink = browser.findById( "Credit-Cards" ) ;
-        ccPageLink.click() ;
+        String cssSel2 = ".d-flex:nth-child(4) .mr-15:nth-child(1) > .d-flex:nth-child(2) > .font-12" ;
+        WebElement ccLandingLink = browser.findElement( By.cssSelector( cssSel2 ) ) ;
+        ccLandingLink.click() ;
+        
+        Thread.sleep( 2000 ) ;
     }
     
-    private float extractCurrentDuesOnCard() {
+    private void processCreditCard( int tabNumber, List<CCTxnEntry> txnEntries ) 
+        throws Exception {
+        
+        // Structure of CC page
+        //  - Each CC tab has an ID of "credit-tab-" + tabNumber
+        //  - On clicking each tab, a div by the id "pb" + (tabNumber -1) 
+        //    gets activated, which contains further details of the card dues
+        //
+        // Example - first tab has id "credit-tab-1" and the div id is "pb0"
+        String tabId = "credit-tab-" + tabNumber ;
+        String divId = "pb" + (tabNumber -1 ) ;
+        
+        WebElement tabLink = browser.findById( tabId ) ;
+        tabLink.click() ;
+        
+        int   creditLimit          = extractCreditLimit( divId ) ;
+        float currentOutstanding   = extractCurrentDues( divId ) ;
+        float availableCreditLimit = extractAvailableCreditLimit( divId ) ;
+        
+        log.debug( "Credit limit           = " + creditLimit ) ;
+        log.debug( "Oustanding dues        = " + currentOutstanding ) ;
+        log.debug( "Credit limit available = " + availableCreditLimit ) ;
+        log.debug( "" ) ;
+        
+        if( availableCreditLimit < creditLimit ) {
+            currentOutstanding = -1*currentOutstanding ;
+        }
+        
+        totalOutstandingDues += currentOutstanding ;
+        
+        parseTransactionsFromStatement( tabNumber, "Last Statement", txnEntries ) ;
+        browser.clickElement( By.name( "Action.BACK" ) ) ;
+        tabLink = browser.findById( tabId ) ;
+        tabLink.click() ;
+       
+        parseTransactionsFromStatement( tabNumber, "Current Statement", txnEntries ) ;
+        browser.clickElement( By.name( "Action.BACK" ) ) ;
+        tabLink = browser.findById( tabId ) ;
+        tabLink.click() ;
+    }
+    
+    private int extractCreditLimit( String divId ) {
+        
+        String creditLimitXPath = "//*[@id=\"" + divId + "\"]/h6" ;
+        WebElement element = browser.findElement( By.xpath( creditLimitXPath ) ) ;
+        
+        String elementText = element.getText() ;
+        String amtText = elementText.substring( "Credit limit INR".length() )
+                                    .trim() ;
+        
+        return Integer.parseInt( amtText ) ;
+    }
+    
+    private float extractCurrentDues( String divId ) {
       
-        String amtSpanXPath = "//*[@id=\"credit-1\"]/div[1]/div[2]/div[2]/p/span" ;
+        String amtSpanXPath = "//*[@id=\"" + divId + "\"]/div[3]/div[2]/p/span" ;
         WebElement amtSpan = browser.findElement( By.xpath( amtSpanXPath ) ) ;
         
-        int creditDebitMultiplier = -1 ;
         String amtStr = amtSpan.getText().substring( 2 ) ;
-        if( amtStr.contains( "Cr" ) ) {
-            creditDebitMultiplier = 1 ;
-        }
-        amtStr = amtStr.substring( 0, amtStr.length()-3 ).trim() ;
-        return creditDebitMultiplier*Float.parseFloat( amtStr ) ;
+        amtStr = amtStr.replace( ",", "" ) ;
+        return Float.parseFloat( amtStr ) ;
+    }
+    
+    private float extractAvailableCreditLimit( String divId ) {
+        
+        String amtSpanXPath = "//*[@id=\"" + divId + "\"]/div[3]/div[3]/p/span" ;
+        WebElement amtSpan = browser.findElement( By.xpath( amtSpanXPath ) ) ;
+        
+        String amtStr = amtSpan.getText().substring( 2 ) ;
+        amtStr = amtStr.replace( ",", "" ) ;
+        return Float.parseFloat( amtStr ) ;
     }
     
     private void  parseTransactionsFromStatement( 
-            String linkText, List<CCTxnEntry> globalEntries ) 
+            int tabNumber, String linkText, List<CCTxnEntry> globalEntries ) 
         throws Exception {
         
-        WebElement stmtLink = browser.findByLinkText( linkText ) ;
+        String linkXPath = "//*[@id=\"credit-" + tabNumber + "\"]/div[5]/a[text()='" + linkText + "']" ;
+        
+        WebElement stmtLink = browser.findElement( By.xpath( linkXPath ) ) ;
         stmtLink.click() ;
         
         List<CCTxnEntry> txnEntries = new ArrayList<>() ;
@@ -128,6 +203,7 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
             
             if( entry != null ) {
                 entries.add( entry ) ;
+                log.debug( entry ) ;
             }
         }
         
@@ -139,9 +215,9 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
         CCTxnEntry entry = new CCTxnEntry() ;
         
         entry.setCreditCardNumber( creditCardNumber ) ;
-        entry.setBalance( outstandingDues ) ;
         entry.setValueDate( CCTxnEntry.SDF.parse( getTxnAttr( rowXPath, 1 ) ) );
-        entry.setRemarks( enrichRemark( getTxnAttr( rowXPath, 3 ) ) ) ;
+        entry.setRemarks( enrichRemark( getTxnAttr( rowXPath, 2 ), 
+                                        getTxnAttr( rowXPath, 3 ) ) ) ;
         
         String amtStr = getTxnAttr( rowXPath, 4 ) ;
         boolean isDebit = amtStr.endsWith( "Dr." ) ;
@@ -159,13 +235,13 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
         return entry ;
     }
     
-    private String enrichRemark( String rawRemark ) {
+    private String enrichRemark( String txnRefNum, String rawRemark ) {
         if( rawRemark.endsWith( ", IN" ) ) {
             int lastIndex = rawRemark.lastIndexOf( ',' ) ;
             lastIndex = rawRemark.lastIndexOf( ',', lastIndex-1 ) ;
             rawRemark = rawRemark.substring( 0, lastIndex ) ;
         }
-        return rawRemark ;
+        return "[" + txnRefNum + "] " + rawRemark ;
     }
 
     private String getTxnAttr( String rowXPath, int colNum ) {
