@@ -52,8 +52,10 @@ public class MFPortfolioUseCaseAutomator extends UseCaseAutomator {
         log.debug( "\n>> Navigating to MF portfolio section" ) ;
         
         siteAutomator.gotoSection( NewSiteSection.SECTION_PORTFOLIO ) ;
-        siteAutomator.gotoSection( NewSiteSection.SUBSECTION_MF ) ;
+        log.debug( "  # Sleeping for 5 seconds to clear any dialogs" ) ;
+        Thread.sleep( 5000 ) ;
         
+        siteAutomator.gotoSection( NewSiteSection.SUBSECTION_MF ) ;
         log.debug( "  # Sleeping for 5 seconds to clear any dialogs" ) ;
         Thread.sleep( 5000 ) ;
         
