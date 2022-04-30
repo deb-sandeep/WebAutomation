@@ -7,14 +7,14 @@ configProperties :
 
 siteAutomatorConfigs :
    - siteId : ICICIBank
-     enabled : false
+     enabled : true
      className : com.sandy.automator.icicibank.ICICIBankSiteAutomator
      useCaseAutomatorConfigs :
         - ucId : CCEntryParser
           className : com.sandy.automator.icicibank.cc.CCTxnScrapeAutomator
           
    - siteId : ICICIDirect
-     enabled : true
+     enabled : false
      className : com.sandy.automator.icicidirect.newsite.ICICIDirectNewSiteAutomator
      useCaseAutomatorConfigs :
         - ucId : EquityPortfolioAutomator

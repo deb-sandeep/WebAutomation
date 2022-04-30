@@ -109,10 +109,6 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
         log.debug( "Credit limit available = " + availableCreditLimit ) ;
         log.debug( "" ) ;
         
-        if( availableCreditLimit < creditLimit ) {
-            currentOutstanding = -1*currentOutstanding ;
-        }
-        
         totalOutstandingDues += currentOutstanding ;
         
         parseTransactionsFromStatement( tabNumber, "Last Statement", txnEntries ) ;
@@ -145,7 +141,19 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
         
         String amtStr = amtSpan.getText().substring( 2 ) ;
         amtStr = amtStr.replace( ",", "" ) ;
-        return Float.parseFloat( amtStr ) ;
+        
+        boolean isCredit = false ;
+        if( amtStr.endsWith( " Cr" ) ) {
+            isCredit = true ;
+            amtStr = amtStr.substring( 0, amtStr.length()-3 ).trim() ;
+        }
+        
+        float currentDues = Float.parseFloat( amtStr ) ;
+        if( !isCredit ) {
+            currentDues = -1*currentDues ; 
+        }
+        
+        return currentDues ;
     }
     
     private float extractAvailableCreditLimit( String divId ) {
