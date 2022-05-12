@@ -113,11 +113,13 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
         
         parseTransactionsFromStatement( tabNumber, "Last Statement", txnEntries ) ;
         browser.clickElement( By.name( "Action.BACK" ) ) ;
+        browser.waitForElement( By.id( tabId ) ) ;
         tabLink = browser.findById( tabId ) ;
         tabLink.click() ;
        
         parseTransactionsFromStatement( tabNumber, "Current Statement", txnEntries ) ;
         browser.clickElement( By.name( "Action.BACK" ) ) ;
+        browser.waitForElement( By.id( tabId ) ) ;
         tabLink = browser.findById( tabId ) ;
         tabLink.click() ;
     }
