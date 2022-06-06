@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit ;
 
 import org.apache.commons.io.FileUtils ;
 import org.apache.log4j.Logger ;
+import org.json.JSONObject ;
 import org.openqa.selenium.By ;
 import org.openqa.selenium.TimeoutException ;
 import org.openqa.selenium.WebDriver ;
@@ -134,8 +135,18 @@ public class Browser {
         try {
             response = client.newCall( request ).execute() ;
             responseBody = response.body().string() ;
+            
+            try {
+                JSONObject jsonObj = new JSONObject( responseBody ) ;
+                responseBody = jsonObj.toString( 2 ) ;
+            }
+            catch( Exception e ) {
+                // Do nothing. The response is not a JSON object, so 
+                // print it as it is.
+            }
+            
             log.debug( "\t\tResponse from server - " + response.code() ) ;
-            log.debug( "\t\t\t" + responseBody ) ;
+            log.debug( "Response body = " + responseBody ) ;
         }
         finally {
             if( response != null ) {

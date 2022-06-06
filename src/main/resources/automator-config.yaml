@@ -18,10 +18,10 @@ siteAutomatorConfigs :
      className : com.sandy.automator.icicidirect.newsite.ICICIDirectNewSiteAutomator
      useCaseAutomatorConfigs :
         - ucId : EquityPortfolioAutomator
-          enabled : false
+          enabled : true
           className : com.sandy.automator.icicidirect.newsite.equity.EquityPortfolioUseCaseAutomator
         - ucId : MFPortfolioAutomator
-          enabled : true
+          enabled : false
           className : com.sandy.automator.icicidirect.newsite.mf.MFPortfolioUseCaseAutomator
           
    - siteId : MorningStar

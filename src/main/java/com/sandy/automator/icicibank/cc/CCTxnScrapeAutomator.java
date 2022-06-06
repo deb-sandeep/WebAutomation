@@ -18,6 +18,8 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
 
     private static final Logger log = Logger.getLogger( CCTxnScrapeAutomator.class ) ;
     
+    private static boolean PROCESS_SAPHIRO = false ;
+    
     private Browser browser = null ;
     private String serverAddress = null ;
     
@@ -52,8 +54,10 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
         log.debug( "\nProcessing Rubyx credit card\n" ) ;
         processCreditCard( 1, txnEntries ) ;
         
-        log.debug( "\nProcessing Sapphiro credit card\n" ) ;
-        processCreditCard( 2, txnEntries ) ;
+        if( PROCESS_SAPHIRO ) {
+            log.debug( "\nProcessing Sapphiro credit card\n" ) ;
+            processCreditCard( 2, txnEntries ) ;
+        }
         
         log.debug( "\nExtraction complete" );
         for( CCTxnEntry entry : txnEntries ) {
@@ -65,7 +69,7 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
         log.debug( "Number of entries       = " + txnEntries.size() ) ;
 
         browser.postDataToServer( this.serverAddress, 
-                                  "/Ledger/CCTxnEntries", 
+                                  "/Statement/ICICI/CCTxnEntry", 
                                   txnEntries ) ;
 
         Thread.sleep( 5000 ) ;
@@ -94,9 +98,9 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
         //    gets activated, which contains further details of the card dues
         //
         // Example - first tab has id "credit-tab-1" and the div id is "pb0"
-        String tabId = "credit-tab-" + tabNumber ;
-        String divId = "pb" + (tabNumber -1 ) ;
+        String divId = "pb" + (tabNumber-1) ;
         
+        String tabId = "credit-tab-" + tabNumber ;
         WebElement tabLink = browser.findById( tabId ) ;
         tabLink.click() ;
         
@@ -111,14 +115,18 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
         
         totalOutstandingDues += currentOutstanding ;
         
+        log.debug( "Processing last statement\n" ) ;
         parseTransactionsFromStatement( tabNumber, "Last Statement", txnEntries ) ;
         browser.clickElement( By.name( "Action.BACK" ) ) ;
+        Thread.sleep( 5000 ) ;
         browser.waitForElement( By.id( tabId ) ) ;
         tabLink = browser.findById( tabId ) ;
         tabLink.click() ;
        
+        log.debug( "\nProcessing current statement\n" ) ;
         parseTransactionsFromStatement( tabNumber, "Current Statement", txnEntries ) ;
         browser.clickElement( By.name( "Action.BACK" ) ) ;
+        Thread.sleep( 5000 ) ;
         browser.waitForElement( By.id( tabId ) ) ;
         tabLink = browser.findById( tabId ) ;
         tabLink.click() ;
@@ -225,9 +233,9 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
         CCTxnEntry entry = new CCTxnEntry() ;
         
         entry.setCreditCardNumber( creditCardNumber ) ;
-        entry.setValueDate( CCTxnEntry.SDF.parse( getTxnAttr( rowXPath, 1 ) ) );
-        entry.setRemarks( enrichRemark( getTxnAttr( rowXPath, 2 ), 
-                                        getTxnAttr( rowXPath, 3 ) ) ) ;
+        entry.setValueDate( CCTxnEntry.SDF.parse( getTxnAttr( rowXPath, 1 ) ) ) ;
+        entry.setTxnRefNum( getTxnAttr( rowXPath, 2 ) ) ;
+        entry.setRemarks( getTxnAttr( rowXPath, 3 ) ) ;
         
         String amtStr = getTxnAttr( rowXPath, 4 ) ;
         boolean isDebit = amtStr.endsWith( "Dr." ) ;
@@ -245,15 +253,6 @@ public class CCTxnScrapeAutomator extends UseCaseAutomator {
         return entry ;
     }
     
-    private String enrichRemark( String txnRefNum, String rawRemark ) {
-        if( rawRemark.endsWith( ", IN" ) ) {
-            int lastIndex = rawRemark.lastIndexOf( ',' ) ;
-            lastIndex = rawRemark.lastIndexOf( ',', lastIndex-1 ) ;
-            rawRemark = rawRemark.substring( 0, lastIndex ) ;
-        }
-        return "[" + txnRefNum + "] " + rawRemark ;
-    }
-
     private String getTxnAttr( String rowXPath, int colNum ) {
         String cellXPath = rowXPath + "/td[" + colNum + "]" ;
         WebElement element = browser.findElement( By.xpath( cellXPath ) ) ;
