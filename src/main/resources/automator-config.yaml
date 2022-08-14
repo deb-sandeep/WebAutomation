@@ -7,7 +7,7 @@ configProperties :
 
 siteAutomatorConfigs :
    - siteId : ICICIBank
-     enabled : true
+     enabled : false
      className : com.sandy.automator.icicibank.ICICIBankSiteAutomator
      useCaseAutomatorConfigs :
         - ucId : CCEntryParser
@@ -24,11 +24,15 @@ siteAutomatorConfigs :
           enabled : false
           className : com.sandy.automator.icicidirect.newsite.mf.MFPortfolioUseCaseAutomator
           
-   - siteId : MorningStar
-     enabled : false
+   - siteId : MoneyControl
+     enabled : true
+     className : com.sandy.automator.mc.MoneyControlSiteAutomator
      useCaseAutomatorConfigs :
-        - ucId : MFEnrich
-          className : com.sandy.automator.morningstar.MFMasterDataImportUCAutomator
-
+        - ucId : StockNameISINMapping
+          enabled : true
+          className : com.sandy.automator.mc.stockisinmapper.MapISINAutomator
+        - ucId : StockAttributesUpdate
+          enabled : false
+          className : com.sandy.automator.mc.stockcharacteristics.UpdateStockAttributesUCAutomator
    
              

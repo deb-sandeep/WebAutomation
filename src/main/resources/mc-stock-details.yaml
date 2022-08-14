@@ -1,0 +1,6 @@
+stockCfgs:
+   - symbolNSE : BAJAJFINSV
+     url : finance-investments/bajajfinserv/BF04
+     
+   - symbolNSE : YESBANK
+     url : banks-private-sector/yesbank/YB

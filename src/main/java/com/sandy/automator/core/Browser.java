@@ -61,8 +61,15 @@ public class Browser {
         }
     }
     
+    public boolean elementExists( By selector ) {
+        if( delegate.findElements( selector ).size() != 0 ) {
+            return true ;
+        } 
+        return false ;
+    }
+    
     public void waitForElement( By selector ) {
-        WebDriverWait wait = new WebDriverWait( delegate, 5 ) ;
+        WebDriverWait wait = new WebDriverWait( delegate, 10 ) ;
         wait.until( ExpectedConditions.elementToBeClickable( selector ) ) ;
     }
     
