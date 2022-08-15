@@ -31,7 +31,7 @@ public class UpdateStockAttributesUCAutomator extends UseCaseAutomator {
     public void execute( SiteCredential cred, Browser browser )
             throws Exception {
         
-        log.debug( "Executing MapISINAutomator" ) ;
+        log.debug( "Executing MCStockMetaUploadAutomator" ) ;
         
         this.browser = browser ;
         this.serverAddress = config.getString( CAPITALYST_SERVER_ADDRESS_KEY, 

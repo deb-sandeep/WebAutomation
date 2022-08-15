@@ -28,9 +28,9 @@ siteAutomatorConfigs :
      enabled : true
      className : com.sandy.automator.mc.MoneyControlSiteAutomator
      useCaseAutomatorConfigs :
-        - ucId : StockNameISINMapping
+        - ucId : MCStockMetaUpload
           enabled : true
-          className : com.sandy.automator.mc.stockisinmapper.MapISINAutomator
+          className : com.sandy.automator.mc.metaextractor.MCStockMetaUploadAutomator
         - ucId : StockAttributesUpdate
           enabled : false
           className : com.sandy.automator.mc.stockcharacteristics.UpdateStockAttributesUCAutomator

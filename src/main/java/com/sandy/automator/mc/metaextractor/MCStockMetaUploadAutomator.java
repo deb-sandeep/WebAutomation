@@ -1,4 +1,4 @@
-package com.sandy.automator.mc.stockisinmapper ;
+package com.sandy.automator.mc.metaextractor ;
 
 import static com.sandy.automator.core.SiteAutomator.CAPITALYST_SERVER_ADDRESS_KEY ;
 import static com.sandy.automator.core.SiteAutomator.DEFAULT_SERVER_ADDRESS ;
@@ -17,11 +17,9 @@ import com.sandy.automator.core.Browser ;
 import com.sandy.automator.core.UseCaseAutomator ;
 import com.sandy.automator.core.cfg.SiteCredential ;
 
-public class MapISINAutomator extends UseCaseAutomator {
+public class MCStockMetaUploadAutomator extends UseCaseAutomator {
 
-    private static final Logger log = Logger.getLogger( MapISINAutomator.class ) ;
-    
-    private static final String PERSIST_FILE_KEY = "MCStockDetailMap" ;
+    private static final Logger log = Logger.getLogger( MCStockMetaUploadAutomator.class ) ;
     
     private static final String BASE_URL = 
             "https://www.moneycontrol.com/markets/indian-indices/" ;
@@ -30,27 +28,29 @@ public class MapISINAutomator extends UseCaseAutomator {
             "top-nse-200-companies-list/49?classic=true&categoryId=1&exType=N" ;
     
     private Browser browser = null ;
-    private Serializer serializer = new Serializer() ;
+    private MCStockMetaSerializer serializer = new MCStockMetaSerializer() ;
     
     private String serverAddress = null ;
     
     private Map<String, String> stockDetailPageLinks = new LinkedHashMap<>() ;
-    private Map<String, MCNameISIN> stockDetailMap = null ;
+    private Map<String, MCStockMeta> stockMetaMap = null ;
     
     @Override
     public void execute( SiteCredential cred, Browser browser )
             throws Exception {
         
-        log.debug( "Executing MapISINAutomator" ) ;
+        log.debug( "Executing MCStockMetaUploadAutomator" ) ;
         this.browser = browser ;
         this.serverAddress = config.getString( CAPITALYST_SERVER_ADDRESS_KEY, 
                                                DEFAULT_SERVER_ADDRESS ) ;
         
-        stockDetailMap = serializer.deserialize( PERSIST_FILE_KEY ) ;
+        stockMetaMap = serializer.deserializeObj() ;
         
         collectStockDetailPageLinks() ;
-        collectNameISINMappings() ;
+        collectMCStockMeta() ;
         postMappings() ;
+        
+        serializer.serializeYAML( stockMetaMap ) ;
     }
     
     private void collectStockDetailPageLinks() {
@@ -85,53 +85,61 @@ public class MapISINAutomator extends UseCaseAutomator {
         }
     }
     
-    private void collectNameISINMappings() 
+    private void collectMCStockMeta() 
         throws Exception {
         
-        String isinXPath = "//*[@id=\"company_info\"]/ul/li[5]/ul/li[4]/p" ;
+        String symbolXPath = "//*[@id=\"company_info\"]/ul/li[5]/ul/li[2]/p" ;
+        String isinXPath   = "//*[@id=\"company_info\"]/ul/li[5]/ul/li[4]/p" ;
+        String nameXPath   = "//*[@id=\"stockName\"]/h1" ;
         
-        for( String name : stockDetailPageLinks.keySet() ) {
+        for( String key : stockDetailPageLinks.keySet() ) {
             
-            if( !stockDetailMap.containsKey( name ) ) {
+            if( !stockMetaMap.containsKey( key ) ) {
                 
-                String url = stockDetailPageLinks.get( name ) ;
-                By selector = By.xpath( isinXPath ) ;
+                String url = stockDetailPageLinks.get( key ) ;
+                
+                By symbolSelector = By.xpath( symbolXPath ) ;
+                By isinSelector   = By.xpath( isinXPath ) ;
+                By nameSelector   = By.xpath( nameXPath ) ;
                 
                 browser.get( url ) ;
-                browser.waitForElement( selector ) ;
+                browser.waitForElement( isinSelector ) ;
                 
-                WebElement isin = browser.findElement( selector ) ;
+                WebElement symbol = browser.findElement( symbolSelector ) ;
+                WebElement isin   = browser.findElement( isinSelector ) ;
+                WebElement name   = browser.findElement( nameSelector ) ;
                 
                 log.debug( "   " + 
-                           rightPad( name,  20 ) + 
-                           " [" + isin.getText() + "]" ) ;
+                           rightPad( key,  20 ) + 
+                           " [ " + isin.getText() + " ]" ) ;
                 
-                MCNameISIN detail = new MCNameISIN() ;
-                detail.setMcName( name ) ;
-                detail.setIsin( isin.getText() ) ;
-                detail.setDetailURL( url ) ;
+                MCStockMeta detail = new MCStockMeta() ;
+                detail.setSymbolNSE( symbol.getText().trim() ) ;
+                detail.setIsin     ( isin.getText().trim()   ) ;
+                detail.setMcName   ( name.getText().trim()   ) ;
+                detail.setDetailURL( url                     ) ;
                 
-                stockDetailMap.put( name, detail ) ;
+                stockMetaMap.put( key, detail ) ;
                 
-                serializer.persist( stockDetailMap, PERSIST_FILE_KEY ) ;
+                serializer.serializeObj( stockMetaMap ) ;
             }
             else {
-                log.debug( "   Found " + name ) ;
+                log.debug( "   Found " + key ) ;
             }
         }
     }
     
-    private void postMappings() 
-        throws Exception {
+    private void postMappings() throws Exception {
         
         log.debug( "Posting data to server." ) ;
-        List<MCNameISIN> mappings = new ArrayList<>() ;
-        for( MCNameISIN value : stockDetailMap.values() ) {
+        
+        List<MCStockMeta> mappings = new ArrayList<>() ;
+        for( MCStockMeta value : stockMetaMap.values() ) {
             mappings.add( value ) ;
         }
         
         browser.postDataToServer( this.serverAddress, 
-                                  "/Equity/Master/MCNameISIN", 
+                                  "/Equity/Master/MCStockMeta", 
                                   mappings ) ;
     }
 }

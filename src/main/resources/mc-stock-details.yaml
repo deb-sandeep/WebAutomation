@@ -1,6 +1,1001 @@
 stockCfgs:
-   - symbolNSE : BAJAJFINSV
-     url : finance-investments/bajajfinserv/BF04
-     
-   - symbolNSE : YESBANK
-     url : banks-private-sector/yesbank/YB
+   - isin : INE769A01020
+     mcName : Aarti Industries Ltd.
+     symbolNSE : AARTIIND
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/chemicals/aartiindustries/AI45
+
+   - isin : INE358A01014
+     mcName : Abbott India Ltd.
+     symbolNSE : ABBOTINDIA
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/abbottindia/AI51
+
+   - isin : INE012A01025
+     mcName : ACC Ltd.
+     symbolNSE : ACC
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/cement-major/acc/ACC06
+
+   - isin : INE423A01024
+     mcName : Adani Enterprises Ltd.
+     symbolNSE : ADANIENT
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/trading/adanienterprises/AE13
+
+   - isin : INE364U01010
+     mcName : Adani Green Energy Ltd.
+     symbolNSE : ADANIGREEN
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/power-generation-distribution/adanigreenenergylimited/ADANI54145
+
+   - isin : INE742F01042
+     mcName : Adani Ports and Special Economic Zone Ltd.
+     symbolNSE : ADANIPORTS
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/infrastructure-general/adaniportsspecialeconomiczone/MPS
+
+   - isin : INE399L01023
+     mcName : Adani Total Gas Ltd.
+     symbolNSE : ATGL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/gas-distribution/adanitotalgas/ADG01
+
+   - isin : INE931S01010
+     mcName : Adani Transmission Ltd.
+     symbolNSE : ADANITRANS
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/power-transmission-equipment/adanitransmission/AT22
+
+   - isin : INE674K01013
+     mcName : Aditya Birla Capital Ltd.
+     symbolNSE : ABCAPITAL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-investments/adityabirlacapital/ABC9
+
+   - isin : INE647O01011
+     mcName : Aditya Birla Fashion & Retail Ltd.
+     symbolNSE : ABFRL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/retail/adityabirlafashionretail/PFR
+
+   - isin : INE031B01049
+     mcName : Ajanta Pharma Ltd.
+     symbolNSE : AJANTPHARM
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/ajantapharma/AP22
+
+   - isin : INE901L01018
+     mcName : Alembic Pharmaceuticals Ltd.
+     symbolNSE : APLLTD
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/alembicpharmaceuticals/AP35
+
+   - isin : INE540L01014
+     mcName : Alkem Laboratories Ltd.
+     symbolNSE : ALKEM
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/alkemlaboratories/AL05
+
+   - isin : INE885A01032
+     mcName : Amara Raja Batteries Ltd.
+     symbolNSE : AMARAJABAT
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/auto-ancillaries/amararajabatteries/ARB
+
+   - isin : INE079A01024
+     mcName : Ambuja Cements Ltd.
+     symbolNSE : AMBUJACEM
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/cement-major/ambujacements/AC18
+
+   - isin : INE437A01024
+     mcName : Apollo Hospitals Enterprises Ltd.
+     symbolNSE : APOLLOHOSP
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/hospitals-medical-services/apollohospitalsenterprises/AHE
+
+   - isin : INE438A01022
+     mcName : Apollo Tyres Ltd.
+     symbolNSE : APOLLOTYRE
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/tyres/apollotyres/AT14
+
+   - isin : INE208A01029
+     mcName : Ashok Leyland Ltd.
+     symbolNSE : ASHOKLEY
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/auto-lcvs-hcvs/ashokleyland/AL
+
+   - isin : INE021A01026
+     mcName : Asian Paints Ltd.
+     symbolNSE : ASIANPAINT
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/paints-varnishes/asianpaints/AP31
+
+   - isin : INE949L01017
+     mcName : AU Small Finance Bank Ltd.
+     symbolNSE : AUBANK
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-private-sector/ausmallfinancebank/ASF02
+
+   - isin : INE406A01037
+     mcName : Aurobindo Pharma Ltd.
+     symbolNSE : AUROPHARMA
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/aurobindopharma/AP
+
+   - isin : INE192R01011
+     mcName : Avenue Supermarts Ltd.
+     symbolNSE : DMART
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/retail/avenuesupermarts/AS19
+
+   - isin : INE238A01034
+     mcName : Axis Bank Ltd.
+     symbolNSE : AXISBANK
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-private-sector/axisbank/AB16
+
+   - isin : INE917I01010
+     mcName : Bajaj Auto Ltd.
+     symbolNSE : BAJAJ-AUTO
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/auto-2-3-wheelers/bajajauto/BA10
+
+   - isin : INE296A01024
+     mcName : Bajaj Finance Ltd.
+     symbolNSE : BAJFINANCE
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-nbfc/bajajfinance/BAF
+
+   - isin : INE918I01018
+     mcName : Bajaj Finserv Ltd.
+     symbolNSE : BAJAJFINSV
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-investments/bajajfinserv/BF04
+
+   - isin : INE118A01012
+     mcName : Bajaj Holdings & Investment Ltd.
+     symbolNSE : BAJAJHLDNG
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-investments/bajajholdingsinvestment/BHI
+
+   - isin : INE787D01026
+     mcName : Balkrishna Industries Ltd.
+     symbolNSE : BALKRISIND
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/tyres/balkrishnaindustries/BI03
+
+   - isin : INE545U01014
+     mcName : Bandhan Bank Ltd.
+     symbolNSE : BANDHANBNK
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-private-sector/bandhanbank/BB09
+
+   - isin : INE028A01039
+     mcName : Bank Of Baroda
+     symbolNSE : BANKBARODA
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-public-sector/bankbaroda/BOB
+
+   - isin : INE084A01016
+     mcName : Bank Of India
+     symbolNSE : BANKINDIA
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-public-sector/bankindia/BOI
+
+   - isin : INE176A01028
+     mcName : Bata India Ltd.
+     symbolNSE : BATAINDIA
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/leather-products/bataindia/BI01
+
+   - isin : INE463A01038
+     mcName : Berger Paints India Ltd.
+     symbolNSE : BERGEPAINT
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/paints-varnishes/bergerpaintsindia/BPI02
+
+   - isin : INE263A01024
+     mcName : Bharat Electronics Ltd.
+     symbolNSE : BEL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/electricals/bharatelectronics/BE03
+
+   - isin : INE465A01025
+     mcName : Bharat Forge Ltd.
+     symbolNSE : BHARATFORG
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/castings-forgings/bharatforge/BF03
+
+   - isin : INE257A01026
+     mcName : Bharat Heavy Electricals Ltd.
+     symbolNSE : BHEL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/infrastructure-general/bharatheavyelectricals/BHE
+
+   - isin : INE029A01011
+     mcName : Bharat Petroleum Corporation Ltd.
+     symbolNSE : BPCL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/refineries/bharatpetroleumcorporation/BPC
+
+   - isin : INE397D01024
+     mcName : Bharti Airtel Ltd.
+     symbolNSE : BHARTIARTL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/telecommunications-service/bhartiairtel/BA08
+
+   - isin : INE376G01013
+     mcName : Biocon Ltd.
+     symbolNSE : BIOCON
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/biocon/BL03
+
+   - isin : INE050A01025
+     mcName : Bombay Burmah Trading Corporation Ltd.
+     symbolNSE : BBTC
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/plantations-tea-coffee/bombayburmahtradingcorporation/BBT
+
+   - isin : INE323A01026
+     mcName : Bosch Ltd.
+     symbolNSE : BOSCHLTD
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/auto-ancillaries/bosch/B05
+
+   - isin : INE216A01030
+     mcName : Britannia Industries Ltd.
+     symbolNSE : BRITANNIA
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/food-processing/britanniaindustries/BI
+
+   - isin : INE476A01014
+     mcName : Canara Bank
+     symbolNSE : CANBK
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-public-sector/canarabank/CB06
+
+   - isin : INE172A01027
+     mcName : Castrol India Ltd.
+     symbolNSE : CASTROLIND
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/lubricants/castrolindia/CI01
+
+   - isin : INE486A01021
+     mcName : CESC Ltd.
+     symbolNSE : CESC
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/power-generation-distribution/cesc/CES
+
+   - isin : INE121A01024
+     mcName : Cholamandalam Investment and Finance Company Ltd.
+     symbolNSE : CHOLAFIN
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-nbfc/cholamandalaminvestmentfinancecompany/CDB
+
+   - isin : INE059A01026
+     mcName : Cipla Ltd.
+     symbolNSE : CIPLA
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/cipla/C
+
+   - isin : INE491A01021
+     mcName : City Union Bank Ltd.
+     symbolNSE : CUB
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-private-sector/cityunionbank/CUB
+
+   - isin : INE522F01014
+     mcName : Coal India Ltd.
+     symbolNSE : COALINDIA
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/mining-minerals/coalindia/CI11
+
+   - isin : INE591G01017
+     mcName : COFORGE LIMITED Ltd.
+     symbolNSE : COFORGE
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/computers-software/coforgelimited/NII02
+
+   - isin : INE259A01022
+     mcName : Colgate Palmolive (India) Ltd.
+     symbolNSE : COLPAL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/personal-care/colgatepalmoliveindia/CPI
+
+   - isin : INE111A01025
+     mcName : Container Corporation of India Ltd.
+     symbolNSE : CONCOR
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/transport-logistics/containercorporationindia/CCI
+
+   - isin : INE169A01031
+     mcName : Coromandel International Ltd.
+     symbolNSE : COROMANDEL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/fertilisers/coromandelinternational/CI45
+
+   - isin : INE299U01018
+     mcName : Crompton Greaves Consumer Electrical Ltd.
+     symbolNSE : CROMPTON
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/electricals/cromptongreavesconsumerelectrical/CGC01
+
+   - isin : INE298A01020
+     mcName : Cummins India Ltd.
+     symbolNSE : CUMMINSIND
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/engines/cumminsindia/CI02
+
+   - isin : INE016A01026
+     mcName : Dabur India Ltd.
+     symbolNSE : DABUR
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/personal-care/daburindia/DI
+
+   - isin : INE00R701025
+     mcName : Dalmia Bharat Ltd.
+     symbolNSE : DALBHARAT
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/cement-major/dalmiabharat/OCL
+
+   - isin : INE288B01029
+     mcName : Deepak Nitrite Ltd.
+     symbolNSE : DEEPAKNTR
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/chemicals/deepaknitrite/DN
+
+   - isin : INE274G01010
+     mcName : Dhani Services Ltd.
+     symbolNSE : DHANI
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-investments/dhaniservices/IS13
+
+   - isin : INE361B01024
+     mcName : Divis Laboratories Ltd.
+     symbolNSE : DIVISLAB
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/divislaboratories/DL03
+
+   - isin : INE935N01020
+     mcName : Dixon Technologies Ltd.
+     symbolNSE : DIXON
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/electricals/dixontechnologies/DT07
+
+   - isin : INE271C01023
+     mcName : DLF Ltd.
+     symbolNSE : DLF
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/construction-contracting-real-estate/dlf/D04
+
+   - isin : INE600L01024
+     mcName : Dr Lal PathLabs Ltd.
+     symbolNSE : LALPATHLAB
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/drlalpathlabs/DLP01
+
+   - isin : INE089A01023
+     mcName : Dr Reddys Laboratories Ltd.
+     symbolNSE : DRREDDY
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/drreddyslaboratories/DRL
+
+   - isin : INE066A01021
+     mcName : Eicher Motors Ltd.
+     symbolNSE : EICHERMOT
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/auto-lcvs-hcvs/eichermotors/EM
+
+   - isin : INE548C01032
+     mcName : Emami Ltd.
+     symbolNSE : EMAMILTD
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/personal-care/emami/E06
+
+   - isin : INE913H01037
+     mcName : Endurance Technologies Ltd.
+     symbolNSE : ENDURANCE
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/auto-2-3-wheelers/endurancetechnologies/ET01
+
+   - isin : INE042A01014
+     mcName : Escorts Kubota Ltd.
+     symbolNSE : ESCORTS
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/automobile-tractors/escortskubota/E
+
+   - isin : INE302A01020
+     mcName : Exide Industries Ltd.
+     symbolNSE : EXIDEIND
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/auto-ancillaries/exideindustries/EI
+
+   - isin : INE171A01029
+     mcName : Federal Bank Ltd.
+     symbolNSE : FEDERALBNK
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-private-sector/federalbank/FB
+
+   - isin : INE061F01013
+     mcName : Fortis Healthcare Ltd.
+     symbolNSE : FORTIS
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/hospitals-medical-services/fortishealthcare/FH
+
+   - isin : INE129A01019
+     mcName : GAIL India Ltd.
+     symbolNSE : GAIL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/oil-drilling-exploration/gailindia/GAI
+
+   - isin : INE068V01023
+     mcName : Gland Pharma Ltd.
+     symbolNSE : GLAND
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals-drugs/glandpharma/GP14
+
+   - isin : INE935A01035
+     mcName : Glenmark Pharma Ltd.
+     symbolNSE : GLENMARK
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/glenmarkpharma/GP08
+
+   - isin : INE776C01039
+     mcName : GMR Infrastructure Ltd.
+     symbolNSE : GMRINFRA
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/infrastructure-general/gmrinfrastructure/GI27
+
+   - isin : INE850D01014
+     mcName : Godrej Agrovet Ltd.
+     symbolNSE : GODREJAGRO
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/miscellaneous/godrejagrovet/GA03
+
+   - isin : INE102D01028
+     mcName : Godrej Consumer Products Ltd.
+     symbolNSE : GODREJCP
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/personal-care/godrejconsumerproducts/GCP
+
+   - isin : INE233A01035
+     mcName : Godrej Industries Ltd.
+     symbolNSE : GODREJIND
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/personal-care/godrejindustries/GI23
+
+   - isin : INE484J01027
+     mcName : Godrej Properties Ltd.
+     symbolNSE : GODREJPROP
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/construction-contracting-real-estate/godrejproperties/GP11
+
+   - isin : INE047A01021
+     mcName : Grasim Industries Ltd.
+     symbolNSE : GRASIM
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/diversified/grasimindustries/GI01
+
+   - isin : INE844O01030
+     mcName : Gujarat Gas Ltd.
+     symbolNSE : GUJGASLTD
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/oil-drilling-exploration/gujaratgas/GGC
+
+   - isin : INE246F01010
+     mcName : Gujarat State Petronet Ltd.
+     symbolNSE : GSPL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/oil-drilling-exploration/gujaratstatepetronet/GSP02
+
+   - isin : INE176B01034
+     mcName : Havells India Ltd.
+     symbolNSE : HAVELLS
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/electric-equipment/havellsindia/HI01
+
+   - isin : INE860A01027
+     mcName : HCL Technologies Ltd.
+     symbolNSE : HCLTECH
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/computers-software/hcltechnologies/HCL02
+
+   - isin : INE127D01025
+     mcName : HDFC Asset Management Company Ltd.
+     symbolNSE : HDFCAMC
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-investments/hdfcassetmanagementcompany/HAM02
+
+   - isin : INE040A01034
+     mcName : HDFC Bank Ltd.
+     symbolNSE : HDFCBANK
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-private-sector/hdfcbank/HDF01
+
+   - isin : INE795G01014
+     mcName : HDFC Life Insurance Company Ltd.
+     symbolNSE : HDFCLIFE
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/life-health-insurance/hdfclifeinsurancecompany/HSL01
+
+   - isin : INE158A01026
+     mcName : Hero Motocorp Ltd.
+     symbolNSE : HEROMOTOCO
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/auto-2-3-wheelers/heromotocorp/HHM
+
+   - isin : INE038A01020
+     mcName : Hindalco Industries Ltd.
+     symbolNSE : HINDALCO
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/iron-steel/hindalcoindustries/HI
+
+   - isin : INE066F01012
+     mcName : Hindustan Aeronautics Ltd.
+     symbolNSE : HAL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/diversified/hindustanaeronauticsltd/HAL
+
+   - isin : INE094A01015
+     mcName : Hindustan Petroleum Corporation Ltd.
+     symbolNSE : HINDPETRO
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/refineries/hindustanpetroleumcorporation/HPC
+
+   - isin : INE030A01027
+     mcName : Hindustan Unilever Ltd.
+     symbolNSE : HINDUNILVR
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/personal-care/hindustanunilever/HU
+
+   - isin : INE267A01025
+     mcName : Hindustan Zinc Ltd.
+     symbolNSE : HINDZINC
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/metals-non-ferrous/hindustanzinc/HZ
+
+   - isin : INE001A01036
+     mcName : Housing Development Finance Corporation Ltd.
+     symbolNSE : HDFC
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-housing/housingdevelopmentfinancecorporation/HDF
+
+   - isin : INE090A01021
+     mcName : ICICI Bank Ltd.
+     symbolNSE : ICICIBANK
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-private-sector/icicibank/ICI02
+
+   - isin : INE765G01017
+     mcName : ICICI Lombard General Insurance Company Ltd.
+     symbolNSE : ICICIGI
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/life-health-insurance/icicilombardgeneralinsurancecompany/ILG
+
+   - isin : INE726G01019
+     mcName : ICICI Prudential Life Insurance Company Ltd.
+     symbolNSE : ICICIPRULI
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-general/iciciprudentiallifeinsurancecompany/IPL01
+
+   - isin : INE763G01038
+     mcName : ICICI Securities Ltd.
+     symbolNSE : ISEC
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/miscellaneous/icicisecuritiesltd/ISL04
+
+   - isin : INE092T01019
+     mcName : IDFC First Bank Ltd.
+     symbolNSE : IDFCFIRSTB
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-private-sector/idfcfirstbank/IDF01
+
+   - isin : INE148I01020
+     mcName : Indiabulls Housing Finance Ltd.
+     symbolNSE : IBULHSGFIN
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-housing/indiabullshousingfinance/IHF01
+
+   - isin : INE933S01016
+     mcName : Indiamart Intermesh Ltd.
+     symbolNSE : INDIAMART
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/miscellaneous/indiamartintermesh/II12
+
+   - isin : INE053A01029
+     mcName : Indian Hotels Company Ltd.
+     symbolNSE : INDHOTEL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/hotels/indianhotelscompany/IHC
+
+   - isin : INE242A01010
+     mcName : Indian Oil Corporation Ltd.
+     symbolNSE : IOC
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/refineries/indianoilcorporation/IOC
+
+   - isin : INE203G01027
+     mcName : Indraprastha Gas Ltd.
+     symbolNSE : IGL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/oil-drilling-exploration/indraprasthagas/IG04
+
+   - isin : INE121J01017
+     mcName : INDUS TOWERS Ltd.
+     symbolNSE : INDUSTOWER
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/telecommunications-equipment/industowers/BI14
+
+   - isin : INE095A01012
+     mcName : IndusInd Bank Ltd.
+     symbolNSE : INDUSINDBK
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-private-sector/indusindbank/IIB
+
+   - isin : INE663F01024
+     mcName : Info Edge India Ltd.
+     symbolNSE : NAUKRI
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/miscellaneous/infoedgeindia/IEI01
+
+   - isin : INE009A01021
+     mcName : Infosys Ltd.
+     symbolNSE : INFY
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/computers-software/infosys/IT
+
+   - isin : INE646L01027
+     mcName : Interglobe Aviation Ltd.
+     symbolNSE : INDIGO
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/transport-logistics/interglobeaviation/IA04
+
+   - isin : INE571A01038
+     mcName : Ipca Laboratories Ltd.
+     symbolNSE : IPCALAB
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/ipcalaboratories/IL
+
+   - isin : INE335Y01020
+     mcName : IRCTC - Indian Railway Catering & Tourism Corp Ltd.
+     symbolNSE : IRCTC
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/miscellaneous/irctc-indianrailwaycateringtourismcorp/IRC
+
+   - isin : INE154A01025
+     mcName : ITC Ltd.
+     symbolNSE : ITC
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/diversified/itc/ITC
+
+   - isin : INE749A01030
+     mcName : Jindal Steel & Power Ltd.
+     symbolNSE : JINDALSTEL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/steel-sponge-iron/jindalsteelpower/JSP
+
+   - isin : INE121E01018
+     mcName : JSW Energy Ltd.
+     symbolNSE : JSWENERGY
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/power-generation-distribution/jswenergy/JE01
+
+   - isin : INE019A01038
+     mcName : JSW Steel Ltd.
+     symbolNSE : JSWSTEEL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/steel-large/jswsteel/JSW01
+
+   - isin : INE797F01020
+     mcName : Jubilant Foodworks Ltd.
+     symbolNSE : JUBLFOOD
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/miscellaneous/jubilantfoodworks/JF04
+
+   - isin : INE237A01028
+     mcName : Kotak Mahindra Bank Ltd.
+     symbolNSE : KOTAKBANK
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-private-sector/kotakmahindrabank/KMB
+
+   - isin : INE498L01015
+     mcName : L&T Finance Holdings Ltd.
+     symbolNSE : L&TFH
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-investments/ltfinanceholdings/LFH
+
+   - isin : INE010V01017
+     mcName : L&T Technology Services Ltd.
+     symbolNSE : LTTS
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/computers-software/lttechnologyservices/LTS
+
+   - isin : INE018A01030
+     mcName : Larsen & Toubro Ltd.
+     symbolNSE : LT
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/infrastructure-general/larsentoubro/LT
+
+   - isin : INE214T01019
+     mcName : Larsen & Toubro Infotech Ltd.
+     symbolNSE : LTI
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/computers-software/larsentoubroinfotech/LI12
+
+   - isin : INE947Q01028
+     mcName : Laurus Labs Ltd.
+     symbolNSE : LAURUSLABS
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/lauruslabs/LL05
+
+   - isin : INE115A01026
+     mcName : LIC Housing Finance Ltd.
+     symbolNSE : LICHSGFIN
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-housing/lichousingfinance/LIC
+
+   - isin : INE326A01037
+     mcName : Lupin Ltd.
+     symbolNSE : LUPIN
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/lupin/L
+
+   - isin : INE002S01010
+     mcName : Mahanagar Gas Ltd.
+     symbolNSE : MGL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/refineries/mahanagargas/MG02
+
+   - isin : INE774D01024
+     mcName : Mahindra & Mahindra Financial Services Ltd.
+     symbolNSE : M&MFIN
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-nbfc/mahindramahindrafinancialservices/MMF04
+
+   - isin : INE101A01026
+     mcName : Mahindra and Mahindra Ltd.
+     symbolNSE : M&M
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/auto-cars-jeeps/mahindramahindra/MM
+
+   - isin : INE522D01027
+     mcName : Manappuram Finance Ltd.
+     symbolNSE : MANAPPURAM
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-leasing-hire-purchase/manappuramfinance/MGF01
+
+   - isin : INE196A01026
+     mcName : Marico Ltd.
+     symbolNSE : MARICO
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/personal-care/marico/M13
+
+   - isin : INE585B01010
+     mcName : Maruti Suzuki India Ltd.
+     symbolNSE : MARUTI
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/auto-cars-jeeps/marutisuzukiindia/MS24
+
+   - isin : INE180A01020
+     mcName : Max Financial Services Ltd.
+     symbolNSE : MFSL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-investments/maxfinancialservices/MI
+
+   - isin : INE018I01017
+     mcName : Mindtree Ltd.
+     symbolNSE : MINDTREE
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/computers-software/mindtree/MT13
+
+   - isin : INE356A01018
+     mcName : MphasiS Ltd.
+     symbolNSE : MPHASIS
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/computers-software/mphasis/MB02
+
+   - isin : INE883A01011
+     mcName : MRF Ltd.
+     symbolNSE : MRF
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/tyres/mrf/MRF
+
+   - isin : INE414G01012
+     mcName : Muthoot Finance Ltd.
+     symbolNSE : MUTHOOTFIN
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-investments/muthootfinance/MF10
+
+   - isin : INE987B01026
+     mcName : Natco Pharma Ltd.
+     symbolNSE : NATCOPHARM
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/natcopharma/NP07
+
+   - isin : INE048G01026
+     mcName : Navin Fluorine International Ltd.
+     symbolNSE : NAVINFLUOR
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/chemicals/navinfluorineinternational/NFI
+
+   - isin : INE239A01016
+     mcName : Nestle India Ltd.
+     symbolNSE : NESTLEIND
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/food-processing/nestleindia/NI
+
+   - isin : INE298J01013
+     mcName : Nippon Life India Asset Management Ltd.
+     symbolNSE : NAM-INDIA
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/miscellaneous/nipponlifeindiaassetmanagement/RNL
+
+   - isin : INE584A01023
+     mcName : NMDC Ltd.
+     symbolNSE : NMDC
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/mining-minerals/nmdc/NMD02
+
+   - isin : INE733E01010
+     mcName : NTPC Ltd.
+     symbolNSE : NTPC
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/power-generation-distribution/ntpc/NTP
+
+   - isin : INE093I01010
+     mcName : Oberoi Realty Ltd.
+     symbolNSE : OBEROIRLTY
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/construction-contracting-real-estate/oberoirealty/OR
+
+   - isin : INE213A01029
+     mcName : Oil and Natural Gas Corporation Ltd.
+     symbolNSE : ONGC
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/oil-drilling-exploration/oilnaturalgascorporation/ONG
+
+   - isin : INE274J01014
+     mcName : Oil India Ltd.
+     symbolNSE : OIL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/oil-drilling-exploration/oilindia/OI13
+
+   - isin : INE761H01022
+     mcName : Page Industries Ltd.
+     symbolNSE : PAGEIND
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/textiles-readymade-apparels/pageindustries/PI35
+
+   - isin : INE347G01014
+     mcName : Petronet LNG Ltd.
+     symbolNSE : PETRONET
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/oil-drilling-exploration/petronetlng/PLN
+
+   - isin : INE182A01018
+     mcName : Pfizer Ltd.
+     symbolNSE : PFIZER
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/pfizer/P
+
+   - isin : INE603J01030
+     mcName : PI Industries Ltd.
+     symbolNSE : PIIND
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pesticides-agro-chemicals/piindustries/PII
+
+   - isin : INE318A01026
+     mcName : Pidilite Industries Ltd.
+     symbolNSE : PIDILITIND
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/chemicals/pidiliteindustries/PI11
+
+   - isin : INE140A01024
+     mcName : Piramal Enterprises Ltd.
+     symbolNSE : PEL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/piramalenterprises/PH05
+
+   - isin : INE455K01017
+     mcName : Polycab India Ltd.
+     symbolNSE : POLYCAB
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/cables-power-others/polycabindia/PI44
+
+   - isin : INE134E01011
+     mcName : Power Finance Corporation Ltd.
+     symbolNSE : PFC
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-term-lending-institutions/powerfinancecorporation/PFC02
+
+   - isin : INE752E01010
+     mcName : Power Grid Corporation of India Ltd.
+     symbolNSE : POWERGRID
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/power-generation-distribution/powergridcorporationindia/PGC
+
+   - isin : INE811K01011
+     mcName : Prestige Estates Projects Ltd.
+     symbolNSE : PRESTIGE
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/construction-contracting-real-estate/prestigeestatesprojects/PEP02
+
+   - isin : INE179A01014
+     mcName : Procter and Gamble Hygiene and Health Care Ltd.
+     symbolNSE : PGHH
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/personal-care/proctergamblehygienehealthcare/PGH
+
+   - isin : INE160A01022
+     mcName : Punjab National Bank
+     symbolNSE : PNB
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-public-sector/punjabnationalbank/PNB05
+
+   - isin : INE976G01028
+     mcName : RBL Bank Ltd.
+     symbolNSE : RBLBANK
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-private-sector/rblbank/RB03
+
+   - isin : INE020B01018
+     mcName : REC Ltd.
+     symbolNSE : RECLTD
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-term-lending-institutions/rec/REC02
+
+   - isin : INE002A01018
+     mcName : Reliance Industries Ltd.
+     symbolNSE : RELIANCE
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/refineries/relianceindustries/RI
+
+   - isin : INE058A01010
+     mcName : Sanofi India Ltd.
+     symbolNSE : SANOFI
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/sanofiindia/AP26
+
+   - isin : INE018E01016
+     mcName : SBI Cards & Payment Services Ltd.
+     symbolNSE : SBICARD
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-term-lending/sbicardspaymentservices/SCP02
+
+   - isin : INE123W01016
+     mcName : SBI Life Insurance Company Ltd.
+     symbolNSE : SBILIFE
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/diversified/sbilifeinsurancecompany/SLI03
+
+   - isin : INE070A01015
+     mcName : Shree Cements Ltd.
+     symbolNSE : SHREECEM
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/cement-major/shreecements/SC12
+
+   - isin : INE721A01013
+     mcName : Shriram Transport Finance Corporation Ltd.
+     symbolNSE : SRTRANSFIN
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-leasing-hire-purchase/shriramtransportfinancecorporation/STF
+
+   - isin : INE003A01024
+     mcName : Siemens Ltd.
+     symbolNSE : SIEMENS
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/infrastructure-general/siemens/S
+
+   - isin : INE647A01010
+     mcName : SRF Ltd.
+     symbolNSE : SRF
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/diversified/srf/SRF
+
+   - isin : INE062A01020
+     mcName : State Bank of India
+     symbolNSE : SBIN
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-public-sector/statebankindia/SBI
+
+   - isin : INE114A01011
+     mcName : Steel Authority of India Ltd.
+     symbolNSE : SAIL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/steel-large/steelauthorityindia/SAI
+
+   - isin : INE044A01036
+     mcName : Sun Pharmaceutical Industries Ltd.
+     symbolNSE : SUNPHARMA
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/sunpharmaceuticalindustries/SPI
+
+   - isin : INE424H01027
+     mcName : Sun TV Network Ltd.
+     symbolNSE : SUNTV
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/media-entertainment/suntvnetwork/STN01
+
+   - isin : INE398R01022
+     mcName : Syngene International Ltd.
+     symbolNSE : SYNGENE
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/miscellaneous/syngeneinternational/SI10
+
+   - isin : INE092A01019
+     mcName : Tata Chemicals Ltd.
+     symbolNSE : TATACHEM
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/chemicals/tatachemicals/TC
+
+   - isin : INE467B01029
+     mcName : Tata Consultancy Services Ltd.
+     symbolNSE : TCS
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/computers-software/tataconsultancyservices/TCS
+
+   - isin : INE192A01025
+     mcName : TATA Consumer Products Ltd.
+     symbolNSE : TATACONSUM
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/plantations-tea-coffee/tataconsumerproducts/TT
+
+   - isin : INE670A01012
+     mcName : Tata Elxsi Ltd.
+     symbolNSE : TATAELXSI
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/computers-software/tataelxsi/TE
+
+   - isin : INE155A01022
+     mcName : Tata Motors Ltd.
+     symbolNSE : TATAMOTORS
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/auto-lcvs-hcvs/tatamotors/TM03
+
+   - isin : INE245A01021
+     mcName : Tata Power Company Ltd.
+     symbolNSE : TATAPOWER
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/power-generation-distribution/tatapowercompany/TPC
+
+   - isin : INE081A01020
+     mcName : Tata Steel Ltd.
+     symbolNSE : TATASTEEL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/iron-steel/tatasteel/TIS
+
+   - isin : INE669C01036
+     mcName : Tech Mahindra Ltd.
+     symbolNSE : TECHM
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/computers-software/techmahindra/TM4
+
+   - isin : INE331A01037
+     mcName : The Ramco Cements Ltd.
+     symbolNSE : RAMCOCEM
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/cement-major/theramcocements/MC
+
+   - isin : INE280A01028
+     mcName : Titan Company Ltd.
+     symbolNSE : TITAN
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/miscellaneous/titancompany/TI01
+
+   - isin : INE685A01028
+     mcName : Torrent Pharmaceuticals Ltd.
+     symbolNSE : TORNTPHARM
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals/torrentpharmaceuticals/TP06
+
+   - isin : INE813H01021
+     mcName : Torrent Power Ltd.
+     symbolNSE : TORNTPOWER
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/power-generation-distribution/torrentpower/TP14
+
+   - isin : INE849A01020
+     mcName : Trent Ltd.
+     symbolNSE : TRENT
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/retail/trent/T04
+
+   - isin : INE494B01023
+     mcName : TVS Motor Company Ltd.
+     symbolNSE : TVSMOTOR
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/auto-2-3-wheelers/tvsmotorcompany/TVS
+
+   - isin : INE481G01011
+     mcName : UltraTech Cement Ltd.
+     symbolNSE : ULTRACEMCO
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/cement-major/ultratechcement/UTC01
+
+   - isin : INE692A01016
+     mcName : Union Bank of India
+     symbolNSE : UNIONBANK
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-public-sector/unionbankindia/UBI01
+
+   - isin : INE686F01025
+     mcName : United Breweries Ltd.
+     symbolNSE : UBL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/breweries-distilleries/unitedbreweries/UB02
+
+   - isin : INE854D01024
+     mcName : United Spirits Ltd.
+     symbolNSE : MCDOWELL-N
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/breweries-distilleries/unitedspirits/US
+
+   - isin : INE628A01036
+     mcName : UPL Ltd.
+     symbolNSE : UPL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/chemicals/upl/UP04
+
+   - isin : INE951I01027
+     mcName : V-Guard Industries Ltd.
+     symbolNSE : VGUARD
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/electric-equipment/v-guardindustries/VI02
+
+   - isin : INE200M01013
+     mcName : Varun Beverages Ltd.
+     symbolNSE : VBL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/food-processing/varunbeverages/VB05
+
+   - isin : INE205A01025
+     mcName : Vedanta Ltd.
+     symbolNSE : VEDL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/mining-minerals/vedanta/SG
+
+   - isin : INE669E01016
+     mcName : Vodafone Idea Ltd.
+     symbolNSE : IDEA
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/telecommunications-service/vodafoneidealimited/IC8
+
+   - isin : INE226A01021
+     mcName : Voltas Ltd.
+     symbolNSE : VOLTAS
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/diversified/voltas/V
+
+   - isin : INE716A01013
+     mcName : Whirlpool of India. Ltd.
+     symbolNSE : WHIRLPOOL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/consumer-goods-white-goods/whirlpoolindia/WI
+
+   - isin : INE075A01022
+     mcName : Wipro Ltd.
+     symbolNSE : WIPRO
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/computers-software/wipro/W
+
+   - isin : INE528G01035
+     mcName : Yes Bank Ltd.
+     symbolNSE : YESBANK
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/banks-private-sector/yesbank/YB
+
+   - isin : INE256A01028
+     mcName : Zee Entertainment Enterprises Ltd.
+     symbolNSE : ZEEL
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/media-entertainment/zeeentertainmententerprises/ZEE
+
+   - isin : INE010B01027
+     mcName : Zydus Lifesciences Ltd.
+     symbolNSE : ZYDUSLIFE
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/pharmaceuticals-drugs/zyduslifesciences/CHC
+
