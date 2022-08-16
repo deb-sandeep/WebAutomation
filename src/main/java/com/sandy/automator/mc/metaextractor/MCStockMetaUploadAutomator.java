@@ -5,6 +5,7 @@ import static com.sandy.automator.core.SiteAutomator.DEFAULT_SERVER_ADDRESS ;
 import static org.apache.commons.lang.StringUtils.rightPad ;
 
 import java.util.ArrayList ;
+import java.util.HashMap ;
 import java.util.LinkedHashMap ;
 import java.util.List ;
 import java.util.Map ;
@@ -14,12 +15,15 @@ import org.openqa.selenium.By ;
 import org.openqa.selenium.WebElement ;
 
 import com.sandy.automator.core.Browser ;
+import com.sandy.automator.core.ObjectSerializer ;
 import com.sandy.automator.core.UseCaseAutomator ;
 import com.sandy.automator.core.cfg.SiteCredential ;
 
 public class MCStockMetaUploadAutomator extends UseCaseAutomator {
 
     private static final Logger log = Logger.getLogger( MCStockMetaUploadAutomator.class ) ;
+    
+    private static final String SER_FILE_NAME = "MCMetaMap" ;
     
     private static final String BASE_URL = 
             "https://www.moneycontrol.com/markets/indian-indices/" ;
@@ -28,13 +32,14 @@ public class MCStockMetaUploadAutomator extends UseCaseAutomator {
             "top-nse-200-companies-list/49?classic=true&categoryId=1&exType=N" ;
     
     private Browser browser = null ;
-    private MCStockMetaSerializer serializer = new MCStockMetaSerializer() ;
+    private ObjectSerializer serializer = new ObjectSerializer() ;
     
     private String serverAddress = null ;
     
     private Map<String, String> stockDetailPageLinks = new LinkedHashMap<>() ;
     private Map<String, MCStockMeta> stockMetaMap = null ;
     
+    @SuppressWarnings( "unchecked" )
     @Override
     public void execute( SiteCredential cred, Browser browser )
             throws Exception {
@@ -44,13 +49,17 @@ public class MCStockMetaUploadAutomator extends UseCaseAutomator {
         this.serverAddress = config.getString( CAPITALYST_SERVER_ADDRESS_KEY, 
                                                DEFAULT_SERVER_ADDRESS ) ;
         
-        stockMetaMap = serializer.deserializeObj() ;
+        stockMetaMap = (Map<String, MCStockMeta>)serializer.deserializeObj( 
+                                                               SER_FILE_NAME ) ;
+        if( stockMetaMap == null ) {
+            stockMetaMap = new HashMap<>() ;
+        }
         
         collectStockDetailPageLinks() ;
         collectMCStockMeta() ;
         postMappings() ;
         
-        serializer.serializeYAML( stockMetaMap ) ;
+        serializeYAML( stockMetaMap ) ;
     }
     
     private void collectStockDetailPageLinks() {
@@ -121,7 +130,7 @@ public class MCStockMetaUploadAutomator extends UseCaseAutomator {
                 
                 stockMetaMap.put( key, detail ) ;
                 
-                serializer.serializeObj( stockMetaMap ) ;
+                serializer.serializeObj( stockMetaMap, SER_FILE_NAME ) ;
             }
             else {
                 log.debug( "   Found " + key ) ;
@@ -141,5 +150,18 @@ public class MCStockMetaUploadAutomator extends UseCaseAutomator {
         browser.postDataToServer( this.serverAddress, 
                                   "/Equity/Master/MCStockMeta", 
                                   mappings ) ;
+    }
+    
+    private void serializeYAML( Map<String, MCStockMeta> map ) {
+        
+        StringBuilder sb = new StringBuilder( "stockCfgs:\n" ) ;
+        for( MCStockMeta meta : map.values() ) {
+            sb.append( "   - isin : " + meta.getIsin() + "\n" ) ; 
+            sb.append( "     mcName : " + meta.getMcName() + "\n" ) ; 
+            sb.append( "     symbolNSE : " + meta.getSymbolNSE() + "\n" ) ; 
+            sb.append( "     detailURL : " + meta.getDetailURL() + "\n" ) ;
+            sb.append( "\n" ) ;
+        }
+        log.debug( sb.toString() ) ;
     }
 }

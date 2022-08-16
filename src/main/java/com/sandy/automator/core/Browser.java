@@ -174,7 +174,7 @@ public class Browser {
     // --------------- Private utility methods -------------------------------
     private File getDownloadsDir( Automator automator ) {
         if( downloadsDir == null ) {
-            downloadsDir = new File( automator.getWorkspacePath(), "downloads" ) ;
+            downloadsDir = new File( Automator.getWorkspacePath(), "downloads" ) ;
             if( !downloadsDir.exists() ) {
                 downloadsDir.mkdirs() ;
             }

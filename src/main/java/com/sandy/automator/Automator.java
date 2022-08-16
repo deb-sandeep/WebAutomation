@@ -14,17 +14,18 @@ public class Automator {
     
     private static final Logger log = Logger.getLogger( Automator.class ) ;
     
-    private File workspacePath = null ;
+    private static File workspacePath = null ;
+    
     private boolean enableHeadless = false ;
     private boolean enableServerCommunication = true ;
     private List<SiteAutomator> siteAutomators = new ArrayList<>() ;
     
-    public void setWorkspacePath( File path ) {
-        this.workspacePath = path ;
+    public static void setWorkspacePath( File path ) {
+        workspacePath = path ;
     }
     
-    public File getWorkspacePath() {
-        return this.workspacePath ;
+    public static File getWorkspacePath() {
+        return workspacePath ;
     }
 
     public void setEnableHeadless( boolean value ) {

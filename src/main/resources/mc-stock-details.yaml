@@ -1,4 +1,20 @@
+runFresh : false
 stockCfgs:
+
+   # Custom stocks which don't fall in NIFTY 200
+   
+   - isin : INE0J1Y01017
+     mcName : Life Insurance Corporation of India Ltd.
+     symbolNSE : LICI
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/lifehealth-insurance/lifeinsurancecorporationindia/LIC09
+     
+   - isin : INF204KB14I2
+     mcName : Nippon India ETF Nifty 50 BeES
+     symbolNSE : NIFTYBEES
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/etf/nipponindiaetfnifty50bees/NBE01
+     
+   # NIFTY 200 stocks below this line
+
    - isin : INE769A01020
      mcName : Aarti Industries Ltd.
      symbolNSE : AARTIIND

@@ -63,7 +63,7 @@ public class AutomatorBuilder {
                 throw new IllegalArgumentException( msg ) ;
             }
             else {
-                automator.setWorkspacePath( workspacePath ) ;
+                Automator.setWorkspacePath( workspacePath ) ;
             }
         }
         automator.setEnableHeadless( cfg.isEnableHeadless() ) ;

@@ -29,10 +29,10 @@ siteAutomatorConfigs :
      className : com.sandy.automator.mc.MoneyControlSiteAutomator
      useCaseAutomatorConfigs :
         - ucId : MCStockMetaUpload
-          enabled : true
-          className : com.sandy.automator.mc.metaextractor.MCStockMetaUploadAutomator
-        - ucId : StockAttributesUpdate
           enabled : false
-          className : com.sandy.automator.mc.stockcharacteristics.UpdateStockAttributesUCAutomator
+          className : com.sandy.automator.mc.metaextractor.MCStockMetaUploadAutomator
+        - ucId : StockIndicatorsUpdate
+          enabled : true
+          className : com.sandy.automator.mc.stockindicators.UpdateStockIndicatorsUCAutomator
    
              
