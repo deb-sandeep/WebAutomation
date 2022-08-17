@@ -56,17 +56,29 @@ public class UpdateStockIndicatorsUCAutomator extends UseCaseAutomator {
         
         for( StockConfig cfg : this.saConfig.getStockCfgs() ) {
             
+            int tryCount = 0 ;
+            boolean tryAgain = true ;
+            
             if( !lastRunState.getProcessedISINList().contains( cfg.getIsin() ) ) {
-                try {
-                    updateStockIndicators( cfg ) ;
-                    
-                    log.debug( "       " + (numDone+1) + " done. " + 
-                               ( totalNum - numDone - 1 ) + " remaining." );
-                    
-                    Thread.sleep( (int)(Math.random()*2000) ) ;
-                }
-                catch( Exception e ) {
-                    log.error( "    ERROR in processing.", e ) ;
+                
+                // If we faced an exception on the first try, keep trying 
+                // till the tryAgain flag is true.
+                while( tryAgain ) {
+                    try {
+                        tryCount++ ;
+                        updateStockIndicators( cfg ) ;
+                        
+                        log.debug( "       " + (numDone+1) + " done. " + 
+                                   ( totalNum - numDone - 1 ) + " remaining." );
+                        
+                        Thread.sleep( (int)(Math.random()*4000) ) ;
+                        tryAgain = false ;
+                    }
+                    catch( Exception e ) {
+                        // We try again once in case of a failure.
+                        log.error( "    ERROR in processing.", e ) ;
+                        tryAgain = tryCount < 2 ;
+                    }
                 }
             }
             numDone++ ;
