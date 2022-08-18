@@ -100,13 +100,21 @@ public class Browser {
         File downloadedFile = downloadedFiles[0] ;
         long startLen = downloadedFile.length() ;
         long endLen = startLen ;
+        
         log.debug( "\tDownloading file " + downloadedFile.getName() ) ;
         do {
             Thread.sleep( 500 ) ;
-            endLen = downloadedFile.length() ;
+            endLen = downloadsDir.listFiles()[0].length() ;
+            log.debug( "\t  Total len = " + startLen + ". Current len = " + endLen ) ;
         }
         while( startLen != endLen ) ;
+        
         log.debug( "\t\tDownload completed." ) ;
+        
+        // This is required because chrome downloads file with an extension
+        // .crdownload till the time the download is in progress, after
+        // which the .crdownload is reverted.
+        downloadedFile = downloadsDir.listFiles()[0] ;
         
         return downloadedFile ;
     }

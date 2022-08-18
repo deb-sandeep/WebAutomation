@@ -71,7 +71,7 @@ public class UpdateStockIndicatorsUCAutomator extends UseCaseAutomator {
                         log.debug( "       " + (numDone+1) + " done. " + 
                                    ( totalNum - numDone - 1 ) + " remaining." );
                         
-                        Thread.sleep( (int)(Math.random()*4000) ) ;
+                        Thread.sleep( (int)(Math.random()*2000) ) ;
                         tryAgain = false ;
                     }
                     catch( Exception e ) {
