@@ -4,7 +4,9 @@ import static com.sandy.automator.core.SiteAutomator.CAPITALYST_SERVER_ADDRESS_K
 import static com.sandy.automator.core.SiteAutomator.DEFAULT_SERVER_ADDRESS ;
 
 import java.io.InputStream ;
+import java.text.SimpleDateFormat ;
 import java.util.Date ;
+import java.util.TimeZone ;
 
 import org.apache.commons.lang.time.DateUtils ;
 import org.apache.log4j.Logger ;
@@ -54,6 +56,11 @@ public class UpdateStockIndicatorsUCAutomator extends UseCaseAutomator {
         int numDone = 0 ;
         int totalNum = this.saConfig.getStockCfgs().size() ;
         
+        long startTime = System.currentTimeMillis() ;
+        long totalTimeMillis = 0 ;
+        int  avgTimeSecs = 0 ;
+        int  numAttempts = 0 ;
+        
         for( StockConfig cfg : this.saConfig.getStockCfgs() ) {
             
             int tryCount = 0 ;
@@ -68,11 +75,20 @@ public class UpdateStockIndicatorsUCAutomator extends UseCaseAutomator {
                         tryCount++ ;
                         updateStockIndicators( cfg ) ;
                         
-                        log.debug( "       " + (numDone+1) + " done. " + 
-                                   ( totalNum - numDone - 1 ) + " remaining." );
-                        
                         Thread.sleep( (int)(Math.random()*2000) ) ;
                         tryAgain = false ;
+                        
+                        numAttempts++ ;
+                        totalTimeMillis = System.currentTimeMillis() - startTime ;
+                        avgTimeSecs = (int)(( totalTimeMillis / numAttempts ) / 1000) ;
+                        
+                        int numRemaining = totalNum - numDone - 1 ;
+                        
+                        log.debug( "       " + (numDone+1) + " done. " + 
+                                   numRemaining + " remaining." ) ;
+                        log.debug( "       Time spent = " + getTimeStr( (int)(totalTimeMillis/1000) ) + 
+                                   ". Remaining = " + getTimeStr( numRemaining * avgTimeSecs ) ) ;
+                        
                     }
                     catch( Exception e ) {
                         // We try again once in case of a failure.
@@ -83,6 +99,14 @@ public class UpdateStockIndicatorsUCAutomator extends UseCaseAutomator {
             }
             numDone++ ;
         }
+    }
+    
+    private String getTimeStr( int secs ) {
+        
+        Date d = new Date( secs * 1000L ) ;
+        SimpleDateFormat df = new SimpleDateFormat( "HH:mm:ss" ) ; // HH for 0-23
+        df.setTimeZone( TimeZone.getTimeZone("GMT") ) ;
+        return df.format( d ) ;
     }
     
     private StockIndicatorAutomationConfig loadProperties() throws Exception {
