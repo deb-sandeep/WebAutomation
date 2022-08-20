@@ -14,6 +14,7 @@ import org.openqa.selenium.WebElement ;
 import com.sandy.automator.core.Browser ;
 import com.sandy.automator.mc.stockindicators.StockIndicators.TechIndicator ;
 import com.sandy.automator.mc.stockindicators.cfg.StockConfig ;
+import com.sandy.common.util.StringUtil ;
 
 public class StockIndicatorsExtractor {
     
@@ -28,9 +29,11 @@ public class StockIndicatorsExtractor {
         { "pe             ", "//*[@class=\"nsepe bsepe\"]"         },
         { "sectorPE       ", "//*[@class=\"nsesc_ttm bsesc_ttm\"]" },
         { "pb             ", "//*[@class=\"nsepb bsepb\"]"         },
+        { "dividendYeild  ", "//*[@class=\"nsedy bsedy\"]"         },
         { "marketCap      ", "//*[@class=\"nsemktcap bsemktcap\"]" },
-        { "piotroskiScore ", "//*[starts-with(@class,\"nof\")]"                 },
-        { "isin           ", "//*[@id=\"company_info\"]/ul/li[5]/ul/li[4]/p" }
+        { "sector         ", "//*[@id=\"stockName\"]/span/strong/a"},
+        { "piotroskiScore ", "//*[starts-with(@class,\"nof\")]"              },
+        { "isin           ", "//*[@id=\"company_info\"]/ul/li[5]/ul/li[4]/p" },
     } ;
     
     private Browser browser = null ;
@@ -42,6 +45,7 @@ public class StockIndicatorsExtractor {
         this.browser = browser ;
         
         StockIndicators attributes = new StockIndicators() ;
+        
         attributes.setSymbolNse( cfg.getSymbolNSE() ) ;
         attributes.setIsin( cfg.getIsin() ) ;
         
@@ -61,6 +65,9 @@ public class StockIndicatorsExtractor {
         
         log.debug( "    Populating MC Insights" ) ;
         populateMCInsights( attributes ) ;
+        
+        log.debug( "    Populating CAGR values" ) ;
+        populateCAGRValues( attributes ) ;
         
         log.debug( "    Populating moving averages" ) ;
         populateMovingAverages( attributes ) ;
@@ -176,6 +183,36 @@ public class StockIndicatorsExtractor {
         else {
             attributes.setMcInsightShort( "N/A" ) ;
         }
+    }
+
+    private void populateCAGRValues( StockIndicators attributes ) {
+        
+        String cagrTableXPath   = "//*[@class=\"frevdat\"]" ;
+        String cagrTableTDXPath = "//*[@class=\"frevdat\"]//td" ;
+        By     tableSelector    = By.xpath( cagrTableXPath ) ;
+        
+        if( browser.elementExists( tableSelector ) ) {
+            
+            By tdSelector = By.xpath( cagrTableTDXPath ) ;
+            List<WebElement> tds = browser.findElements( tdSelector ) ;
+            
+            attributes.setCagrRevenue  ( removePct( tds.get( 1 ) ) ) ;
+            attributes.setCagrNetProfit( removePct( tds.get( 3 ) ) ) ;
+            attributes.setCagrEbit     ( removePct( tds.get( 5 ) ) ) ;
+            
+            log.debug( "       CAGR Revenue    = " + attributes.getCagrRevenue() ) ;
+            log.debug( "       CAGR Net Profit = " + attributes.getCagrNetProfit() ) ;
+            log.debug( "       CAGR Ebit       = " + attributes.getCagrEbit() ) ;
+        }
+    }
+    
+    private float removePct( WebElement td ) {
+        String val = td.getText() ;
+        val = val.replace( "%", "" ) ;
+        if( StringUtil.isNotEmptyOrNull( val ) ) {
+            return Float.parseFloat( val.trim() ) ;
+        }
+        return 0 ;
     }
 
     private void populateMovingAverages( StockIndicators attribs )

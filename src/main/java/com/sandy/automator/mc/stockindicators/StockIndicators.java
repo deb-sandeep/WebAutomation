@@ -25,6 +25,7 @@ public class StockIndicators {
 
     private String isin           = null ;
     private String symbolNse      = null ;
+    private String sector         = null ;
     private float  beta           = 0 ;
     private float  high52         = 0 ;
     private float  low52          = 0 ;
@@ -32,6 +33,10 @@ public class StockIndicators {
     private float  pe             = 0 ;
     private float  sectorPE       = 0 ;
     private float  pb             = 0 ;
+    private float  dividendYeild  = 0 ;
+    private float  cagrRevenue    = 0 ;
+    private float  cagrNetProfit  = 0 ;
+    private float  cagrEbit       = 0 ;
     private int    marketCap      = 0 ;
     private int    piotroskiScore = 0 ;
     
