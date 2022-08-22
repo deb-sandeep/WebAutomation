@@ -6,6 +6,7 @@ import static com.sandy.automator.core.SiteAutomator.DEFAULT_SERVER_ADDRESS ;
 import java.io.InputStream ;
 import java.text.SimpleDateFormat ;
 import java.util.Date ;
+import java.util.List ;
 import java.util.TimeZone ;
 
 import org.apache.commons.lang.time.DateUtils ;
@@ -56,10 +57,17 @@ public class UpdateStockIndicatorsUCAutomator extends UseCaseAutomator {
         int numDone = 0 ;
         int totalNum = this.saConfig.getStockCfgs().size() ;
         
+        List<String> runSpecificList = this.saConfig.getRunSpecificList() ;
+        
         long startTime = System.currentTimeMillis() ;
         long totalTimeMillis = 0 ;
         int  avgTimeSecs = 0 ;
         int  numAttempts = 0 ;
+        
+        boolean runSpecific = !runSpecificList.isEmpty() ;
+        if( runSpecific ) {
+            log.debug( "Running specific symbols only." ) ;
+        }
         
         for( StockConfig cfg : this.saConfig.getStockCfgs() ) {
             
@@ -67,6 +75,10 @@ public class UpdateStockIndicatorsUCAutomator extends UseCaseAutomator {
             boolean tryAgain = true ;
             
             if( !lastRunState.getProcessedISINList().contains( cfg.getIsin() ) ) {
+                
+                if( runSpecific && !runSpecificList.contains( cfg.getSymbolNSE() ) ) {
+                    continue ;
+                }
                 
                 // If we faced an exception on the first try, keep trying 
                 // till the tryAgain flag is true.

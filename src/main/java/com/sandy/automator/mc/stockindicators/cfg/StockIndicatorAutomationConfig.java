@@ -9,5 +9,6 @@ import lombok.Data ;
 public class StockIndicatorAutomationConfig {
 
     private boolean runFresh = false ;
+    private List<String> runSpecificList = new ArrayList<>() ;
     private List<StockConfig> stockCfgs = new ArrayList<>() ;
 }

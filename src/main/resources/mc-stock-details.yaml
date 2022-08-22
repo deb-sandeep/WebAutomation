@@ -1,4 +1,20 @@
+# If set to false, the bot will skip any extraction runs that has already
+# happened today.
+#
+# If set to true, the bot will ignore the restart jump state and start afresh
+# Note that the jump state is valid only for the day. The first bot run will 
+# reset any past jump states
 runFresh : false
+
+# An array of NSE symbols. If this parameter is specified and the value is
+# not empty, the bot will run only these specified symbols. 
+#
+# This parameter can be used to extract data for any manual stocks that have 
+# been added, without the need to refresh the full list.
+#runSpecificList : [ADANIPOWER]
+
+# An array of StockConfig instances. Each instance provides details of 
+# the stock for which data needs to be extracted. 
 stockCfgs:
 
    # Custom stocks which don't fall in NIFTY 200
@@ -12,7 +28,12 @@ stockCfgs:
      mcName : Nippon India ETF Nifty 50 BeES
      symbolNSE : NIFTYBEES
      detailURL : https://www.moneycontrol.com/india/stockpricequote/etf/nipponindiaetfnifty50bees/NBE01
-     
+          
+   - isin : INE814H01011
+     mcName : Adani power limited.
+     symbolNSE : ADANIPOWER
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/power-generationdistribution/adanipower/AP11
+
    # NIFTY 200 stocks below this line
 
    - isin : INE769A01020
