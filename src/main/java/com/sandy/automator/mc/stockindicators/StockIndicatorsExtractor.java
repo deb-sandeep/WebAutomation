@@ -3,7 +3,9 @@ package com.sandy.automator.mc.stockindicators;
 import static org.apache.commons.lang.StringUtils.leftPad ;
 import static org.apache.commons.lang.StringUtils.rightPad ;
 
+import java.text.SimpleDateFormat ;
 import java.util.Arrays ;
+import java.util.Date ;
 import java.util.List ;
 
 import org.apache.commons.beanutils.BeanUtils ;
@@ -36,6 +38,8 @@ public class StockIndicatorsExtractor {
         { "isin           ", "//*[@id=\"company_info\"]/ul/li[5]/ul/li[4]/p" },
     } ;
     
+    private static final SimpleDateFormat SDF = new SimpleDateFormat( "dd MMM, yyyy" ) ;
+    
     private Browser browser = null ;
     
     public StockIndicators extractAttributes( Browser browser,
@@ -53,6 +57,9 @@ public class StockIndicatorsExtractor {
         
         log.debug( "    Populating current price" ) ;
         populateCurrentPrice( attributes ) ;
+        
+        log.debug( "    Populating date" ) ;
+        populateDate( attributes ) ;
         
         log.debug( "    Populating overview table values." ) ;
         populateOverviewTableData( attributes ) ;
@@ -98,6 +105,22 @@ public class StockIndicatorsExtractor {
         log.debug( "       " + price ) ;
         
         attribs.setCurrentPrice( Float.parseFloat( price ) ) ;
+    }
+    
+    private void populateDate( StockIndicators attribs )
+        throws Exception {
+        
+        By selector = By.xpath( "//*[@class=\"nseasondate\"]" ) ;
+        browser.waitForElement( selector ) ;
+        WebElement dateElement = browser.findElement( selector ) ;
+        
+        // Date is in the format 'As on 22 Aug, 2022 | 16:03'
+        String dateStr = dateElement.getText().substring( 6, 18 ) ;
+        
+        Date asOnDate = SDF.parse( dateStr ) ;
+        attribs.setAsOnDate( asOnDate ) ;
+        
+        log.debug( "       " + SDF.format( asOnDate ) ) ;
     }
     
     private void populateOverviewTableData( StockIndicators attribs ) 
@@ -343,5 +366,17 @@ public class StockIndicatorsExtractor {
                 attribs.getIndicators().add( techInd ) ;
             }
         }
+    }
+    
+    public static void main( String[] args ) throws Exception {
+        
+        String dateStr = "As on 22 Aug, 2022 | 16:03" ;
+        SimpleDateFormat df = new SimpleDateFormat( "dd MMM, yyyy" ) ;
+        
+        String str = dateStr.substring( 6, 18 ) ;
+        log.debug( str );
+        
+        log.debug( df.parse( str ) ) ;
+        log.debug( df.format( new Date() ) );
     }
 }

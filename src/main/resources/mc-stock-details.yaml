@@ -4,7 +4,7 @@
 # If set to true, the bot will ignore the restart jump state and start afresh
 # Note that the jump state is valid only for the day. The first bot run will 
 # reset any past jump states
-runFresh : false
+runFresh : true
 
 # An array of NSE symbols. If this parameter is specified and the value is
 # not empty, the bot will run only these specified symbols. 

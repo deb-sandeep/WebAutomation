@@ -2,8 +2,8 @@ workspacePath : /home/sandeep/projects/workspace/web_automation
 enableHeadless : false
 enableServerCommunication : true
 configProperties :
-   capitalystServer : 192.168.0.116:8080
-   #capitalystServer : 127.0.0.1:8080
+   #capitalystServer : 192.168.0.116:8080
+   capitalystServer : 127.0.0.1:8080
 
 siteAutomatorConfigs :
    - siteId : ICICIBank

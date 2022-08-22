@@ -1,6 +1,7 @@
 package com.sandy.automator.mc.stockindicators;
 
 import java.util.ArrayList ;
+import java.util.Date ;
 import java.util.List ;
 
 import lombok.Data ;
@@ -39,6 +40,7 @@ public class StockIndicators {
     private float  cagrEbit       = 0 ;
     private int    marketCap      = 0 ;
     private int    piotroskiScore = 0 ;
+    private Date   asOnDate       = null ;
     
     private float currentPrice = 0 ;
     
