@@ -87,7 +87,6 @@ public class UpdateStockIndicatorsUCAutomator extends UseCaseAutomator {
                         tryCount++ ;
                         updateStockIndicators( cfg ) ;
                         
-                        Thread.sleep( (int)(Math.random()*2000) ) ;
                         tryAgain = false ;
                         
                         numAttempts++ ;

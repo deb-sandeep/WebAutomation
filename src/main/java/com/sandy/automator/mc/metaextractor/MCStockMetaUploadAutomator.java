@@ -2,7 +2,6 @@ package com.sandy.automator.mc.metaextractor ;
 
 import static com.sandy.automator.core.SiteAutomator.CAPITALYST_SERVER_ADDRESS_KEY ;
 import static com.sandy.automator.core.SiteAutomator.DEFAULT_SERVER_ADDRESS ;
-import static org.apache.commons.lang.StringUtils.rightPad ;
 
 import java.util.ArrayList ;
 import java.util.HashMap ;
@@ -28,9 +27,12 @@ public class MCStockMetaUploadAutomator extends UseCaseAutomator {
     private static final String BASE_URL = 
             "https://www.moneycontrol.com/markets/indian-indices/" ;
     
-    private static final String NIFTY_200_URL = BASE_URL + 
+    static final String NIFTY_200_URL = BASE_URL + 
             "top-nse-200-companies-list/49?classic=true&categoryId=1&exType=N" ;
     
+    static final String NIFTY_500_URL = BASE_URL + 
+            "top-nse-500-companies-list/7?classic=true&categoryId=1&exType=N" ;
+
     private Browser browser = null ;
     private ObjectSerializer serializer = new ObjectSerializer() ;
     
@@ -56,17 +58,17 @@ public class MCStockMetaUploadAutomator extends UseCaseAutomator {
         }
         
         collectStockDetailPageLinks() ;
-        collectMCStockMeta() ;
-        postMappings() ;
+        
+        processMCStockMeta() ;
         
         serializeYAML( stockMetaMap ) ;
     }
     
     private void collectStockDetailPageLinks() {
         
-        log.debug( "Scraping for NIFTY 200 stocks." ) ;
+        log.debug( "Scraping for NIFTY 500 stocks." ) ;
         
-        browser.get( NIFTY_200_URL ) ;
+        browser.get( NIFTY_500_URL ) ;
         browser.waitForElement( By.id( "tableslider" ) ) ;
         
         if( browser.elementExists( By.id( "tableslider" ) ) ) {
@@ -94,62 +96,78 @@ public class MCStockMetaUploadAutomator extends UseCaseAutomator {
         }
     }
     
-    private void collectMCStockMeta() 
-        throws Exception {
+    private void processMCStockMeta() throws Exception {
         
-        String symbolXPath = "//*[@id=\"company_info\"]/ul/li[5]/ul/li[2]/p" ;
-        String isinXPath   = "//*[@id=\"company_info\"]/ul/li[5]/ul/li[4]/p" ;
-        String nameXPath   = "//*[@id=\"stockName\"]/h1" ;
+        List<String> exceptionList = new ArrayList<>() ;
         
         for( String key : stockDetailPageLinks.keySet() ) {
             
             if( !stockMetaMap.containsKey( key ) ) {
                 
                 String url = stockDetailPageLinks.get( key ) ;
-                
-                By symbolSelector = By.xpath( symbolXPath ) ;
-                By isinSelector   = By.xpath( isinXPath ) ;
-                By nameSelector   = By.xpath( nameXPath ) ;
-                
-                browser.get( url ) ;
-                browser.waitForElement( isinSelector ) ;
-                
-                WebElement symbol = browser.findElement( symbolSelector ) ;
-                WebElement isin   = browser.findElement( isinSelector ) ;
-                WebElement name   = browser.findElement( nameSelector ) ;
-                
-                log.debug( "   " + 
-                           rightPad( key,  20 ) + 
-                           " [ " + isin.getText() + " ]" ) ;
-                
-                MCStockMeta detail = new MCStockMeta() ;
-                detail.setSymbolNSE( symbol.getText().trim() ) ;
-                detail.setIsin     ( isin.getText().trim()   ) ;
-                detail.setMcName   ( name.getText().trim()   ) ;
-                detail.setDetailURL( url                     ) ;
-                
-                stockMetaMap.put( key, detail ) ;
-                
-                serializer.serializeObj( stockMetaMap, SER_FILE_NAME ) ;
+                try {
+                    extractAndSaveMeta( key, url ) ;
+                    Thread.sleep( (int)(Math.random() * 1000) ) ;
+                }
+                catch( Exception e ) {
+                    log.error( "Error extracting meta for " + key ) ;
+                }
             }
             else {
                 log.debug( "   Found " + key ) ;
+                exceptionList.add( key ) ;
+            }
+        }
+        
+        if( exceptionList.isEmpty() ) {
+            for( String exceptionKey : exceptionList ) {
+                
+                String url = stockDetailPageLinks.get( exceptionKey ) ;
+                try {
+                    extractAndSaveMeta( exceptionKey, url ) ;
+                    Thread.sleep( (int)(Math.random() * 1000) ) ;
+                }
+                catch( Exception e ) {
+                    log.error( "Error extracting meta for " + exceptionKey ) ;
+                }
             }
         }
     }
     
-    private void postMappings() throws Exception {
+    private void extractAndSaveMeta( String key, String url ) 
+        throws Exception {
         
-        log.debug( "Posting data to server." ) ;
+        String symbolXPath = "//*[@id=\"company_info\"]/ul/li[5]/ul/li[2]/p" ;
+        String isinXPath   = "//*[@id=\"company_info\"]/ul/li[5]/ul/li[4]/p" ;
+        String nameXPath   = "//*[@id=\"stockName\"]/h1" ;
         
-        List<MCStockMeta> mappings = new ArrayList<>() ;
-        for( MCStockMeta value : stockMetaMap.values() ) {
-            mappings.add( value ) ;
-        }
+        By symbolSelector = By.xpath( symbolXPath ) ;
+        By isinSelector   = By.xpath( isinXPath ) ;
+        By nameSelector   = By.xpath( nameXPath ) ;
+        
+        browser.get( url ) ;
+        browser.waitForElement( isinSelector ) ;
+        
+        WebElement symbol = browser.findElement( symbolSelector ) ;
+        WebElement isin   = browser.findElement( isinSelector ) ;
+        WebElement name   = browser.findElement( nameSelector ) ;
+        
+        log.debug( "   " + key + " [ " + isin.getText() + " ]" ) ;
+        
+        MCStockMeta detail = new MCStockMeta() ;
+        detail.setSymbolNSE  ( symbol.getText().trim() ) ;
+        detail.setIsin       ( isin.getText().trim()   ) ;
+        detail.setMcName     ( name.getText().trim()   ) ;
+        detail.setDetailURL  ( url                     ) ;
+        detail.setDescription( getDescription()        ) ;
+        
+        stockMetaMap.put( key, detail ) ;
         
         browser.postDataToServer( this.serverAddress, 
                                   "/Equity/Master/MCStockMeta", 
-                                  mappings ) ;
+                                  detail ) ;
+
+        serializer.serializeObj( stockMetaMap, SER_FILE_NAME ) ;
     }
     
     private void serializeYAML( Map<String, MCStockMeta> map ) {
@@ -163,5 +181,25 @@ public class MCStockMetaUploadAutomator extends UseCaseAutomator {
             sb.append( "\n" ) ;
         }
         log.debug( sb.toString() ) ;
+    }
+    
+    private String getDescription() throws Exception {
+        
+        String about = "" ;
+        By aboutSelector = By.xpath( "//*[@class=\"morepls_cnt\"]" ) ;
+        By moreSelector  = By.xpath( "//*[@class=\"vmore_plus\"]" ) ;
+        
+        if( browser.elementExists( aboutSelector ) ) {
+            
+            if( browser.elementExists( moreSelector ) ) {
+                WebElement more = browser.findElement( moreSelector ) ;
+                more.click() ;
+            }
+            
+            WebElement div = browser.findElement( aboutSelector ) ;
+            about = div.getText() ;
+            about = about.replace( "view less -", "" ) ;
+        }
+        return about ;
     }
 }

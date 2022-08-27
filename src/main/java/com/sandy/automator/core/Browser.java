@@ -133,7 +133,7 @@ public class Browser {
         String json = objMapper.writeValueAsString( postData ) ;
         
         String url = "http://" + serverAddress + endpointPath ;
-        log.debug( "\tURL = " + url ) ;
+        log.debug( "\tPosting to " + url ) ;
         
         OkHttpClient client = new OkHttpClient.Builder()
                                               .connectTimeout( 60, TimeUnit.SECONDS )
@@ -160,8 +160,8 @@ public class Browser {
                 // print it as it is.
             }
             
-            log.debug( "\t\tResponse from server - " + response.code() ) ;
-            log.debug( "Response body = " + responseBody ) ;
+            log.debug( "\t  Response from server - " + response.code() ) ;
+            log.debug( "\t    Msg = " + responseBody ) ;
         }
         finally {
             if( response != null ) {

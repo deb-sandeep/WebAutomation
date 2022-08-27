@@ -13,4 +13,5 @@ public class MCStockMeta implements Serializable {
     private String symbolNSE = null ;
     private String mcName = null ;
     private String detailURL = null ;
+    private String description = null ;
 }
