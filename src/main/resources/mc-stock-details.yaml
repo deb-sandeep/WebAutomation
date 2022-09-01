@@ -29,11 +29,6 @@ stockCfgs:
      symbolNSE : NIFTYBEES
      detailURL : https://www.moneycontrol.com/india/stockpricequote/etf/nipponindiaetfnifty50bees/NBE01
           
-   - isin : INE814H01011
-     mcName : Adani power limited.
-     symbolNSE : ADANIPOWER
-     detailURL : https://www.moneycontrol.com/india/stockpricequote/power-generationdistribution/adanipower/AP11
-
    # NIFTY 200 stocks below this line
 
    - isin : INE117A01022
