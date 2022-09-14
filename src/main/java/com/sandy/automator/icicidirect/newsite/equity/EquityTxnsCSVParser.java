@@ -19,8 +19,10 @@ public class EquityTxnsCSVParser {
 
     private static final SimpleDateFormat SDF = new SimpleDateFormat( "dd-MMM-yyyy" ) ;
     
-    public List<EquityTxnPosting> parseEquityTxns( String ownerName,
-            File csvFile ) throws Exception {
+    public List<EquityTxnPosting> parseEquityTxns( String ownerName, 
+                                                   File csvFile, 
+                                                   List<String> equityFilter ) 
+        throws Exception {
 
         CsvParser csvParser = getEquityTxnsCsvParser() ;
 
@@ -30,8 +32,13 @@ public class EquityTxnsCSVParser {
         for( int i = 1 ; i < csvFileContents.size() ; i++ ) {
             String[] tupule = csvFileContents.get( i ) ;
             EquityTxnPosting txn = buildEquityTxn( ownerName, tupule ) ;
-            txns.add( txn ) ;
-            //log.debug( txn ) ;
+            
+            if( equityFilter.isEmpty() ) {
+                txns.add( txn ) ;
+            }
+            else if( equityFilter.contains( txn.getSymbolICICI() ) ) {
+                txns.add( txn ) ;
+            }
         }
         return txns ;
     }
@@ -54,8 +61,9 @@ public class EquityTxnsCSVParser {
         return csvParser ;
     }
 
-    private EquityTxnPosting buildEquityTxn( String ownerName, String[] tupule )
-            throws Exception {
+    private EquityTxnPosting buildEquityTxn( String ownerName, 
+                                             String[] tupule )
+        throws Exception {
 
         EquityTxnPosting txn = new EquityTxnPosting() ;
 

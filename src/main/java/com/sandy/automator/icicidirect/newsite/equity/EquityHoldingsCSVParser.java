@@ -17,7 +17,9 @@ public class EquityHoldingsCSVParser {
     
     static final Logger log = Logger.getLogger( EquityHoldingsCSVParser.class ) ;
 
-    public List<EquityHolding> parseEquityHoldings( String ownerName, File csvFile ) {
+    public List<EquityHolding> parseEquityHoldings( String ownerName, 
+                                                    File csvFile,
+                                                    List<String> equityFilters ) {
         
         CsvParser csvParser = getHoldingSummaryCsvParser() ;
         
@@ -27,8 +29,13 @@ public class EquityHoldingsCSVParser {
         for( int i=1; i<csvFileContents.size(); i++ ) {
             String[] tupule = csvFileContents.get( i ) ;
             EquityHolding holding = buildEquityHolding( ownerName, tupule ) ;
-            assets.add( holding ) ;
-            //log.debug( holding ) ;
+            
+            if( equityFilters.isEmpty() ) {
+                assets.add( holding ) ;
+            }
+            else if( equityFilters.contains( holding.getSymbolIcici() ) ) {
+                assets.add( holding ) ;
+            }
         }
         return assets ;
     }

@@ -4,6 +4,7 @@ import static com.sandy.automator.core.SiteAutomator.CAPITALYST_SERVER_ADDRESS_K
 import static com.sandy.automator.core.SiteAutomator.DEFAULT_SERVER_ADDRESS ;
 
 import java.io.File ;
+import java.util.ArrayList ;
 import java.util.List ;
 
 import org.apache.log4j.Logger ;
@@ -17,6 +18,7 @@ import com.sandy.automator.icicidirect.newsite.ICICIDirectNewSiteAutomator ;
 import com.sandy.automator.icicidirect.newsite.NewSiteSection ;
 import com.sandy.automator.icicidirect.vo.equity.EquityHolding ;
 import com.sandy.automator.icicidirect.vo.equity.EquityTxnPosting ;
+import com.sandy.common.util.StringUtil ;
 
 public class EquityPortfolioUseCaseAutomator extends UseCaseAutomator {
 
@@ -26,6 +28,7 @@ public class EquityPortfolioUseCaseAutomator extends UseCaseAutomator {
     private SiteCredential cred = null ;
     private ICICIDirectNewSiteAutomator siteAutomator = null ;
     private String serverAddress = null ;
+    private List<String> equitiesFilter = new ArrayList<>() ;
     
     @Override
     public void execute( SiteCredential cred, Browser browser )
@@ -36,6 +39,15 @@ public class EquityPortfolioUseCaseAutomator extends UseCaseAutomator {
         this.siteAutomator = ( ICICIDirectNewSiteAutomator )getSiteAutomator() ;
         this.serverAddress = config.getString( CAPITALYST_SERVER_ADDRESS_KEY, 
                                                DEFAULT_SERVER_ADDRESS ) ;
+        
+        String val = cred.getAttribute( "equitiesFilter" ) ;
+        if( StringUtil.isNotEmptyOrNull( val ) ) {
+            String[] symbols = val.split( "," ) ;
+            for( String symbol : symbols ) {
+                equitiesFilter.add( symbol.trim() ) ;
+            }
+        }
+        
         processPortfolio() ;
     }
     
@@ -111,13 +123,17 @@ public class EquityPortfolioUseCaseAutomator extends UseCaseAutomator {
         csvFile = browser.downloadFile( selector ) ;
         
         log.debug( "  # Parsing the CSV file." ) ;
-        holdings = csvParser.parseEquityHoldings( cred.getIndividualName(), csvFile ) ;
+        holdings = csvParser.parseEquityHoldings( cred.getIndividualName(), 
+                                                  csvFile, 
+                                                  equitiesFilter ) ;
         
         log.debug( "  # Posting the holding summaries to server." ) ;
         log.debug( "    Num holdings - " + holdings.size() ) ;
-        browser.postDataToServer( this.serverAddress, 
-                                  "/Equity/Holding", 
-                                  holdings ) ;
+        if( !holdings.isEmpty() ) {
+            browser.postDataToServer( this.serverAddress, 
+                    "/Equity/Holding", 
+                    holdings ) ;
+        }
     }
     
     private void processHoldingTxns() throws Exception {
@@ -140,12 +156,16 @@ public class EquityPortfolioUseCaseAutomator extends UseCaseAutomator {
         csvFile = browser.downloadFile( selector ) ;
 
         log.debug( "  # Parsing the CSV file." ) ;
-        txns = csvParser.parseEquityTxns( cred.getIndividualName(), csvFile ) ;
+        txns = csvParser.parseEquityTxns( cred.getIndividualName(), 
+                                          csvFile,
+                                          equitiesFilter ) ;
 
         log.debug( "  # Posting the holding summaries to server." ) ;
         log.debug( "    Num transactions - " + txns.size() ) ;
-        browser.postDataToServer( this.serverAddress, 
-                                  "/Equity/Transaction", 
-                                  txns ) ;
+        if( !txns.isEmpty() ) {
+            browser.postDataToServer( this.serverAddress, 
+                                      "/Equity/Transaction", 
+                                      txns ) ;
+        }
     }
 }

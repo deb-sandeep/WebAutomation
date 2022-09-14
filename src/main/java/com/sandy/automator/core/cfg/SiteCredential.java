@@ -3,6 +3,9 @@ package com.sandy.automator.core.cfg;
 import java.util.HashMap ;
 import java.util.Map ;
 
+import lombok.Data ;
+
+@Data
 public class SiteCredential {
 
     private String individualName = null ;
@@ -11,41 +14,6 @@ public class SiteCredential {
     private boolean enabled = true ;
     
     private Map<String, String> extraAttributes = new HashMap<>() ;
-    
-    public String getIndividualName() {
-        return individualName ;
-    }
-    public void setIndividualName( String individualName ) {
-        this.individualName = individualName ;
-    }
-    
-    public String getUserName() {
-        return userName ;
-    }
-    public void setUserName( String userName ) {
-        this.userName = userName ;
-    }
-    
-    public String getPassword() {
-        return password ;
-    }
-    public void setPassword( String password ) {
-        this.password = password ;
-    }
-    
-    public boolean isEnabled() {
-        return this.enabled ;
-    }
-    public void setEnabled( boolean enabled ) {
-        this.enabled = enabled ;
-    }
-    
-    public Map<String, String> getExtraAttributes() {
-        return extraAttributes ;
-    }
-    public void setExtraAttributes( Map<String, String> extraAttributes ) {
-        this.extraAttributes = extraAttributes ;
-    }
     
     public String getAttribute( String attributeName ) {
         return extraAttributes.get( attributeName ) ;
