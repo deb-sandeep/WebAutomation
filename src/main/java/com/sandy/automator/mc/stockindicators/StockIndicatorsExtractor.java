@@ -58,6 +58,9 @@ public class StockIndicatorsExtractor {
         log.debug( "    Populating current price" ) ;
         populateCurrentPrice( attributes ) ;
         
+        log.debug( "    Populating day change" ) ;
+        populateDayChange( attributes ) ;
+        
         log.debug( "    Populating date" ) ;
         populateDate( attributes ) ;
         
@@ -107,6 +110,26 @@ public class StockIndicatorsExtractor {
         attribs.setCurrentPrice( Float.parseFloat( price ) ) ;
     }
     
+    private void populateDayChange( StockIndicators attribs ) 
+            throws Exception {
+            
+            By selector = By.id( "nsechange" ) ;
+            
+            browser.waitForElement( selector ) ;
+            WebElement dayChangeElement = browser.findElement( selector ) ;
+            
+            String dayChangeStr = dayChangeElement.getText() ;
+            log.debug( "       " + dayChangeStr ) ;
+            
+            int startParen = dayChangeStr.indexOf( "("  ) ;
+            int endParen   = dayChangeStr.indexOf( "%)" ) ;
+            
+            String pctStr = dayChangeStr.substring( startParen+1, endParen ) ;
+            Float pct = Float.parseFloat( pctStr ) ;
+            
+            attribs.setPricePerf1D( pct.floatValue() ) ;
+        }
+        
     private void populateDate( StockIndicators attribs )
         throws Exception {
         
@@ -303,6 +326,7 @@ public class StockIndicatorsExtractor {
                 { "pricePerf3Y  ", "//*[@class=\"nsepc3y bsepc3y\"]/td"   },
         } ;
         
+        log.debug( "       pricePerf1D   - " + attributes.getPricePerf1D() ) ;
         for( String[] pair : xPathMap ) {
             
             List<WebElement> tds = browser.findElements( By.xpath( pair[1] ) ) ;

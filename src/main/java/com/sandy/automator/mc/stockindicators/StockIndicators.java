@@ -60,6 +60,7 @@ public class StockIndicators {
     private int communitySentimentSell = 0 ;
     private int communitySentimentHold = 0 ;
     
+    private float pricePerf1D  = 0 ;
     private float pricePerf1W  = 0 ;
     private float pricePerf1M  = 0 ;
     private float pricePerf3M  = 0 ;
