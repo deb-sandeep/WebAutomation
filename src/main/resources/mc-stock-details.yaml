@@ -608,8 +608,8 @@ stockCfgs:
 
    - isin : INE214T01019
      mcName : Larsen & Toubro Infotech Ltd.
-     symbolNSE: LTI
-     detailURL : https://www.moneycontrol.com/india/stockpricequote/computers-software/larsentoubroinfotech/LI12
+     symbolNSE: LTIM
+     detailURL : https://www.moneycontrol.com/india/stockpricequote/computers-software/ltimindtree/LI12
 
    - isin : INE018A01030
      mcName : Larsen & Toubro Ltd.
@@ -638,12 +638,12 @@ stockCfgs:
 
    - isin : INE774D01024
      mcName : Mahindra & Mahindra Financial Services Ltd.",
-     symbolNSE: MFIN
+     symbolNSE: M&MFIN
      detailURL : https://www.moneycontrol.com/india/stockpricequote/finance-nbfc/mahindramahindrafinancialservices/MMF04
 
    - isin : INE101A01026
      mcName : Mahindra and Mahindra Ltd.",
-     symbolNSE: M
+     symbolNSE: M&M
      detailURL : https://www.moneycontrol.com/india/stockpricequote/auto-cars-jeeps/mahindramahindra/MM
 
    - isin : INE522D01027
@@ -675,11 +675,6 @@ stockCfgs:
      mcName : Metropolis Healthcare Ltd.
      symbolNSE: METROPOLIS
      detailURL : https://www.moneycontrol.com/india/stockpricequote/hospitals-medical-services/metropolishealthcare/MH06
-
-   - isin : INE018I01017
-     mcName : Mindtree Ltd.
-     symbolNSE: MINDTREE
-     detailURL : https://www.moneycontrol.com/india/stockpricequote/computers-software/mindtree/MT13
 
    - isin : INE356A01018
      mcName : MphasiS Ltd.
@@ -972,8 +967,8 @@ stockCfgs:
      detailURL : https://www.moneycontrol.com/india/stockpricequote/breweries-distilleries/unitedbreweries/UB02
 
    - isin : INE854D01024
-     mcName : United Spirits Ltd.",MCDOWEL
-     symbolNSE: N
+     mcName : United Spirits Ltd.
+     symbolNSE: MCDOWELL-N
      detailURL : https://www.moneycontrol.com/india/stockpricequote/breweries-distilleries/unitedspirits/US
 
    - isin : INE200M01013

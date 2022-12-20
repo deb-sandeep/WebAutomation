@@ -55,6 +55,9 @@ public class StockIndicatorsExtractor {
         
         browser.get( cfg.getDetailURL() ) ;
         
+        log.debug( "    Populating sector" ) ;
+        populateSector( attributes ) ;
+        
         log.debug( "    Populating current price" ) ;
         populateCurrentPrice( attributes ) ;
         
@@ -95,6 +98,21 @@ public class StockIndicatorsExtractor {
         
         return attributes ;
     }
+    
+    private void populateSector( StockIndicators attribs ) 
+            throws Exception {
+            
+            By selector = By.xpath( "//*[@class=\"inid_name\"]/span/strong/a" ) ;
+            
+            browser.waitForElement( selector ) ;
+            WebElement sectorElement = browser.findElement( selector ) ;
+            
+            String sector = sectorElement.getText() ;
+            log.debug( "       " + sector ) ;
+            
+            attribs.setSector( sector ) ;
+        }
+        
     
     private void populateCurrentPrice( StockIndicators attribs ) 
         throws Exception {
