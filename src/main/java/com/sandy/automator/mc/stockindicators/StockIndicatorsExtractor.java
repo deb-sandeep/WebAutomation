@@ -102,7 +102,7 @@ public class StockIndicatorsExtractor {
     private void populateSector( StockIndicators attribs ) 
             throws Exception {
             
-            By selector = By.xpath( "//*[@class=\"inid_name\"]/span/strong/a" ) ;
+            By selector = By.xpath( "//*[@class=\"inid_name\"]/span/strong" ) ;
             
             browser.waitForElement( selector ) ;
             WebElement sectorElement = browser.findElement( selector ) ;
